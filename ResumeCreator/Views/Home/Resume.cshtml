@@ -1,0 +1,217 @@
+﻿<div class="header">
+    <div class="menu-left">Create</div>
+    <div class="menu-left">Sign Up</div>
+    <div class="menu-right">Sign In</div>
+</div>
+<div class="resume-container">
+    <div class="header1">
+        <div class="row">
+            <div class="col-md-3"><input type="text" name="filter" placeholder="Search Resume" ng-model="filteredResume" /></div>
+            <div class="col-md-2">
+                <div class="share-tile">
+                    <div id="public" class="share-tile-content tleft active" ng-click="evaluate('public')">Public</div>
+                    <div id="private" class="share-tile-content tright inactive" ng-click="evaluate('private')">Private</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="Resume in userResumeList | filter : { Type: type, Name: filteredResume  }" class="user-resume-container">
+            <div id="{{Resume.Id}}" class="user-resume-detail row" ng-click="showResume(Resume, 1)">
+                <table class="resume-detail-table">
+                    <tr>
+                        <td class="resume-detail-table-left">
+                            <table>
+                                <tr>
+                                    <td class="resume-detail-table-font1">Name:</td>
+                                    <td>UserName</td>
+                                </tr>
+                                <tr>
+                                    <td class="resume-detail-table-font1">Address:</td>
+                                    <td>UserAddress</td>
+                                </tr>
+                                <tr>
+                                    <td class="resume-detail-table-font1">Contact No:</td>
+                                    <td>UserContactNo</td>
+                                </tr>
+                                <tr>
+                                    <td class="resume-detail-table-font1">Email Address:</td>
+                                    <td>UserEmail</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="resume-detail-table-right">
+                            <img src='~/userimages/carl.png' width='20' height='20' align='right'>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table class="resume-detail-table">
+                    <tr><td class="resume-detail-table-font1">OBJECTIVES</td></tr>
+                    <tr><td class="resume-detail-table-font3">UserObjective</td></tr>
+                </table>
+                <br>
+                <table class="resume-detail-table">
+                    <tr><td style='font-weight:bold;'>PERSONAL INFORMATION</td></tr>
+                </table>
+                <table class="resume-detail-table">
+                    <tr>
+                        <td class="resume-detail-table-font2">Age:</td>
+                        <td>UserAge</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Birhtdate:</td>
+                        <td>UserBirthDate</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Gender:</td>
+                        <td>UserGender</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Civil Status:</td>
+                        <td>UserCivilStatus</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Height:</td>
+                        <td>UserHeight</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Weight:</td>
+                        <td>UserWeight</td>
+                    </tr>
+                    <tr>
+                        <td class="resume-detail-table-font2">Citizenship:</td>
+                        <td>UserCitizenship</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="user-resume-label row">
+                {{ Resume.Name }}
+            </div>
+        </div>
+    </div>
+</div>
+<printbydiv id="idForPrint" show="isPrint"></printbydiv>
+<div id="c-modal-container" class="modal-container hide-modal-container" ng-controller="DocumentPreviewController">
+    <div id="c-modal-content" class="content-container hide-content-container">
+        <div id="c-loader" class="loader-container hide-loading">
+            <center><img src="~/assets/images/loader.gif" /></center>
+        </div>
+        <div id="c-preview" class="content-preview hide-preview" ng-click="getContent(currentPage = currentPage + 1)">
+            <div id="c-content"></div>
+            @*<div class="line line-label1">Strengths:</div>
+            <ul>
+                <li>
+                    <div class="line">Good attitude towards work</div>
+                </li>
+                <li>
+                    <div class="line">Highly competitive, self-starter who is organized and goal-oriented</div>
+                </li>
+                <li>
+                    <div class="line">Hardworking and Resourceful</div>
+                </li>
+                <li>
+                    <div class="line">Can work with less supervision</div>
+                </li>
+                <li>
+                    <div class="line">Eager to learn</div>
+                </li>
+            </ul>
+            <div class="line line-label">EDUCATIONAL ATTAINMENT</div>*@
+            @*Post Graduate*@
+            @*<div>
+                <div class="left-label1">Post Graduate:</div>
+                <div class="right-label1">Cebu Institute of Technology – University</div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1">Masters In Information Technology(June 2015-March 2016)</div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1">Natalio B. Bacalso Ave, Cebu City, 6000 Cebu</div>
+            </div>
+            <div><br /></div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1">Cebu Institute of Technology – University</div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1">Masters In Information Technology(June 2015-March 2016)</div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1">Natalio B. Bacalso Ave, Cebu City, 6000 Cebu</div>
+            </div>*@
+            @*<div><br /></div>*@
+            @*Tertiary*@
+            @*<div>
+                <div class="left-label1"><div>Tertriary:</div></div>
+                <div class="right-label1"><div>University of Cebu-Banilad</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Bachelor of Science in Information Technology (2008-2013)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Archbishop Reyes Ave., Banilad City, Cebu, 6000</div></div>
+            </div>
+            <div><br /></div>
+            <div class="left-label1"></div>
+            <div class="right-label1">
+                <div>University of Cebu-Banilad</div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Bachelor of Science in Information Technology (2008-2013)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Archbishop Reyes Ave., Banilad City, Cebu, 6000</div></div>
+            </div>
+            <div><br /></div>*@
+
+            @*Secondary*@
+            @*<div>
+                <div class="left-label1"><div>Secondary:</div></div>
+                <div class="right-label1"><div>Saint Dominic Learning Center (2004-2008)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Sangi Lapu-lapu City</div></div>
+            </div>
+            <div><br /></div>
+            <div>
+                <div class="left-label1"><div></div></div>
+                <div class="right-label1"><div>Saint Dominic Learning Center (2004-2008)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Sangi Lapu-lapu City</div></div>
+            </div>
+            <div><br /></div>*@
+
+            @*Elementary*@
+            @*<div>
+                <div class="left-label1"><div>Elementary:</div></div>
+                <div class="right-label1"><div>Bankal Elementary School (1998-2004)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Bankal Lapu-lapu City</div></div>
+            </div>
+            <div><br /></div>
+            <div>
+                <div class="left-label1"><div></div></div>
+                <div class="right-label1"><div>Bankal Elementary School (1998-2004)</div></div>
+            </div>
+            <div>
+                <div class="left-label1"></div>
+                <div class="right-label1"><div>Bankal Lapu-lapu City</div></div>
+            </div>
+            <div><br /></div>*@
+    </div>
+</div>

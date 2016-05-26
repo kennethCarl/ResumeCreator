@@ -1,0 +1,127 @@
+﻿.modal-container{
+    cursor: pointer;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 99999999999;
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -ms-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+}
+
+.show-modal-container{
+    max-width: 100%;
+    max-height: 100%;
+    background-color: rgba(0, 0, 0, 0.6 );
+    padding: 0px 400px 0px 400px;
+}
+.hide-modal-container{
+    max-width: 0px;
+    max-height: 0px;
+    background-color: none;
+    padding: 0px 0px 0px 0px;
+}
+
+.loader-container{
+    min-height: 100%;
+    min-width: 100%;
+    position: relative;
+    background-color: white;
+    padding-top: 40%;
+}
+
+.show-loading{
+    display: normal;
+}
+
+.hide-loading{
+    display: none;
+}
+
+
+.content-container {
+    width: 100%; 
+    height: 100%; 
+    -webkit-transition: max-width .5s, padding .5s, max-height .5s, background-color .5s ease-out;
+    -moz-transition: max-width .5s, padding .5s, max-height .5s, background-color .5s ease-out;
+    -ms-transition: max-width .5s, padding .5s, max-height .5s, background-color .5s ease-out;
+    -o-transition: max-width .5s, padding .5s, max-height .5s, background-color .5s ease-out;
+    transition: max-width .5s, padding .5s, max-height .5s, background-color .5s ease-out;
+    z-index: 999999;
+}
+
+.show-content-container{
+    max-width: 100%;
+    max-height: 100%; 
+    background-color: white; 
+    padding: 40px 40px 40px 40px;
+}
+
+.hide-content-container{
+    max-width: 0px;
+    max-height: 0px;
+    background-color: none; 
+    padding: 0px 0px 0px 0px;
+}
+
+.content-preview{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 20px;
+    font-size: 10px;
+    min-height: 100%;
+    text-align: justify;
+}
+
+.show-preview{
+    display: normal;
+}
+
+.hide-preview{
+   display: none;
+}
+
+.line{
+    min-width: 100%;
+    text-align: justify;
+}
+.line-label{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.line-label1{
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.left-label{
+    width: 16%; 
+    font-weight:bold; 
+    display:inline-block;
+}
+
+
+.right-label{
+    width: 85%;  
+    display:inline-block;
+}
+
+.left-label1{
+    width: 18%; 
+    font-weight:bold; 
+    display:inline-block;
+    padding-left: 10px;
+}
+
+
+.right-label1{
+    width: 82%;  
+    display:inline-block;
+}

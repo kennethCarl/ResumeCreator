@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.left-label{
+                width: 15%; 
+                font-weight:bold; 
+                display:inline-block;
+            }
+
+            .right-label{
+                width: 85%;  
+                display:inline-block;
+            }
+
+            .growing-element{
+                white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+                white-space: -pre-wrap;      /* Opera 4-6 */
+                white-space: -o-pre-wrap;    /* Opera 7 */
+                white-space: pre-wrap;       /* css-3 */
+                word-wrap: break-word;       /* Internet Explorer 5.5+ */
+                word-break: break-all;
+                white-space: normal;
+            }
+		</style>
+	</head>
+<body>
+    <div style="position:relative;"><img src='UserImage' width='100' height='100' align="right"></div>
+        <br>
+        <div>
+            <div class="left-label">Name:</div>
+            <div class="right-label">UserName</div>
+        </div>
+        <div>
+            <div class="left-label">Address:</div>
+            <div class="right-label">UserAddress</div>
+        </div>
+        <div>
+            <div class="left-label">Contact No:</div>
+            <div class="right-label">UserContactNo</div>
+        </div>
+        <div>
+            <div class="left-label">Email Address:</div>
+            <div class="right-label">UserEmailAddress</div>
+        </div>
+        <br><br>
+        <div style="font-size: 12px"><strong>OBJECTIVES</strong></div>
+        <div class="growing-element">
+            UserObjective
+        </div>
+        <br>
+        <div style="font-size: 12px"><strong>PERSONAL INFORMATION</strong></div>
+        <div>
+            <div class="left-label">Age:</div>
+            <div class="right-label">UserAge</div>
+        </div>
+        <div>
+            <div class="left-label">Birthdate:</div>
+            <div class="right-label">UserBirthdate</div>
+        </div>
+        <div>
+            <div class="left-label">Gender:</div>
+            <div class="right-label">UserGender</div>
+        </div>
+        <div>
+            <div class="left-label">Civil Status:</div>
+            <div class="right-label">UserCivilStatus</div>
+        </div>
+        <div>
+            <div class="left-label">Height:</div>
+            <div class="right-label">UserHeight</div>
+        </div>
+        <div>
+            <div class="left-label">Weight:</div>
+            <div class="right-label">UserGender</div>
+        </div>
+        <div>
+            <div class="left-label">Citizenship:</div>
+            <div class="right-label">UserCitizenship</div>
+        </div>
+</body>
+</html>
