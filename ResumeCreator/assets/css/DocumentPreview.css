@@ -1,4 +1,7 @@
-﻿.modal-container{
+﻿ul{
+    margin-bottom: 0px;
+}
+.modal-container{
     cursor: pointer;
     position: fixed;
     left: 0;

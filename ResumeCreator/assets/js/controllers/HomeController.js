@@ -5,7 +5,7 @@
     $scope.idForPrint = null;
     $scope.showLoader = true;
     $scope.currentPage = 1;
-
+     
     $scope.initializeResumeList = function () {
         $scope.userResumeList = [
         {
@@ -73,7 +73,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -82,6 +82,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -152,7 +168,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -161,6 +177,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -231,7 +263,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -240,6 +272,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -310,7 +358,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -319,6 +367,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -389,7 +453,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -398,6 +462,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -468,7 +548,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -477,6 +557,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -547,7 +643,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -556,6 +652,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -626,7 +738,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -635,6 +747,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -705,7 +833,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -714,6 +842,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Public",
@@ -784,7 +928,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -793,6 +937,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -863,7 +1023,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -872,6 +1032,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -942,7 +1118,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -951,6 +1127,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1021,7 +1213,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1030,6 +1222,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1100,7 +1308,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1109,6 +1317,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1179,7 +1403,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1188,6 +1412,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1258,7 +1498,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1267,6 +1507,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1337,7 +1593,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1346,6 +1602,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1416,7 +1688,7 @@
                         Address: "Sangi Lapu-lapu City",
                     },
                 ],
-                Elementary: [
+                Primary: [
                     {
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
@@ -1425,6 +1697,22 @@
                         School: "Bankal Elementary School (1998-2004)",
                         Address: "Bankal Lapu-lapu City",
                     },
+                ],
+                WorkExperience: [
+                    {
+                        Company: "Fastcargo Logistics Corporation",
+                        Address: "Central Visayas, Philippines",
+                        Period: "May 2014 - Present",
+                        Position: "IT Programmer/Analyst",
+                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                    },
+                    {
+                        Company: "Intellmed Inc.",
+                        Address: "Central Visayas, Philippines",
+                        Period: "Nov 2013 - Jan 2014",
+                        Position: "Software Engineer",
+                        MainRole: "Developed and designed softwares."
+                    }
                 ]
             },
             Type: "Private",
@@ -1462,7 +1750,7 @@
     }
 
     $scope.generateLines = function (value, currentNoOfLines, maxNoOfLines, maxCharacter, openingTag, closingTag) {
-        var wordsPerLine = [], from = 0, to = 0, index = 0, counter = 1, data = [];
+        var wordsPerLine = [], from = 0, to = 0, index = 0, counter = 1, data = [], lineIndex = 0;;
         from = 1;
         to = maxCharacter;
 
@@ -1502,22 +1790,30 @@
         
         if ((Math.ceil(value.length / maxCharacter) + currentNoOfLines) > maxNoOfLines)
             checkIfForNewPage = true;
-
+        data[3] = { Lines: [] };
+        data[4] = { Lines: [] };
         if (checkIfForNewPage) {
             //Initialize flag for New Page
             data[0] = "New Page";
             //Get lines to write for current page
-            data[1] = (Math.ceil(value.length / maxCharacter) + currentNoOfLines) - maxNoOfLines;
+            if ((Math.ceil(value.length / maxCharacter) + currentNoOfLines) < $scope.maxNoOfLines)
+                data[1] = maxNoOfLines - (Math.ceil(value.length / maxCharacter) + currentNoOfLines);
+            else
+                data[1] = 0;
             //Get lines to write for new page
             data[2] = Math.ceil(value.length / maxCharacter) - data[1];
             //Get html to write for current page
-            data[3] = "";
-            for(var i = 0; i < data[1]; i++)
-                data[3] = data[3] + openingTag + wordsPerLine[i] + closingTag + "\n";
+            lineIndex = 0;
+            for (var i = 0; i < data[1]; i++) {
+                data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
+                lineIndex = lineIndex + 1;
+            }
             //Get html for write for new page
-            data[4] = "";
-            for (var i = data[1]; i < Math.ceil(value.length / maxCharacter) ; i++)
-                data[4] = data[4] + openingTag + wordsPerLine[i] + closingTag + "\n";
+            lineIndex = 0;
+            for (var i = 0; i < Math.ceil(value.length / maxCharacter) - data[1]; i++) {
+                data[4].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
+                lineIndex = lineIndex + 1;
+            }
         }
         else {
             //Initialize flag for Current Page
@@ -1527,9 +1823,11 @@
             //Get lines to write for new page
             data[2] = 0;
             //Get html for write for current page
-            data[3] = "";
-            for (var i = 0; i < data[1]; i++)
-                data[3] = data[3] + openingTag + wordsPerLine[i] + closingTag + "\n";
+            lineIndex = 0;
+            for (var i = 0; i < data[1]; i++) {
+                data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
+                lineIndex = lineIndex + 1;
+            }
             //Get html for write for new page
             data[4] = "";
         }
@@ -1538,20 +1836,29 @@
 
     $scope.initializeObjective = function (user, maxNoOfLines) {
         var forWrite = $scope.generateLines(user.Information.Objectives, $scope.currentLines, maxNoOfLines, 94, '<div class="line">', "</div>");
-
+        var holder = "";
         if (forWrite[0] == "New Page") {
             //Process current page
-            $scope.currentLines = $scope.currentLines + forWrite[1];
-            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + forWrite[3];
+            if (forWrite[1] > 0) {
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var i = 0; i < forWrite[3].Lines.length; i++)
+                    holder = holder + forWrite[3].Lines[i];
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + holder;
+            }
             //Process new page
+            holder = "";
             $scope.pageCount = $scope.pageCount + 1;
             $scope.contentHtml[$scope.pageCount] = "";
             $scope.currentLines = forWrite[2];
-            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + forWrite[4];
+            for (var i = 0; i < forWrite[4].Lines.length; i++)
+                holder = holder + forWrite[4].Lines[i];
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + holder;
         } else {
             //Process current page
             $scope.currentLines = $scope.currentLines + forWrite[1];
-            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + forWrite[3];
+            for (var i = 0; i < forWrite[3].Lines.length; i++)
+                holder = holder + forWrite[3].Lines[i];
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + holder;
         }
     }
 
@@ -1559,19 +1866,29 @@
         var currentLength = $scope.contentHtml[$scope.pageCount].length, previousPageHolder = $scope.pageCount;
         for (i = 0; i < value.length; i++) {
             var forWrite = $scope.generateLines(value[i].Description, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
-                $scope.currentLines = $scope.currentLines + forWrite[1];
-                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[3] + "</li>\n";
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + holder + "</li>\n";
+                }
                 //Process new page
+                holder = "";
                 $scope.pageCount = $scope.pageCount + 1;
                 $scope.contentHtml[$scope.pageCount] = "";
                 $scope.currentLines = forWrite[2];
-                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[4] + "</li>\n";
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + holder + "</li>\n";
             } else {
                 //Process current page
                 $scope.currentLines = $scope.currentLines + forWrite[1];
-                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[3] + "</li>\n";
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + holder + "</li>\n";
             }
         }
        
@@ -1585,66 +1902,683 @@
         }
     }
 
-    //$scope.initializeStrengths = function (user, maxNoOfLines) {
-    //    var currentLength = $scope.contentHtml[$scope.pageCount].length, previousPageHolder = $scope.pageCount;
-    //    for (i = 0; i < user.Information.Strengths.length; i++) {
-    //        var forWrite = $scope.generateLines(user.Information.Strengths[i].Description, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
-    //        if (forWrite[0] == "New Page") {
-    //            //Process current page
-    //            $scope.currentLines = $scope.currentLines + forWrite[1];
-    //            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[3] + "</li>\n";
-    //            //Process new page
-    //            $scope.pageCount = $scope.pageCount + 1;
-    //            $scope.contentHtml[$scope.pageCount] = "";
-    //            $scope.currentLines = forWrite[2];
-    //            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[4] + "</li>\n";
-    //        } else {
-    //            //Process current page
-    //            $scope.currentLines = $scope.currentLines + forWrite[1];
-    //            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + "<li>\n" + forWrite[3] + "</li>\n";
-    //        }
-    //    }
-
-
-        
-    //    for (var i = 1; i <= $scope.pageCount; i++) {
-    //        if (i == previousPageHolder) { //Add tag where <li> is located until last line
-    //            $scope.contentHtml[i] = $scope.contentHtml[i].substr(0, currentLength - 1) + "<ul>\n" + $scope.contentHtml[i].substr(currentLength, $scope.contentHtml[i].length - 1) + "</ul>";
-    //        } else {
-    //            if (i > previousPageHolder) //Add tag in first line until last line
-    //                $scope.contentHtml[i] = "<ul>\n" + $scope.contentHtml[i] + "</ul>\n";
-    //        }
-    //    }
-        
-    //}
-
     $scope.initializePostGraduate = function (user, maxNoOfLines) {
-        var i = startingIndex, j = startingIndex1, indexHolder = 0, indexHolder = 1;
+        var i = 0;
         //Loop user post graduate details
         for (i = 0; i < user.Information.PostGraduate.length; i++) {
-            var perSchoolHtml = "";
+            var schoolHTML = "", degreeHTML = "", addressHTML = "";
             if (i == 0) {
-                //Generate lines per user school
-                var forWrite = $scope.generateLines(user.Information.PostGraduate[i].School, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
-                perSchoolHtml = '<div><div class="left-label1">Post Graduate:</div><div class="right-label1">UserSchool</div></div>';
-                //if (forWrite[0] == "New Page") {
-                //    $scope.pageCount = $scope.pageCount + 1;
-                //    $scope.contentHtml[$scope.pageCount] = "";
-                //    $scope.currentLines = forWrite[1];
-                //    indexHolder = i;
-                //    i = user.Information.Skills.length;
-                //    //Iterate
-                //    $scope.initializeSkills(indexHolder, user, maxNoOfLines);
-                //}
-                //else {
-                //    $scope.currentLines = $scope.currentLines + forWrite[2];
-                //    perSchoolHtml = perSchoolHtml + forWrite[1];
-                //    perSchoolHtml.replace("UserSchool", perSchoolHtml)
-                //    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + perSchoolHtml;
-                //}
+                schoolHTML = '<div><div class="left-label1">Post Graduate:</div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            else {
+                schoolHTML = '<div><div class="left-label1"></div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            degreeHTML = '<div><div class="left-label1"></div><div class="right-label1">UserDegree</div></div>\n';
+            addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+            //Generate lines per user school
+            var forWrite = $scope.generateLines(user.Information.PostGraduate[i].School, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    schoolHTML = schoolHTML.replace("UserSchool", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            }
+            //Generate lines per user degree
+            var forWrite = $scope.generateLines(user.Information.PostGraduate[i].Degree, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    degreeHTML = degreeHTML.replace("UserDegree", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                degreeHTML = degreeHTML.replace("UserDegree", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                degreeHTML = degreeHTML.replace("UserDegree", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+            }
+
+            //Generate lines per user Address
+            var forWrite = $scope.generateLines(user.Information.PostGraduate[i].Address, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    addressHTML = addressHTML.replace("UserAddress", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            }
+            if (i != user.Information.PostGraduate.length - 1) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
             }
         }
-    };
+    }
+
+    $scope.initializeTertiary = function (user, maxNoOfLines) {
+        var i = 0;
+        for (i = 0; i < user.Information.Tertiary.length; i++) {
+            var schoolHTML = "", degreeHTML = "", addressHTML = "";
+            if (i == 0) {
+                schoolHTML = '<div><div class="left-label1">Tertiary:</div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            else {
+                schoolHTML = '<div><div class="left-label1"></div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            degreeHTML = '<div><div class="left-label1"></div><div class="right-label1">UserDegree</div></div>\n';
+            addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+            //Generate lines per user school
+            var forWrite = $scope.generateLines(user.Information.Tertiary[i].School, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    schoolHTML = schoolHTML.replace("UserSchool", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            }
+            //Generate lines per user degree
+            var forWrite = $scope.generateLines(user.Information.Tertiary[i].Degree, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    degreeHTML = degreeHTML.replace("UserDegree", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                degreeHTML = degreeHTML.replace("UserDegree", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                degreeHTML = degreeHTML.replace("UserDegree", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + degreeHTML;
+            }
+
+            //Generate lines per user Address
+            var forWrite = $scope.generateLines(user.Information.Tertiary[i].Address, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    addressHTML = addressHTML.replace("UserAddress", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            }
+            if (i != user.Information.PostGraduate.length - 1) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            }
+        }
+    }
+
+    $scope.initializeSecondary = function (user, maxNoOfLines) {
+        var i = 0;
+        //Loop user Secondary details
+        for (i = 0; i < user.Information.Secondary.length; i++) {
+            var schoolHTML = "", degreeHTML = "", addressHTML = "";
+            if (i == 0) {
+                schoolHTML = '<div><div class="left-label1">Secondary:</div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            else {
+                schoolHTML = '<div><div class="left-label1"></div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            degreeHTML = '<div><div class="left-label1"></div><div class="right-label1">UserDegree</div></div>\n';
+            addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+            //Generate lines per user school
+            var forWrite = $scope.generateLines(user.Information.Secondary[i].School, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    schoolHTML = schoolHTML.replace("UserSchool", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            }
+
+            //Generate lines per user Address
+            var forWrite = $scope.generateLines(user.Information.Secondary[i].Address, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    addressHTML = addressHTML.replace("UserAddress", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            }
+            if (i != user.Information.PostGraduate.length - 1) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            }
+        }
+    }
+    
+    $scope.initializePrimary = function (user, maxNoOfLines) {
+        var i = 0;
+        //Loop user Primary details
+        for (i = 0; i < user.Information.Primary.length; i++) {
+            var schoolHTML = "", degreeHTML = "", addressHTML = "";
+            if (i == 0) {
+                schoolHTML = '<div><div class="left-label1">Primary:</div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            else {
+                schoolHTML = '<div><div class="left-label1"></div><div class="right-label1">UserSchool</div></div>\n';
+            }
+            degreeHTML = '<div><div class="left-label1"></div><div class="right-label1">UserDegree</div></div>\n';
+            addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+            //Generate lines per user school
+            var forWrite = $scope.generateLines(user.Information.Primary[i].School, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                console.log(forWrite);
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    schoolHTML = schoolHTML.replace("UserSchool", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                schoolHTML = schoolHTML.replace("UserSchool", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + schoolHTML;
+            }
+
+            //Generate lines per user Address
+            var forWrite = $scope.generateLines(user.Information.Primary[i].Address, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++)
+                        holder = holder + forWrite[3].Lines[j];
+                    addressHTML = addressHTML.replace("UserAddress", holder);
+                    $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                }
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++)
+                    holder = holder + forWrite[4].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++)
+                    holder = holder + forWrite[3].Lines[j];
+                addressHTML = addressHTML.replace("UserAddress", holder);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+            }
+            if (i != user.Information.PostGraduate.length - 1) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            }
+        }
+    }
+
+    $scope.initializeWorkExperience = function (user, maxNoOfLines) {
+        var i = 0;
+        //Loop user Work Experience details
+        for (i = 0; i < user.Information.WorkExperience.length; i++) {
+            var companyHTML = "", addressHTML = "", periodHTML = "", positionHTML = "", mainRoleHTML = "";
+            companyHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserCompany</div></div>\n';
+            addressHTML = '<div><div class="left-label1">Address:</div><div class="right-label1">UserAddress</div></div>\n';
+            periodHTML = '<div><div class="left-label1">Period:</div><div class="right-label1">UserPeriod</div></div>\n';
+            positionHTML = '<div><div class="left-label1">Position:</div><div class="right-label1">UserPosition</div></div>\n';
+            mainRoleHTML = '<div><div class="left-label1">Main Role:</div><div class="right-label1">UserMainRole</div></div>\n';
+            //Generate lines per company
+            var forWrite = $scope.generateLines(user.Information.WorkExperience[i].Company, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                        if (j == 0) {
+                            holder = holder + forWrite[3].Lines[j];
+                            companyHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserCompany</div></div>\n';
+                            companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                        } else {
+                            holder = holder + forWrite[3].Lines[j];
+                            companyHTML = '<div><div class="left-label1"></div><div class="right-label1">UserCompany</div></div>\n';
+                            companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                        }
+                    }
+                }
+
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[4].Lines[j];
+                        companyHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserCompany</div></div>\n';
+                        companyHTML = companyHTML.replace("UserCompany", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                    } else {
+                        holder = holder + forWrite[4].Lines[j];
+                        companyHTML = '<div><div class="left-label1"></div><div class="right-label1">UserCompany</div></div>\n';
+                        companyHTML = companyHTML.replace("UserCompany", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                    }
+                }
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[3].Lines[j];
+                        companyHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserCompany</div></div>\n';
+                        companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                    } else {
+                        holder = holder + forWrite[3].Lines[j];
+                        companyHTML = '<div><div class="left-label1"></div><div class="right-label1">UserCompany</div></div>\n';
+                        companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + companyHTML;
+                    }
+                }
+            }
+
+            //Generate lines per Address
+            var forWrite = $scope.generateLines(user.Information.WorkExperience[i].Address, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                        if (j == 0) {
+                            holder = holder + forWrite[3].Lines[j];
+                            addressHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserAddress</div></div>\n';
+                            addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                        } else {
+                            holder = holder + forWrite[3].Lines[j];
+                            addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+                            addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                        }
+                    }
+                }
+
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[4].Lines[j];
+                        addressHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserAddress</div></div>\n';
+                        addressHTML = addressHTML.replace("UserAddress", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                    } else {
+                        holder = holder + forWrite[4].Lines[j];
+                        addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+                        addressHTML = addressHTML.replace("UserAddress", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                    }
+                }
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[3].Lines[j];
+                        addressHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserAddress</div></div>\n';
+                        addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                    } else {
+                        holder = holder + forWrite[3].Lines[j];
+                        addressHTML = '<div><div class="left-label1"></div><div class="right-label1">UserAddress</div></div>\n';
+                        addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + addressHTML;
+                    }
+                }
+            } 
+            //Generate lines per Period
+            var forWrite = $scope.generateLines(user.Information.WorkExperience[i].Period, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                        if (j == 0) {
+                            holder = holder + forWrite[3].Lines[j];
+                            periodHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPeriod</div></div>\n';
+                            periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                        } else {
+                            holder = holder + forWrite[3].Lines[j];
+                            periodHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPeriod</div></div>\n';
+                            periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                        }
+                    }
+                }
+
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[4].Lines[j];
+                        periodHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPeriod</div></div>\n';
+                        periodHTML = periodHTML.replace("UserPeriod", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                    } else {
+                        holder = holder + forWrite[4].Lines[j];
+                        periodHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPeriod</div></div>\n';
+                        periodHTML = periodHTML.replace("UserPeriod", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                    }
+                }
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[3].Lines[j];
+                        periodHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPeriod</div></div>\n';
+                        periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                    } else {
+                        holder = holder + forWrite[3].Lines[j];
+                        periodHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPeriod</div></div>\n';
+                        periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + periodHTML;
+                    }
+                }
+            }
+            //Generate lines per Position
+            var forWrite = $scope.generateLines(user.Information.WorkExperience[i].Position, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                        if (j == 0) {
+                            holder = holder + forWrite[3].Lines[j];
+                            positionHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPosition</div></div>\n';
+                            positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                        } else {
+                            holder = holder + forWrite[3].Lines[j];
+                            positionHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPosition</div></div>\n';
+                            positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                        }
+                    }
+                }
+
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[4].Lines[j];
+                        positionHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPosition</div></div>\n';
+                        positionHTML = positionHTML.replace("UserPosition", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                    } else {
+                        holder = holder + forWrite[4].Lines[j];
+                        positionHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPosition</div></div>\n';
+                        positionHTML = positionHTML.replace("UserPosition", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                    }
+                }
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[3].Lines[j];
+                        positionHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserPosition</div></div>\n';
+                        positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                    } else {
+                        holder = holder + forWrite[3].Lines[j];
+                        positionHTML = '<div><div class="left-label1"></div><div class="right-label1">UserPosition</div></div>\n';
+                        positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + positionHTML;
+                    }
+                }
+            }
+            
+            //Generate lines per MainRole
+            var forWrite = $scope.generateLines(user.Information.WorkExperience[i].MainRole, $scope.currentLines, maxNoOfLines, 78, '<div class="line">', "</div>");
+            var holder = "";
+            if (forWrite[0] == "New Page") {
+                //Process current page
+                if (forWrite[1] > 0) {
+                    $scope.currentLines = $scope.currentLines + forWrite[1];
+                    for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                        if (j == 0) {
+                            holder = holder + forWrite[3].Lines[j];
+                            mainRoleHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserMainRole</div></div>\n';
+                            mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                        } else {
+                            holder = holder + forWrite[3].Lines[j];
+                            mainRoleHTML = '<div><div class="left-label1"></div><div class="right-label1">UserMainRole</div></div>\n';
+                            mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
+                            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                        }
+                    }
+                }
+
+                //Process new page
+                holder = "";
+                $scope.pageCount = $scope.pageCount + 1;
+                $scope.contentHtml[$scope.pageCount] = "";
+                $scope.currentLines = forWrite[2];
+                for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[4].Lines[j];
+                        mainRoleHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserMainRole</div></div>\n';
+                        mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                    } else {
+                        holder = holder + forWrite[4].Lines[j];
+                        mainRoleHTML = '<div><div class="left-label1"></div><div class="right-label1">UserMainRole</div></div>\n';
+                        mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[4].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                    }
+                }
+            } else {
+                //Process current page
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = holder + forWrite[3].Lines[j];
+                        mainRoleHTML = '<div><div class="left-label1">Company:</div><div class="right-label1">UserMainRole</div></div>\n';
+                        mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                    } else {
+                        holder = holder + forWrite[3].Lines[j];
+                        mainRoleHTML = '<div><div class="left-label1"></div><div class="right-label1">UserMainRole</div></div>\n';
+                        mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
+                        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + mainRoleHTML;
+                    }
+                }
+            }
+            if (i != user.Information.Tertiary.length - 1) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            }
+        }
+    }
 
     $scope.evaluate = function (maxNoOfLines) {
         if ($scope.currentLines == maxNoOfLines) {
@@ -1663,30 +2597,30 @@
         //Initialize User Image
         $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" width="100" height="100" align="right">' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", user.ImagePath);
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
-        $scope.currentLines = $scope.currentLines + 1;
         //Initialize User Name
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><div class="left-label">Name:</div><div class="right-label">UserName</div></div>' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserName", user.Information.Name);
-        $scope.currentLines = $scope.currentLines + 1;
         //Initialize User Address
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><div class="left-label">Address:</div><div class="right-label">UserAddress</div></div>' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserAddress", user.Information.Address);
-        $scope.currentLines = $scope.currentLines + 1;
         //Initialize User Contact No
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><div class="left-label">Contact No:</div><div class="right-label">UserContactNo</div></div>' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserContactNo", user.Information.ContactNo);
-        $scope.currentLines = $scope.currentLines + 1;
         //Initialize User Email Address
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><div class="left-label">Email Address:</div><div class="right-label">UserEmailAddress</div></div>' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserEmailAddress", user.Information.EmailAddress);
-        $scope.currentLines = $scope.currentLines + 1;
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
-        $scope.currentLines = $scope.currentLines + 1;
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
-        $scope.currentLines = $scope.currentLines + 1;
+        $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">OBJECTIVES</div>' + "\n";
-        $scope.currentLines = $scope.currentLines + 1;
         //Inialize User Objective
         $scope.initializeObjective(user, maxNoOfLines);
         $scope.evaluate(maxNoOfLines);
@@ -1723,24 +2657,58 @@
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserCitizenship", user.Information.Weight);
         $scope.evaluate(maxNoOfLines);
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
-        $scope.evaluate(maxNoOfLines);
-        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">QUALIFICATIONS</div>' + "\n";
-        $scope.evaluate(maxNoOfLines);
-        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label1">Skills:</div>' + "\n";
-        //Initialize Skills
-        $scope.initializeByUnderlineTag(user.Information.Skills, maxNoOfLines);
-        $scope.evaluate(maxNoOfLines);
-        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label1">Strengths:</div>' + "\n";
-        //Initialize Strengths
-        $scope.initializeByUnderlineTag(user.Information.Strengths, maxNoOfLines);
-        $scope.evaluate(maxNoOfLines);
-        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">EDUCATIONAL ATTAINMENT</div>' + "\n";
-        $scope.evaluate(maxNoOfLines);
-        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
-
-        for (var i = 1; i <= $scope.pageCount; i++) {
-            console.log($scope.contentHtml[i]);
+        
+        if (user.Information.Skills.length > 0 || user.Information.Strengths > 0) {
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">QUALIFICATIONS</div>' + "\n";
+            if (user.Information.Skills.length > 0) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label1">Skills:</div>' + "\n";
+                //Initialize Skills
+                $scope.initializeByUnderlineTag(user.Information.Skills, maxNoOfLines);
+            }
+            if (user.Information.Strengths.length > 0) {
+                $scope.evaluate(maxNoOfLines);
+                $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label1">Strengths:</div>' + "\n";
+                //Initialize Strengths
+                $scope.initializeByUnderlineTag(user.Information.Strengths, maxNoOfLines);
+            }
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
         }
+        if (user.Information.PostGraduate.length > 0 || user.Information.Tertiary.length > 0
+            || user.Information.Secondary.length > 0 || user.Information.Primary.length > 0) {
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">EDUCATIONAL ATTAINMENT</div>' + "\n";
+            //Initialize Post Graduate Details
+            $scope.initializePostGraduate(user, maxNoOfLines);
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            //Initialize Tertiary Details
+            $scope.initializeTertiary(user, maxNoOfLines);
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            //Initialize Secondary Details
+            $scope.initializeSecondary(user, maxNoOfLines);
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+            //Initialize Primary Details
+            $scope.initializePrimary(user, maxNoOfLines);
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+        }
+        if (user.Information.WorkExperience.length > 0) {
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div class="line line-label">WORK EXPERIENCE</div>' + "\n";
+            //Initialize User Work Experience
+            $scope.initializeWorkExperience(user, maxNoOfLines);
+            $scope.evaluate(maxNoOfLines);
+            $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
+        }
+        //for (var i = 1; i <= $scope.pageCount; i++) {
+        //    console.log($scope.contentHtml[i]);
+        //}
+
         $scope.currentPage = page;
         $scope.showPage();
         document.getElementById("c-loader").className = "loader-container hide-loading";
