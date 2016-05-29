@@ -9,90 +9,26 @@
             <div class="col-md-3"><input type="text" name="filter" placeholder="Search Resume" ng-model="filteredResume" /></div>
             <div class="col-md-2">
                 <div class="share-tile">
-                    <div id="public" class="share-tile-content tleft active" ng-click="evaluate('public')">Public</div>
-                    <div id="private" class="share-tile-content tright inactive" ng-click="evaluate('private')">Private</div>
+                    <div id="public" class="share-tile-content tleft active" ng-click="evaluateResume('public')">Public</div>
+                    <div id="private" class="share-tile-content tright inactive" ng-click="evaluateResume('private')">Private</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div ng-repeat="Resume in userResumeList | filter : { Type: type, Name: filteredResume  }" class="user-resume-container">
-            <div id="{{Resume.Id}}" class="user-resume-detail row" ng-click="showResume(Resume, 1)">
-                <table class="resume-detail-table">
-                    <tr>
-                        <td class="resume-detail-table-left">
-                            <table>
-                                <tr>
-                                    <td class="resume-detail-table-font1">Name:</td>
-                                    <td>UserName</td>
-                                </tr>
-                                <tr>
-                                    <td class="resume-detail-table-font1">Address:</td>
-                                    <td>UserAddress</td>
-                                </tr>
-                                <tr>
-                                    <td class="resume-detail-table-font1">Contact No:</td>
-                                    <td>UserContactNo</td>
-                                </tr>
-                                <tr>
-                                    <td class="resume-detail-table-font1">Email Address:</td>
-                                    <td>UserEmail</td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="resume-detail-table-right">
-                            <img src='~/userimages/carl.png' width='20' height='20' align='right'>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <table class="resume-detail-table">
-                    <tr><td class="resume-detail-table-font1">OBJECTIVES</td></tr>
-                    <tr><td class="resume-detail-table-font3">UserObjective</td></tr>
-                </table>
-                <br>
-                <table class="resume-detail-table">
-                    <tr><td style='font-weight:bold;'>PERSONAL INFORMATION</td></tr>
-                </table>
-                <table class="resume-detail-table">
-                    <tr>
-                        <td class="resume-detail-table-font2">Age:</td>
-                        <td>UserAge</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Birhtdate:</td>
-                        <td>UserBirthDate</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Gender:</td>
-                        <td>UserGender</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Civil Status:</td>
-                        <td>UserCivilStatus</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Height:</td>
-                        <td>UserHeight</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Weight:</td>
-                        <td>UserWeight</td>
-                    </tr>
-                    <tr>
-                        <td class="resume-detail-table-font2">Citizenship:</td>
-                        <td>UserCitizenship</td>
-                    </tr>
-                </table>
-
-            </div>
-            <div class="user-resume-label row">
-                {{ Resume.Name }}
-            </div>
+    <!-- Resume List -->
+    <div class="user-resume-container" ng-repeat="Resume in userResumeList | filter : { Type: type, Name: filteredResume  }">
+        <div id="c-resume-container" class="user-resume-content-container" ng-click="showResume(Resume, Resume.Template)">
+            <div id="{{Resume.Id}}"></div>
+        </div>
+        <div class="user-resume-label">
+            {{ Resume.Name }}
         </div>
     </div>
 </div>
+
 <printbydiv id="idForPrint" show="isPrint"></printbydiv>
+
+<!-- Document Preview-->
 <div id="c-modal-container" class="modal-container hide-modal-container" ng-controller="DocumentPreviewController">
     <div id="c-modal-content" class="content-container hide-content-container">
         <div id="c-loader" class="loader-container hide-loading">
@@ -103,3 +39,4 @@
         </div>
     </div>
 </div>
+<!-- End of Document Preview-->

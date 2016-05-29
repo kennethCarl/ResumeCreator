@@ -129,24 +129,23 @@ and (max-width : 1440px){
         max-width: 160px;
         min-height: 220px;
         max-height: 220px;
-        padding: 0px 0px 0px 30px;
         float: left;
         cursor: pointer;
-        display: block;
+        display: inline-block;
     }
 
-    .user-resume-detail{
-        min-width: 130px;
-        max-width: 130px;
-        min-height: 180px;
-        max-height: 180px;
+    .user-resume-content-container{
+        width: 130px;
+        height: 180px;
+        line-height: 2;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 4px 0 rgba(0, 0, 0, .08), 0 3px 1px -2px rgba(0, 0, 0, .2);
         background-color: white;
-        font-size: 5px;
+        font-size:5px;
         padding: 5px 5px 5px 5px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        position:relative;
     }
 
     .user-resume-label{
@@ -160,28 +159,40 @@ and (max-width : 1440px){
         text-align: center;
     }
 
-    .resume-detail-table{
-        width: 120px;
-    }
-
-    .resume-detail-table-left{
-        width: 100px;
-    }
-    .resume-detail-table-right{
-         width: 20px;
-    }
-
-    .resume-detail-table-font1{
+    .line-label-list{
+        font-size: 5px;
         font-weight: bold;
     }
 
-    .resume-detail-table-font2{
-        font-weight:bold;
-        width: 13px;
+    .line-label-list-medium{
+        font-size: 5px;
+        font-weight: bold;
+        padding-left: 5px;
     }
 
-    .resume-detail-table-font3{
-        padding-left: 5px;
+    .left-label-list{
+        width: 30%; 
+        font-weight:bold; 
+        display:inline-block;
+    }
+
+    .right-label-list{
+        width: 70%;  
+        display:inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .left-label-list-medium{
+        width: 18%; 
+        font-weight:bold; 
+        display:inline-block;
+        padding-left: 10px;
+    }
+
+    .right-label-list-medium{
+        width: 82%;  
+        display:inline-block;
     }
 }
 
