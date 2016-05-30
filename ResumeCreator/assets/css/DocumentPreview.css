@@ -69,6 +69,10 @@
     min-width: 100%;
     text-align: justify;
 }
+.image-preview{
+    width: 100px;
+    height: 100px;
+}
 
 @media only screen
 and (min-width : 1023px)
@@ -92,6 +96,11 @@ and (max-width : 1440px){
         font-size: 10px;
         min-height: 100%;
         text-align: justify;
+    }
+
+    .show-overflow{
+        overflow: auto;
+        white-space: normal;
     }
 
     .line-label{

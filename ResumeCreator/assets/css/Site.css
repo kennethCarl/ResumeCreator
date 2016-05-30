@@ -125,8 +125,16 @@ input[name="filter"]{
 and (min-width : 1023px)
 and (max-width : 1440px){
     .scale{
-        transform-origin: 0 0;
+       -moz-transform: scale(.48);
+       -webkit-transform: scale(.48);
+       -ms-transform: scale(.48);
+       -o-transform: scale(.48);
         transform: scale(.48);
+        -moz-transform-origin:  0 0;
+       -webkit-transform-origin: 0 0;
+       -ms-transform-origin:  0 0;
+       -o-transform-origin: 0 0;
+        transform-origin: 0 0;
         width: 250px;
     }
 
@@ -284,6 +292,20 @@ and (max-width : 1440px){
 @media only screen
 and (min-width: 767px)
 and (max-width: 1022px){
+    .scale{
+       -moz-transform: scale(.48);
+       -webkit-transform: scale(.48);
+       -ms-transform: scale(.48);
+       -o-transform: scale(.48);
+        transform: scale(.48);
+        -moz-transform-origin:  0 0;
+       -webkit-transform-origin: 0 0;
+       -ms-transform-origin:  0 0;
+       -o-transform-origin: 0 0;
+        transform-origin: 0 0;
+        width: 250px;
+    }
+
     .previous-button{
         position:absolute;
         background-image: url(/assets/images/back.png);
@@ -293,10 +315,14 @@ and (max-width: 1022px){
         top: 250px;
     }
 
-    .scale{
-        transform-origin: 0 0;
-        transform: scale(.48);
-        width: 250px;
+    .next-button{
+        position:absolute;
+        background-image: url(/assets/images/forward.png);
+        background-repeat: no-repeat;
+        width: 100px;
+        height: 128px;
+        top: 250px;
+        background-position:right;
     }
 
     .divider{
@@ -340,11 +366,23 @@ and (max-width: 1022px){
         background-repeat: no-repeat;
         background-size: 20px 20px;
         border-bottom: 1px solid gray;
-        -webkit-transition: background-color 1s, border-color 1s;
-        -moz-transition:background-color 1s, border-color 1s;
-        -o-transition: background-color 1s, border-color 1s;
-        transition: background-color 1s, border-color 1s;
+        -webkit-transition: background-color 1s;
+        -moz-transition:background-color 1s;
+        -o-transition: background-color 1s;
+        transition: background-color 1s;
         background-color: white;
+    }
+
+    .back-button:hover{
+        background-color:	#D8D8D8;
+    }
+
+    .by-page-button:hover{
+       background-color: 	#D8D8D8;
+    }
+
+    .download-button:hover{
+       background-color:	#D8D8D8;
     }
 
     .back-button:hover{

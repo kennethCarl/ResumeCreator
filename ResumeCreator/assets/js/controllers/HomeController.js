@@ -2788,12 +2788,6 @@
                 }
             }
         }
-
-        //$scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount] + '<div><div class="class[0]">Label</div><div class="class[1]">: Content</div></div>' + "\n";
-        //$scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("class[0]", classess[0]);
-        //$scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("Label", label);
-        //$scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("class[1]", classess[1]);
-        //$scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("Content", content);
     };
 
     $scope.writeHeaderContent = function (isEvaluate, maxNoOfLines, content, className) {
@@ -2810,7 +2804,7 @@
         $scope.contentHtml = [];
         $scope.pageCount = 1;
         //Initialize User Image
-        $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" width="100" height="100" align="right">' + "\n";
+        $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" class="image-preview" align="right">' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", user.ImagePath);
         $scope.writeNewLine(true, maxNoOfLines);
         //Initialize User Name
@@ -2925,6 +2919,7 @@
         $scope.isByPage = true;
         $scope.showButtons = false;
         document.getElementById("c-modal-content").style.backgroundColor = "#F8F8F8 ";
+        document.getElementById("c-modal-content").className = "content-container show-overflow show-content-container";
     };
 
     $scope.getContent = function (page) {
@@ -2963,6 +2958,7 @@
         else {
             $scope.isByPage = false;
             document.getElementById("c-modal-content").style.backgroundColor = "white";
+            document.getElementById("c-modal-content").className = "content-container show-content-container"
         }
     };
 
@@ -3082,6 +3078,8 @@
                     document.getElementById($scope.allResumeContents[i].Id).innerHTML = $scope.allResumeContents[i].Contents[1];
                 }
             }
+            $scope.showButtons = false;
+            $scope.showButtonContainer = false;
             $scope.process = "done";
         }, 100)
     }
@@ -3126,6 +3124,10 @@
                     fontSize1 = fontSize1 - ((20 - Math.ceil(i)) * .6);
                     document.getElementById("c-preview").style.lineHeight = Math.ceil(i) + "px";
                     document.getElementById("c-preview").style.fontSize = fontSize + "px";
+                    if (document.querySelectorAll(".image-preview").length > 0) {
+                        document.querySelectorAll(".image-preview")[0].style.width = Math.ceil(i) * 5 + "px";
+                        document.querySelectorAll(".image-preview")[0].style.height = Math.ceil(i) * 5 + "px";
+                    }
                     for (var j = 0; j < document.querySelectorAll(".line-label-medium").length; j++)
                         document.querySelectorAll(".line-label-medium")[j].style.fontSize = fontSize + "px";
                     for (var j = 0; j < document.querySelectorAll(".line-label").length; j++)
