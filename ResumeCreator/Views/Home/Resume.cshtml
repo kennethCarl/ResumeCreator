@@ -18,7 +18,7 @@
     <!-- Resume List -->
     <div class="user-resume-container" ng-repeat="Resume in userResumeList | filter : { Type: type, Name: filteredResume  }">
         <div id="c-resume-container" class="user-resume-content-container" ng-click="showResume(Resume, Resume.Template)">
-            <div id="{{Resume.Id}}"></div>
+            <div id="{{Resume.Id}}" class="scale"></div>
         </div>
         <div class="user-resume-label">
             {{ Resume.Name }}
@@ -30,12 +30,26 @@
 
 <!-- Document Preview-->
 <div id="c-modal-container" class="modal-container hide-modal-container" ng-controller="DocumentPreviewController">
+    <div id="previousButton" class="previous-button" ng-show="showButtons && currentPage > 1" ng-click="getContent(currentPage = currentPage - 1)"></div>
+    <div id="nextButton" class="next-button" ng-show="showButtons && currentPage < contentHtml.length - 1" ng-click="getContent(currentPage = currentPage + 1)"></div>
+    <div id="buttonContainer" class="button-container" ng-show="showButtonContainer">
+        <div class="back-button" ng-click="closeResume()"></div>
+        <div class="divider"></div>
+        <div class="by-page-button" ng-click="showByPage()"></div>
+        <div class="divider"></div>
+        <div class="download-button"></div>
+    </div>
     <div id="c-modal-content" class="content-container hide-content-container">
         <div id="c-loader" class="loader-container hide-loading">
             <center><img src="~/assets/images/loader.gif" /></center>
         </div>
-        <div id="c-preview" class="content-preview hide-preview" ng-click="getContent(currentPage = currentPage + 1)">
-            <div id="c-content"></div>
+        <div id="c-preview" class="content-preview hide-preview">
+            <div id="c-content" ng-show="!isByPage"></div>
+            <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage">
+                <div id="c-resume-container" class="user-resume-content-container">
+                    <div id="{{pages.Id}}" class="scale" ng-click="showDocument(pages.Id)"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

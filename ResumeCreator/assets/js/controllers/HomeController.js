@@ -7,6 +7,11 @@
     $scope.currentPage = 1;
     $scope.htmlContents = [];
     $scope.process = "";
+    $scope.showButtons = false;
+    $scope.showButtonContainer = false;
+    $scope.resumePages = [];
+    $scope.isByPage = false;
+    $scope.allResumeContents = [];
 
     $scope.initializeResumeList = function () {
         $scope.userResumeList = [
@@ -2746,7 +2751,7 @@
             for (var j = 0; j < forWrite[4].Lines.length; j++) {
                 if (j == 0) {
                     holder = forWrite[4].Lines[j].substr(0, 18) + ":" + forWrite[4].Lines[j].substr(18, forWrite[4].Lines[j].length - 1);
-                    contentHTML = '<div><div class="class[0]">Label</div><div class="class[1]">: Content</div></div>\n';
+                    contentHTML = '<div><div class="class[0]">Label</div><div class="class[1]">Content</div></div>\n';
                     contentHTML = contentHTML.replace("Content", holder);
                     contentHTML = contentHTML.replace("Label", label);
                     contentHTML = contentHTML.replace("class[0]", classess[0]);
@@ -2879,7 +2884,48 @@
         $scope.currentPage = page;
         $scope.showPage();
         $scope.process = "done/showmodal";
+
+        //Initialize $scope.resumePages
+        $scope.resumePages = [];
+        for (var i = 0; i < $scope.allResumeContents.length; i++)
+        {
+            if ($scope.allResumeContents[i].Id == user.Id)
+            {
+                for (var j = 1; j < $scope.allResumeContents[i].Contents.length; j++)
+                {
+                    $scope.holder = {
+                        Id: "Page" + j.toString(),
+                        Content: $scope.allResumeContents[i].Contents[j]
+                    }
+                    $scope.resumePages.push($scope.holder);
+                }
+            }
+        }
+        var writePages = $interval(function () {
+            //Write Resume Pages Content
+            for (var i = 0; i < $scope.resumePages.length; i++) {
+                if (document.getElementById($scope.resumePages[i].Id) != null) {
+                    $interval.cancel(writePages);
+                    writePages = undefined;
+                    document.getElementById($scope.resumePages[i].Id).innerHTML = $scope.resumePages[i].Content;
+                }
+            }
+        }, 100);
     }
+
+    $scope.showDocument = function (page) {
+        var pageHolder = page.split("Page");
+        $scope.currentPage = parseInt(pageHolder[1]);
+        $scope.showPage();
+        document.getElementById("c-modal-content").style.backgroundColor = "white";
+        $scope.isByPage = false;
+    }
+
+    $scope.showByPage = function () {
+        $scope.isByPage = true;
+        $scope.showButtons = false;
+        document.getElementById("c-modal-content").style.backgroundColor = "#F8F8F8 ";
+    };
 
     $scope.getContent = function (page) {
         $scope.currentPage = page;
@@ -2896,111 +2942,130 @@
         var showContentPreview = $interval(function () {
             $interval.cancel(showContentPreview);
             showContentPreview = undefined;
-            
+            $scope.showButtonContainer = true;
             var content = document.getElementById("c-preview").innerHTML;
-            var lineHeight = parseInt(window.getComputedStyle(document.getElementById("c-preview"), null).getPropertyValue("line-height").split("px")[0]);
-            var maxNoOfLines = Math.floor((document.getElementById("c-modal-content").offsetHeight - 80) / lineHeight);
+            //var lineHeight = parseInt(window.getComputedStyle(document.getElementById("c-preview"), null).getPropertyValue("line-height").split("px")[0]);
+            var maxNoOfLines = 30; //Math.floor((document.getElementById("c-modal-content").offsetHeight - 80) / lineHeight);
             $scope.showPreview(resumeInfo, maxNoOfLines, $scope.currentPage, template);
         }, 500);
     };
 
-    $scope.initializeResumeList();
+    $scope.closeResume = function () {
+        if (!$scope.isByPage) {
+            document.getElementById("c-modal-container").className = "modal-container hide-modal-container";
+            document.getElementById("c-modal-content").className = "content-container hide-content-container";
+            document.getElementById("c-loader").className = "loader-container hide-loading";
+            $scope.showButtonContainer = false;
+            $scope.showButtons = false;
+            $scope.process = "done";
+            $scope.isByPage = false;
+        }
+        else {
+            $scope.isByPage = false;
+            document.getElementById("c-modal-content").style.backgroundColor = "white";
+        }
+    };
 
     //Generate HTML Contents for Resume List 
-    $scope.generateResume = function (index, user, maxNoOfLines, template) {
-        $scope.htmlContents[index] = { Id: 0, Content: null };
-        $scope.htmlContents[index].Id = user.Id;
+    $scope.generateHTMLContentsPerUser = function (user, maxNoOfLines, template) {
         $scope.currentLines = 0;
         $scope.contentHtml = [];
         $scope.pageCount = 1;
         //Initialize User Image
-        $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" width="20" height="20" align="right">' + "\n";
+        $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" width="50" height="50" align="right">' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", user.ImagePath);
         $scope.writeNewLine(true, maxNoOfLines);
         //Initialize User Name
-        $scope.writeContent(false, maxNoOfLines, "Name", user.Information.Name, ["left-label-list", "right-label-list"], 20);
+        $scope.writeContent(false, maxNoOfLines, "Name", user.Information.Name, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Address
-        $scope.writeContent(false, maxNoOfLines, "Address", user.Information.Address, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Address", user.Information.Address, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Contact No
-        $scope.writeContent(false, maxNoOfLines, "Contact No", user.Information.ContactNo, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Contact No", user.Information.ContactNo, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Email Address
-        $scope.writeContent(false, maxNoOfLines, "Email Address", user.Information.EmailAddress, ["left-label-list", "right-label-list"], 35);
-        $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label-list");
+        $scope.writeContent(false, maxNoOfLines, "Email Address", user.Information.EmailAddress, ["left-label-preview", "right-label-preview"], 90);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 50);
-        $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label-list");
+        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Information.Age, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Information.Age, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Birthdate
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.Information.DateOfBirth, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.Information.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Information.Gender, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Information.Gender, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.Information.CivilStatus, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.Information.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Information.Height, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Information.Height, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Information.Weight, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Information.Weight, ["left-label-preview", "right-label-preview"], 94);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Information.Citizenship, ["left-label-list", "right-label-list"], 35);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Information.Citizenship, ["left-label-preview", "right-label-preview"], 94);
         $scope.writeNewLine(true, maxNoOfLines);
 
         if (user.Information.Skills.length > 0 || user.Information.Strengths > 0) {
-            $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label-list");
+            $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
             if (user.Information.Skills.length > 0) {
-                $scope.writeHeaderContent(true, maxNoOfLines, "Skills:", "line line-label-list-medium");
+                $scope.writeHeaderContent(true, maxNoOfLines, "Skills:", "line line-label-medium");
                 //Initialize Skills
-                $scope.initializeByUnderlineTag(user.Information.Skills, maxNoOfLines);
+                $scope.initializeByUnderlineTag(user.Information.Skills, maxNoOfLines, 78);
             }
             if (user.Information.Strengths.length > 0) {
-                $scope.writeHeaderContent(true, maxNoOfLines, "Strengths:", "line line-label-list-medium");
+                $scope.writeHeaderContent(true, maxNoOfLines, "Strengths:", "line line-label-medium");
                 //Initialize Strengths
-                $scope.initializeByUnderlineTag(user.Information.Strengths, maxNoOfLines);
+                $scope.initializeByUnderlineTag(user.Information.Strengths, maxNoOfLines, 78);
             }
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Information.PostGraduate.length > 0 || user.Information.Tertiary.length > 0
             || user.Information.Secondary.length > 0 || user.Information.Primary.length > 0) {
-            $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label-list");
+            $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduate(true, user, maxNoOfLines, ["left-label-list-medium", "right-label-list-medium"]);
+            $scope.initializePostGraduate(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 78);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Tertiary Details
-            $scope.initializeTertiary(true, user, maxNoOfLines, ["left-label-list-medium", "right-label-list-medium"]);
+            $scope.initializeTertiary(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 78);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Secondary Details
-            $scope.initializeSecondary(true, user, maxNoOfLines, ["left-label-list-medium", "right-label-list-medium"]);
+            $scope.initializeSecondary(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 78);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Primary Details
-            $scope.initializePrimary(true, user, maxNoOfLines, ["left-label-list-medium", "right-label-list-medium"]);
+            $scope.initializePrimary(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 78);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Information.WorkExperience.length > 0) {
-            $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label-list");
+            $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperience(true, user, maxNoOfLines, ["left-label-list-medium", "right-label-list-medium"]);
+            $scope.initializeWorkExperience(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 78);
             $scope.writeNewLine(true, maxNoOfLines);
         }
-        $scope.htmlContents[index].Content = $scope.contentHtml[1];
-    }
+        $scope.resumeHolder = {
+            Id: user.Id,
+            Contents: $scope.contentHtml
+        }
+        //Save contents
+        $scope.allResumeContents.push($scope.resumeHolder);
+    };
 
     //Listener if Resume List is not empty
-    var generateHTMLContents = $interval(function () {
-       
+    var generateHTMLContents = $interval(function () {    
         if ($scope.userResumeList.length > 0) {
             $interval.cancel(generateHTMLContents);
             generateHTMLContents = undefined;
-            var lineHeight = parseInt(window.getComputedStyle(document.getElementById("c-resume-container"), null).getPropertyValue("line-height").split("px")[0]);
-            var maxNoOfLines = (Math.floor(document.getElementById("c-resume-container").offsetHeight - 10) / lineHeight);
-
+            var maxNoOfLines = 30;
+            $scope.allResumeContents = [];
             for (var i = 0; i < $scope.userResumeList.length; i++)
-                $scope.generateResume(i, $scope.userResumeList[i], maxNoOfLines, 1)
+                //$scope.generateResume(i, $scope.userResumeList[i], maxNoOfLines, 1)
+                $scope.generateHTMLContentsPerUser($scope.userResumeList[i], 30, 1);
         }
     }, 500);
 
     //Listener if HTML Content Generation for Resume List is Done
     var checkIfGenerationIsDone = $interval(function () {
-        if ($scope.htmlContents.length == $scope.userResumeList.length) {
+        if ($scope.allResumeContents.length == $scope.userResumeList.length) {
             $interval.cancel(checkIfGenerationIsDone);
             checkIfGenerationIsDone = undefined;
             $scope.initializeResumeListInformation();
@@ -3009,19 +3074,16 @@
 
     //Initialize Resume List
     $scope.initializeResumeListInformation = function () {
-        var onBrowserReady = $interval(function () {
-            for (var i = 0; i < $scope.htmlContents.length; i++) {
-                if (onBrowserReady != undefined)
-                {
-                    $interval.cancel(onBrowserReady);
-                    onBrowserReady = undefined;
-                }
-                if (document.getElementById($scope.htmlContents[i].Id) != null) {
-                    document.getElementById($scope.htmlContents[i].Id).innerHTML = $scope.htmlContents[i].Content;
+        var writeContent = $interval(function () {
+            for (var i = 0; i < $scope.allResumeContents.length; i++) {
+                if (document.getElementById($scope.allResumeContents[i].Id) != null) {
+                    $interval.cancel(writeContent);
+                    writeContent = undefined;
+                    document.getElementById($scope.allResumeContents[i].Id).innerHTML = $scope.allResumeContents[i].Contents[1];
                 }
             }
-        }, 100);
-        $scope.process = "done";
+            $scope.process = "done";
+        }, 100)
     }
 
     $scope.showLoader = function () {
@@ -3037,10 +3099,106 @@
             document.getElementById("c-modal-container").className = "modal-container hide-modal-container";
             document.getElementById("c-modal-content").className = "content-container hide-content-container";
             document.getElementById("c-loader").className = "loader-container hide-loading";
+            $scope.showButtonContainer = false;
+            $scope.showButtons = false;
         } else if ($scope.process == "done/showmodal") {
             document.getElementById("c-loader").className = "loader-container hide-loading";
             document.getElementById("c-preview").className = "content-preview show-preview";
+            //$scope.showButtons = true;
         }
     }, 2000);
+
+    //Listens the width and height of the browser
+    var doTheMath = $interval(function(){
+        var innerWidth = window.innerWidth;
+        var innerHeight = window.innerHeight;
+        var modalContentWidth = parseInt(window.getComputedStyle(document.getElementById("c-modal-content"), null).getPropertyValue("width").split("px")[0]);
+        var basePaddingLeftRight = (innerWidth - modalContentWidth) / 2;
+        var buttonWidth = parseInt(window.getComputedStyle(document.getElementById("previousButton"), null).getPropertyValue("width").split("px")[0]);
+        var fontSize = 10, fontSize1 = 12, padding = 0;
+
+        if (document.querySelectorAll(".show-content-container").length > 0) {
+            padding = parseInt(window.getComputedStyle(document.querySelectorAll(".show-content-container")[0], null).getPropertyValue("padding-top").split("px")[0]);
+
+            for (var i = 1; i <= 20; i = i + 0.5) {
+                if (Math.floor((innerHeight - (padding * 2)) / i) == 30 || Math.ceil((innerHeight - (padding * 2)) / i) == 30) {
+                    fontSize = fontSize - ((20 - Math.ceil(i)) * .5);
+                    fontSize1 = fontSize1 - ((20 - Math.ceil(i)) * .6);
+                    document.getElementById("c-preview").style.lineHeight = Math.ceil(i) + "px";
+                    document.getElementById("c-preview").style.fontSize = fontSize + "px";
+                    for (var j = 0; j < document.querySelectorAll(".line-label-medium").length; j++)
+                        document.querySelectorAll(".line-label-medium")[j].style.fontSize = fontSize + "px";
+                    for (var j = 0; j < document.querySelectorAll(".line-label").length; j++)
+                        document.querySelectorAll(".line-label")[j].style.fontSize = fontSize1 + "px";
+                    i = 20;
+                }
+            }
+        }
+
+        //Set Modal Containter padding left and right
+        document.getElementById("c-modal-container").style.paddingLeft = basePaddingLeftRight + "px";
+        document.getElementById("c-modal-container").style.paddingRight = basePaddingLeftRight + "px";
+        document.getElementById("previousButton").style.left = basePaddingLeftRight - buttonWidth + "px";
+        document.getElementById("nextButton").style.left = basePaddingLeftRight + modalContentWidth + "px";
+        document.getElementById("previousButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
+        document.getElementById("nextButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
+        document.getElementById("c-loader").style.top = (Math.ceil((innerHeight / 2) - buttonWidth * .60) / 2 )+ "px";
+    }, 100);
+
+    document.getElementById("c-modal-content").addEventListener("mouseenter", function () {
+        if ($scope.isByPage)
+            $scope.showButtons = false;
+        else
+            $scope.showButtons = true;
+        $scope.showButtonContainer = false;
+    });
+    document.getElementById("c-modal-content").addEventListener("mouseleave", function () {
+        $scope.showButtons = false;
+        $scope.showButtonContainer = true;
+    });
+    document.getElementById("previousButton").addEventListener("mouseenter", function () {
+        $scope.showButtonContainer = false;
+        if ($scope.isByPage)
+            $scope.showButtons = false;
+        else {
+            if (!$scope.showButtonContainer)
+                $scope.showButtons = true;
+        }
+    });
+    document.getElementById("previousButton").addEventListener("mouseleave", function () {
+        if ($scope.showButtonContainer == true)
+            $scope.showButtons = false;
+        else {
+            if ($scope.isByPage)
+                $scope.showButtons = false;
+            else
+                $scope.showButtons = true;
+        }
+    });
+    document.getElementById("nextButton").addEventListener("mouseenter", function () {
+        $scope.showButtonContainer = false;
+        if ($scope.isByPage)
+            $scope.showButtons = false;
+        else {
+            if (!$scope.showButtonContainer)
+                $scope.showButtons = true;
+        }
+    });
+    document.getElementById("nextButton").addEventListener("mouseleave", function () {
+        if ($scope.showButtonContainer == true)
+            $scope.showButtons = false;
+        else {
+            if ($scope.isByPage)
+                $scope.showButtons = false;
+            else
+                $scope.showButtons = true;
+        }
+    });
+    document.getElementById("buttonContainer").addEventListener("mouseenter", function () {
+        $scope.showButtons = false;
+        $scope.showButtonContainer = true;
+    });
+
+    $scope.initializeResumeList();
     $scope.showLoader();
 });

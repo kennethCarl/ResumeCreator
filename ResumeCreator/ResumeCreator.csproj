@@ -94,6 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\DocumentPreview.css" />
+    <Content Include="assets\images\back.png" />
+    <Content Include="assets\images\backtomain.png" />
+    <Content Include="assets\images\document.png" />
+    <Content Include="assets\images\download.png" />
+    <Content Include="assets\images\forward.png" />
     <Content Include="assets\images\loader.gif" />
     <Content Include="assets\js\core\PrintByElementModule\PrintByDiv.css" />
     <Content Include="assets\css\Site.css" />
