@@ -12,7 +12,9 @@
     $scope.resumePages = [];
     $scope.isByPage = false;
     $scope.allResumeContents = [];
-
+    $scope.toolTipText = [];
+    $scope.showPageIndicator = false;
+    $scope.resumeShown = false;
     $scope.initializeResumeList = function () {
         $scope.userResumeList = [
         {
@@ -1453,7 +1455,7 @@
                 ]
             },
             Type: "Private",
-            ImagePath: '~/userimages/carl.png'
+            ImagePath: 'userimages/carl.png'
         },
         {
             Id: 16,
@@ -2905,6 +2907,8 @@
                 }
             }
         }, 100);
+
+        $scope.resumeShown = true;
     }
 
     $scope.showDocument = function (page) {
@@ -2937,10 +2941,8 @@
         var showContentPreview = $interval(function () {
             $interval.cancel(showContentPreview);
             showContentPreview = undefined;
-            $scope.showButtonContainer = true;
             var content = document.getElementById("c-preview").innerHTML;
-            //var lineHeight = parseInt(window.getComputedStyle(document.getElementById("c-preview"), null).getPropertyValue("line-height").split("px")[0]);
-            var maxNoOfLines = 30; //Math.floor((document.getElementById("c-modal-content").offsetHeight - 80) / lineHeight);
+            var maxNoOfLines = 30;
             $scope.showPreview(resumeInfo, maxNoOfLines, $scope.currentPage, template);
         }, 500);
     };
@@ -2954,6 +2956,8 @@
             $scope.showButtons = false;
             $scope.process = "done";
             $scope.isByPage = false;
+            $scope.resumeShown = false;
+            $scope.currentPage = 1;
         }
         else {
             $scope.isByPage = false;
@@ -3070,6 +3074,7 @@
 
     //Initialize Resume List
     $scope.initializeResumeListInformation = function () {
+        $scope.process = "start";
         var writeContent = $interval(function () {
             for (var i = 0; i < $scope.allResumeContents.length; i++) {
                 if (document.getElementById($scope.allResumeContents[i].Id) != null) {
@@ -3078,14 +3083,15 @@
                     document.getElementById($scope.allResumeContents[i].Id).innerHTML = $scope.allResumeContents[i].Contents[1];
                 }
             }
-            $scope.showButtons = false;
-            $scope.showButtonContainer = false;
             $scope.process = "done";
         }, 100)
     }
 
     $scope.showLoader = function () {
         $scope.process = "start";
+        $scope.showButtonContainer = false;
+        $scope.showButtons = false;
+        $scope.showPageIndicator = false;
         document.getElementById("c-modal-container").className = "modal-container show-modal-container";
         document.getElementById("c-modal-content").className = "content-container show-content-container";
         document.getElementById("c-loader").className = "loader-container show-loading";
@@ -3102,7 +3108,6 @@
         } else if ($scope.process == "done/showmodal") {
             document.getElementById("c-loader").className = "loader-container hide-loading";
             document.getElementById("c-preview").className = "content-preview show-preview";
-            //$scope.showButtons = true;
         }
     }, 2000);
 
@@ -3122,16 +3127,21 @@
                 if (Math.floor((innerHeight - (padding * 2)) / i) == 30 || Math.ceil((innerHeight - (padding * 2)) / i) == 30) {
                     fontSize = fontSize - ((20 - Math.ceil(i)) * .5);
                     fontSize1 = fontSize1 - ((20 - Math.ceil(i)) * .6);
+                    //Set Line Height during Document Preview Dynamically
                     document.getElementById("c-preview").style.lineHeight = Math.ceil(i) + "px";
+                    //Set default font size during Document Preview Dynamically
                     document.getElementById("c-preview").style.fontSize = fontSize + "px";
+                    //Set Image Width and Height of Resume List Dynamically
                     if (document.querySelectorAll(".image-preview").length > 0) {
                         document.querySelectorAll(".image-preview")[0].style.width = Math.ceil(i) * 5 + "px";
                         document.querySelectorAll(".image-preview")[0].style.height = Math.ceil(i) * 5 + "px";
                     }
+                    //Set Labels Font size during Document Preview Dynamically
                     for (var j = 0; j < document.querySelectorAll(".line-label-medium").length; j++)
                         document.querySelectorAll(".line-label-medium")[j].style.fontSize = fontSize + "px";
                     for (var j = 0; j < document.querySelectorAll(".line-label").length; j++)
                         document.querySelectorAll(".line-label")[j].style.fontSize = fontSize1 + "px";
+                    
                     i = 20;
                 }
             }
@@ -3144,61 +3154,120 @@
         document.getElementById("nextButton").style.left = basePaddingLeftRight + modalContentWidth + "px";
         document.getElementById("previousButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
         document.getElementById("nextButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
-        document.getElementById("c-loader").style.top = (Math.ceil((innerHeight / 2) - buttonWidth * .60) / 2 )+ "px";
+        document.getElementById("c-loader").style.top = (Math.ceil((innerHeight / 2) - buttonWidth * .60) / 2) + "px";
+        //Set Page Indicator Left value
+        if (document.querySelectorAll(".c-page-indicator").length > 0)
+            document.querySelectorAll(".c-page-indicator")[0].style.left = (basePaddingLeftRight + (modalContentWidth / 2)) - 50 + "px";
+
+        if ($scope.resumeShown == false) {
+            $scope.showButtonContainer = false;
+            $scope.showButtons = false;
+            $scope.showPageIndicator = false;
+        }
     }, 100);
 
-    document.getElementById("c-modal-content").addEventListener("mouseenter", function () {
-        if ($scope.isByPage)
+    document.getElementById("c-modal-container").addEventListener("mouseenter", function () {
+        if ($scope.process != "start") {
+            $scope.showButtonContainer = true;
+            $scope.showPageIndicator = false;
             $scope.showButtons = false;
-        else
-            $scope.showButtons = true;
-        $scope.showButtonContainer = false;
+        }
+    });
+    document.getElementById("c-modal-content").addEventListener("mouseenter", function () {
+        if ($scope.process != "start") {
+            if ($scope.isByPage)
+                $scope.showButtons = false;
+            else
+                $scope.showButtons = true;
+            $scope.showButtonContainer = false;
+            $scope.showPageIndicator = true;
+        }
     });
     document.getElementById("c-modal-content").addEventListener("mouseleave", function () {
-        $scope.showButtons = false;
-        $scope.showButtonContainer = true;
+        if ($scope.process != "start") {
+            $scope.showButtons = false;
+            $scope.showButtonContainer = true;
+            $scope.showPageIndicator = false;
+        }
     });
     document.getElementById("previousButton").addEventListener("mouseenter", function () {
-        $scope.showButtonContainer = false;
-        if ($scope.isByPage)
-            $scope.showButtons = false;
-        else {
-            if (!$scope.showButtonContainer)
-                $scope.showButtons = true;
+        if ($scope.process != "start") {
+            $scope.showButtonContainer = false;
+            $scope.showPageIndicator = true;
+            if ($scope.isByPage)
+                $scope.showButtons = false;
+            else {
+                if (!$scope.showButtonContainer)
+                    $scope.showButtons = true;
+            }
         }
     });
     document.getElementById("previousButton").addEventListener("mouseleave", function () {
-        if ($scope.showButtonContainer == true)
+        if ($scope.process != "start") {
+            $scope.showButtonContainer = true;
             $scope.showButtons = false;
-        else {
-            if ($scope.isByPage)
-                $scope.showButtons = false;
-            else
-                $scope.showButtons = true;
         }
     });
     document.getElementById("nextButton").addEventListener("mouseenter", function () {
-        $scope.showButtonContainer = false;
-        if ($scope.isByPage)
-            $scope.showButtons = false;
-        else {
-            if (!$scope.showButtonContainer)
-                $scope.showButtons = true;
+        if ($scope.process != "start") {
+            $scope.showButtonContainer = false;
+            $scope.showPageIndicator = true;
+            if ($scope.isByPage)
+                $scope.showButtons = false;
+            else {
+                if (!$scope.showButtonContainer)
+                    $scope.showButtons = true;
+            }
         }
     });
     document.getElementById("nextButton").addEventListener("mouseleave", function () {
-        if ($scope.showButtonContainer == true)
+        if ($scope.process != "start") {
+            $scope.showButtonContainer = true;
             $scope.showButtons = false;
-        else {
-            if ($scope.isByPage)
-                $scope.showButtons = false;
-            else
-                $scope.showButtons = true;
         }
     });
     document.getElementById("buttonContainer").addEventListener("mouseenter", function () {
-        $scope.showButtons = false;
-        $scope.showButtonContainer = true;
+        if ($scope.process != "start") {
+            $scope.showButtons = false;
+            $scope.showButtonContainer = true;
+        }
+    });
+    document.querySelectorAll(".back-button")[0].addEventListener("mouseenter", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText[0] = "Back";
+            document.querySelectorAll(".c-tooltip")[0].style.visibility = "visible";
+        }
+    });
+    document.querySelectorAll(".back-button")[0].addEventListener("mouseleave", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText = [];
+            document.querySelectorAll(".c-tooltip")[0].style.visibility = "hidden";
+        }
+    });
+    document.querySelectorAll(".by-page-button")[0].addEventListener("mouseenter", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText[0] = "Display By Page";
+            document.querySelectorAll(".c-tooltip")[1].style.visibility = "visible";
+        }
+    });
+    document.querySelectorAll(".by-page-button")[0].addEventListener("mouseleave", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText = [];
+            document.querySelectorAll(".c-tooltip")[1].style.visibility = "hidden";
+        }
+    });
+    document.querySelectorAll(".download-button")[0].addEventListener("mouseenter", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText[0] = "Email";
+            $scope.toolTipText[1] = "Print";
+            document.querySelectorAll(".c-tooltip")[2].style.visibility = "visible";
+        }
+    });
+    document.querySelectorAll(".download-button")[0].addEventListener("mouseleave", function () {
+        if ($scope.process != "start") {
+            $scope.toolTipText = [];
+            document.querySelectorAll(".c-tooltip")[2].style.visibility = "hidden";
+        }
     });
 
     $scope.initializeResumeList();
