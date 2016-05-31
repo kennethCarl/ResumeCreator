@@ -2954,8 +2954,6 @@
             document.getElementById("c-loader").className = "loader-container hide-loading";
             $scope.showButtonContainer = false;
             $scope.showButtons = false;
-            $scope.process = "done";
-            $scope.isByPage = false;
             $scope.resumeShown = false;
             $scope.currentPage = 1;
         }
