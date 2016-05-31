@@ -1,4 +1,4 @@
-﻿arjocamahamageApp.controller("HomeController", function ($rootScope, $scope, $interval) {
+﻿arjocamahamageApp.controller("HomeController", function ($rootScope, $scope, $interval, $state) {
     $scope.type = "Public";
     $scope.filteredResume = "";
     $scope.isPrint = false;
@@ -3120,6 +3120,10 @@
         var buttonWidth = parseInt(window.getComputedStyle(document.getElementById("previousButton"), null).getPropertyValue("width").split("px")[0]);
         var fontSize = 10, fontSize1 = 12, padding = 0;
 
+        if (innerWidth < 767 || innerWidth > 1440) {
+            $state.go('ongoing');
+        }
+
         if (document.querySelectorAll(".show-content-container").length > 0) {
             padding = parseInt(window.getComputedStyle(document.querySelectorAll(".show-content-container")[0], null).getPropertyValue("padding-top").split("px")[0]);
 
@@ -3272,4 +3276,11 @@
 
     $scope.initializeResumeList();
     $scope.showLoader();
+
+    $scope.$on('$destroy', function () {
+        $interval.cancel(doTheMath);
+        doTheMath = undefined;
+        $interval.cancel(hideLoaderListener);
+        hideLoaderListener = undefined
+    });
 });
