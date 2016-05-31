@@ -24,8 +24,6 @@
     </div>
 </div>
 
-<printbydiv id="idForPrint" show="isPrint"></printbydiv>
-
 <!-- Document Preview-->
 <div id="c-modal-container" class="modal-container hide-modal-container" ng-controller="DocumentPreviewController">
     <div id="previousButton" class="previous-button" ng-show="showButtons && currentPage > 1" ng-click="getContent(currentPage = currentPage - 1)"></div>
@@ -33,13 +31,13 @@
     <div id="buttonContainer" class="button-container" ng-show="showButtonContainer">
         <div class="back-button" ng-click="closeResume()">
             <div class="c-tooltip">
-                <div class="c-tooltip-text" ng-click="closeResume()">{{ toolTipText[0] }}</div>
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
             </div>
         </div>
         <div class="divider"></div>
         <div class="by-page-button" ng-click="showByPage()">
             <div class="c-tooltip">
-                <div class="c-tooltip-text" ng-click="showByPage()">{{ toolTipText[0] }}</div>
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
             </div>
         </div>
         <div class="divider"></div>
@@ -68,3 +66,7 @@
     </div>
 </div>
 <!-- End of Document Preview-->
+
+<!-- Print By Resume -->
+<printbydiv id="idForPrint" show="isPrint"></printbydiv>
+<!-- End of Print By Resume -->
