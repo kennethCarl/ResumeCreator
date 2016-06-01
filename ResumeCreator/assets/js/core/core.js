@@ -35,4 +35,11 @@ arjocamahamageApp.config(function ($stateProvider, $urlRouterProvider) {
         url: '/ongoing',
         templateUrl: "Home/Ongoing"
     })
+
+    .state('create',
+    {
+        url: '/create',
+        templateUrl: "Home/CreateResume",
+        controller: "CreateController"
+    })
 });

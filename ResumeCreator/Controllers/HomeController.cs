@@ -25,6 +25,11 @@ namespace ResumeCreator.Controllers
             return View();
         }
 
+        public ActionResult CreateResume()
+        {
+            return View();
+        }
+        
         public FileStreamResult DownloadMSResume(int template, string fname)
         {
             var fileName = string.Format("{0}.doc", fname);

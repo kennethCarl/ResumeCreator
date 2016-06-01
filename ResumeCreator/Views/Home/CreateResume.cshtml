@@ -1,0 +1,496 @@
+﻿<div class="header">
+    <div class="menu-left" ng-click="redirect('home')">Home</div>
+    <div class="menu-left">Sign Up</div>
+    <div class="menu-right">Sign In</div>
+    <!-- Modal -->
+    <div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ modalTitle }}</h4>
+                </div>
+                <div class="modal-body">
+                    <!--Error Label-->
+                    <div class="alert alert-danger" role="alert" ng-show="withError" ng-click="withError=false;errorMessage=''">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        {{ errorMessage }}
+                    </div>
+                    <!--Skill-->
+                    <div class="container-fluid" style="padding-bottom:5px;" ng-repeat="skill in resume.Skills" ng-show="modalTitle == 'Skills'">
+                        <div class="form-group form-group-sm">
+                            <div class="orm-group col-sm-11">
+                                <textarea placeholder="{{ 'Capable of developing Web Application, Mobile application through hybrid development and Desktop Application.' }}"
+                                          class="form-control"
+                                          ng-model="resume.Skills[$index].Description"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="orm-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Strength-->
+                    <div class="container-fluid" style="padding-bottom:5px;" ng-repeat="strength in resume.Strengths" ng-show="modalTitle == 'Strengths'">
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Highly competitive, self-starter who is organized and goal-oriented.' }}"
+                                          class="form-control"
+                                          ng-model="resume.Strengths[$index].Description"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Post Graduate-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="postGrad in resume.PostGraduate" ng-show="modalTitle == 'Post Graduate'">
+                        <!--School-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Cebu Institute of Technology – University' }}"
+                                          class="form-control"
+                                          ng-model="resume.PostGraduate[$index].School"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Degree-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Masters In Information Technology(June 2015-March 2016)' }}"
+                                          class="form-control"
+                                          ng-model="resume.PostGraduate[$index].Degree"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Address-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Natalio B. Bacalso Avenue, Cebu City, Cebu, 6000, Philippines' }}"
+                                          class="form-control"
+                                          ng-model="resume.PostGraduate[$index].Address"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Tertiary-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="tertiary in resume.Tertiary" ng-show="modalTitle == 'Tertiary'">
+                        <!--School-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'University of Cebu - Banilad' }}"
+                                          class="form-control"
+                                          ng-model="resume.Tertiary[$index].School"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Degree-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Bachelor of Science in Information Technology (2008-2013)' }}"
+                                          class="form-control"
+                                          ng-model="resume.Tertiary[$index].Degree"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Address-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Archbishop Reyes Avenue, Banilad City, Cebu, 6000, Philippines' }}"
+                                          class="form-control"
+                                          ng-model="resume.Tertiary[$index].Address"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Secondary-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="secondary in resume.Secondary" ng-show="modalTitle == 'Secondary'">
+                        <!--School-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Saint Dominic Learning Center (2004-2008)' }}"
+                                          class="form-control"
+                                          ng-model="resume.Secondary[$index].School"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Address-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Sangi Road Lapu-Lapu City, Cebu, 6000, Philippines' }}"
+                                          class="form-control"
+                                          ng-model="resume.Secondary[$index].Address"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Primary-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="primary in resume.Primary" ng-show="modalTitle == 'Primary'">
+                        <!--School-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Bankal Elementary School (1998-2004)' }}"
+                                          class="form-control"
+                                          ng-model="resume.Primary[$index].School"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Address-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Bankal Lapu-Lapu City, Cebu, 6000, Philippines' }}"
+                                          class="form-control"
+                                          ng-model="resume.Primary[$index].Address"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Work Experience-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="workExp in resume.WorkExperience" ng-show="modalTitle == 'Work Experience'">
+                        <!--Company-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Fastcargo Logistics Corporation' }}"
+                                          class="form-control"
+                                          ng-model="resume.WorkExperience[$index].Company"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Address-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ '3rd Floor., Mitsubishi Building., National Highway, Mandaue City, Cebu, 6000, Philippines' }}"
+                                          class="form-control"
+                                          ng-model="resume.WorkExperience[$index].Address"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Period-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'May 2014 - Present' }}"
+                                          class="form-control"
+                                          ng-model="resume.WorkExperience[$index].Period"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Position-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'IT Programmer/Analyst' }}"
+                                          class="form-control"
+                                          ng-model="resume.WorkExperience[$index].Position"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Main Role-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Creates software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches.' }}"
+                                          class="form-control"
+                                          ng-model="resume.WorkExperience[$index].MainRole"
+                                          style="resize:none;"
+                                          rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Training/Seminars Attended-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="seminars in resume.SeminarsAttended" ng-show="modalTitle == 'Training/Seminars Attended'">
+                        <!--Name-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'ASP.Net/AngularJS Training' }}"
+                                          class="form-control"
+                                          ng-model="resume.SeminarsAttended[$index].Name"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Description-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Web application development using MVC and entity framework with lambda and LinQ, Web API, AngularJS, etc.' }}"
+                                          class="form-control"
+                                          ng-model="resume.SeminarsAttended[$index].Description"
+                                          style=" resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Period-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'March 03, 2015 - March 06, 2015' }}"
+                                          class="form-control"
+                                          ng-model="resume.SeminarsAttended[$index].Period"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Character Reference-->
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="charRef in resume.CharacterReference" ng-show="modalTitle == 'Character Reference'">
+                        <!--Name-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'John Crismund Elumbaring' }}"
+                                          class="form-control"
+                                          ng-model="resume.CharacterReference[$index].Name"
+                                          style=" resize:none;"
+                                          rows="1"></textarea>
+                            </div>
+                            <div class="form-group col-sm-1" style="padding-top:5px; color:#c9302c" ng-click="remove($index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <!--Profession-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'IT Professional' }}"
+                                          class="form-control"
+                                          ng-model="resume.CharacterReference[$index].Profession"
+                                          style=" resize:none;"
+                                          rows="1"></textarea>
+                            </div>
+                        </div>
+                        <!--ContactNo-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ '09254858989' }}"
+                                          class="form-control"
+                                          ng-model="resume.CharacterReference[$index].ContactNo"
+                                          style="resize:none;"
+                                          rows="1"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="add(2)">{{ buttonLabel }}</button>
+                    <button type="button" class="btn btn-default" ng-click="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="resume-container">
+    <form data-toggle="validator" role="form">
+        <div class="form-group form-group-sm">
+            <!--First Name-->
+            <div class="form-group col-sm-4">
+                <label for="firstName" class="control-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" maxlength="50" placeholder="Kenneth Carl" ng-model="resume.FirstName" required>
+            </div>
+            <!--Middle Name-->
+            <div class="form-group col-sm-4">
+                <label for="middleName" class="control-label">Middle Name</label>
+                <input type="text" class="form-control" id="middleName" maxlength="50" placeholder="Nacua" ng-model="resume.MiddleName" required>
+            </div>
+            <!--Last Name-->
+            <div class="form-group col-sm-4">
+                <label for="lastName" class="control-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" maxlength="50" placeholder="Ybanez" ng-model="resume.LastName" required>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <!--Birth Date-->
+            <div class="form-group col-sm-2">
+                <label for="dateOfBirth" class="control-label">Birthdate</label>
+                <div class='input-group date' id='dateOfBirth'>
+                    <input type='text' class="form-control" id='dateOfBirthValue' ng-model="resume.DateOfBirth" placeholder="January 05, 1992" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <!--Age-->
+            <div class="form-group col-sm-1">
+                <label for="age" class="control-label">Age</label>
+                <input type="text" class="form-control" id="age" maxlength="3" placeholder="24" ng-model="resume.Age" required>
+            </div>
+            <!--Height-->
+            <div class="form-group col-sm-1">
+                <label for="height" class="control-label">Height</label>
+                <input type="text" class="form-control" id="height" maxlength="5" placeholder="5'5" ng-model="resume.Height" required>
+            </div>
+            <!--Weight-->
+            <div class="form-group col-sm-2">
+                <label for="weight" class="control-label">Weight</label>
+                <input type="text" class="form-control" id="weight" maxlength="20" placeholder="67 Kilograms" ng-model="resume.Weight" required>
+            </div>
+            <!--Civil Status-->
+            <div class="form-group col-sm-2">
+                <label for="civilStatus" class="control-label">Civil Status</label>
+                <select id="civilStatus"
+                        class="form-control"
+                        placeholder="Single"
+                        ng-options="cv.Id as cv.Name for cv in civilStatus"
+                        ng-model="resume.CivilStatus"
+                        required></select>
+            </div>
+            <!--Citizenship-->
+            <div class="form-group col-sm-2">
+                <label for="citizenship" class="control-label">Citizenship</label>
+                <input type="text" class="form-control" id="citizenship" placeholder="Filipino" ng-model="resume.Citizenship" required>
+            </div>
+            <!--Gender-->
+            <div class="form-group col-sm-2">
+                <label class="control-label">Gender</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="resume.Gender" value="Male" required>
+                        Male
+                    </label>
+                    <label>
+                        <input type="radio" name="resume.Gender" value="Female" required>
+                        Female
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <!--Address-->
+            <div class="form-group col-sm-12">
+                <label for="address" class="control-label">Address</label>
+                <textarea id="address"
+                          rows="3" style="height:auto; resize:none;"
+                          class="form-control"
+                          placeholder="137 Bliss Pajac Lapu-Lapu City, 6000 Cebu, Philippines"
+                          required
+                          maxlength="200"
+                          ng-model="resume.Address"></textarea>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <!--Contact Number-->
+            <div class="form-group col-sm-4">
+                <label for="contactNo" class="control-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactNo" placeholder="09434364318" ng-model="resume.ContactNumber" required>
+            </div>
+            <!--Email Address-->
+            <div class="form-group col-sm-4">
+                <label for="emailAddress" class="control-label">Email</label>
+                <input type="email" class="form-control" id="emailAddress" placeholder="kennethcarlybanez@gmail.com" data-error="Email address is invalid." ng-model="resume.EmailAddress" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <!--Objectives-->
+            <div class="form-group col-sm-12">
+                <label for="objectives" class="control-label">Objectives</label>
+                <textarea id="objectives"
+                          rows="3" style="height:auto; resize:none;"
+                          class="form-control"
+                          placeholder="To be able to work in a prestigious company that would harness my skills to its utmost potential and utilize such skills for the achievement of the company's goals and objective."
+                          required
+                          maxlength="500"
+                          ng-model="resume.Objectives"></textarea>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <!--Hobbies-->
+            <div class="form-group col-sm-12">
+                <label for="hobbies" class="control-label">Hobbies</label>
+                <textarea id="hobbies"
+                          rows="3" style="height:auto; resize:none;"
+                          class="form-control"
+                          placeholder="Jogging, Lifting, Playing Basketball, Watching Hollywood Series, Programming."
+                          required
+                          maxlength="500"
+                          ng-model="resume.Hobbies"></textarea>
+            </div>
+        </div>
+        <!--Label-->
+        <div class="form-group form-group-sm">
+            <!--Qualifications 1-->
+            <div class="form-group col-sm-4">
+                <label class="control-label">Qualifications</label>
+            </div>
+            <!--Educational Attainment-->
+            <div class="form-group col-sm-8">
+                <label class="control-label">Educational Attainment</label>
+            </div>
+        </div>
+        <!--Buttons-->
+        <div class="form-group form-group-sm">
+            <!--Skill-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="modalTitle = 'Skills'; add(1)">Skills</div>
+            </div>
+            <!--Strength-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Strengths'; add(1)">Strengths</div>
+            </div>
+            <!--Post Graduate-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="modalTitle = 'Post Graduate'; add(1)">Post Grad</div>
+            </div>
+            <!--Tertiary-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Tertiary'; add(1)">Tertiary</div>
+            </div>
+            <!--Secondary-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="modalTitle = 'Secondary'; add(1)">Secondary</div>
+            </div>
+            <!--Primary-->
+            <div class="form-group col-sm-2">
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Primary'; add(1)">Primary</div>
+            </div>
+        </div>
+        <!--Label-->
+        <div class="form-group form-group-sm">
+            <!--Work Experience-->
+            <div class="form-group col-sm-2">
+                <label class="control-label">Work Experience</label>
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="modalTitle = 'Work Experience'; add(1)">Add</div>
+            </div>
+            <!--Seminars Attended-->
+            <div class="form-group col-sm-2">
+                <label class="control-label">Seminars Attendeded</label>
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Training/Seminars Attended'; add(1)">Add</div>
+            </div>
+            <!--Character Reference-->
+            <div class="form-group col-sm-2">
+                <label class="control-label">Character Reference</label>
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Character Reference'; add(1)">Add</div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -131,19 +131,19 @@
    background-color: #E8E8E8;
 }
 
-::-webkit-input-placeholder {
+input[name="filter"]::-webkit-input-placeholder {
    text-align: center;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+input[name="filter"]:-moz-placeholder { /* Firefox 18- */
    text-align: center;  
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+input[name="filter"]::-moz-placeholder {  /* Firefox 19+ */
    text-align: center;  
 }
 
-:-ms-input-placeholder {  
+input[name="filter"]:-ms-input-placeholder {  
    text-align: center; 
 }
 

@@ -36,18 +36,18 @@
                 Citizenship: "Filipino",
                 Skills: [
                     { Description: "Good in written and oral communication" },
-                    { Description: "Web Developer, Hybrid Development for mobile, Desktop Application Developer" },
+                    { Description: "Capable of developing web application, mobile application through hybrid development and desktop application." },
                     { Description: "Good in PowerBuilder, Visual Basic 6, C#, ASP.Net using Entity Framework with Lambda and LinQ, PHP CodeIgniter, HTML, Basic Java, AngularJS, Javascript, CSS, Bootstrap, Materializecss, Ionic, MySql, NoSql, MSSQL" },
                     { Description: "Basic Networking" },
                     { Description: "Basic Computer Troubleshooting" },
                     { Description: "Capable of using Github in Source Tree and npm CLI" }
                 ],
                 Strengths: [
-                    { Description: "Good attitude towards work" },
-                    { Description: "Highly competitive, self-starter who is organized and goal-oriented" },
-                    { Description: "Hardworking and Resourceful" },
-                    { Description: "Can work with less supervision" },
-                    { Description: "Eager to learn" }
+                    { Description: "Good attitude towards work." },
+                    { Description: "Highly competitive, self-starter who is organized and goal-oriented." },
+                    { Description: "Hardworking and Resourceful." },
+                    { Description: "Can work with less supervision." },
+                    { Description: "Eager to learn." }
                 ],
                 PostGraduate: [
                     {
@@ -387,7 +387,7 @@
                         Address: "Central Visayas, Philippines",
                         Period: "May 2014 - Present",
                         Position: "IT Programmer/Analyst",
-                        MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
+                        MainRole: "Creates software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
                     },
                     {
                         Company: "Intellmed Inc.",
@@ -1746,6 +1746,10 @@
             ImagePath: 'userimages/carl.png'
         }
         ];
+    };
+
+    $scope.redirect = function (stateName) {
+        $state.go(stateName);
     };
 
     $scope.evaluateResume = function (id) {

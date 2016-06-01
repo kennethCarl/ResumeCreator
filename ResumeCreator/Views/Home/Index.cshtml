@@ -23,11 +23,12 @@
     <link href="~/plugins/bootstrap/css/fonts.css" rel="stylesheet" type="text/css">
     <link href="~/assets/js/core/PrintByElementModule/PrintByDiv.css" rel="stylesheet" />
     <link href="~/assets/css/DocumentPreview.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
 </head>
 
 <body ng-app="arjocamahamageResumeCreatorApp">
     <div ui-view></div>
-    <div class="developer-label">Developed by Kenneth Carl Nacua Ybanez</div>
+    @*<div class="developer-label">Developed by Kenneth Carl Nacua Ybanez</div>*@
 </body>
 
 </html>
@@ -35,7 +36,9 @@
 <!-- jQuery -->
 <script src="~/plugins/jquery/jquery.js"></script>
 <!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="/scripts/moment.min.js"></script>
 <script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.js"></script>
 <!-- Bootstrap Form Validator -->
 <script src="~/plugins/bootstrap/js/100hz/validator.min.js"></script>
 <!-- AngularJS -->
@@ -46,3 +49,4 @@
 <script src="~/assets/js/core/PrintByElementModule/PrintByDiv.js"></script>
 <script src="~/assets/js/core/core.js"></script>
 <script src="~/assets/js/controllers/HomeController.js"></script>
+<script src="~/assets/js/controllers/CreateController.js"></script>
