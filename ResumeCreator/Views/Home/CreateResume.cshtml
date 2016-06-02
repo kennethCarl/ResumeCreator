@@ -228,13 +228,13 @@
                         </div>
                     </div>
                     <!--Training/Seminars Attended-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="seminars in resume.SeminarsAttended" ng-show="modalTitle == 'Training/Seminars Attended'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="seminars in resume.Trainings" ng-show="modalTitle == 'Training/Seminars Attended'">
                         <!--Name-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'ASP.Net/AngularJS Training' }}"
                                           class="form-control"
-                                          ng-model="resume.SeminarsAttended[$index].Name"
+                                          ng-model="resume.Trainings[$index].Name"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -247,7 +247,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Web application development using MVC and entity framework with lambda and LinQ, Web API, AngularJS, etc.' }}"
                                           class="form-control"
-                                          ng-model="resume.SeminarsAttended[$index].Description"
+                                          ng-model="resume.Trainings[$index].Description"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -257,7 +257,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'March 03, 2015 - March 06, 2015' }}"
                                           class="form-control"
-                                          ng-model="resume.SeminarsAttended[$index].Period"
+                                          ng-model="resume.Trainings[$index].Period"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -309,7 +309,7 @@
     </div>
 </div>
 <div class="resume-container">
-    <form data-toggle="validator" role="form">
+    <form id="form" data-toggle="validator" role="form">
         <div class="form-group form-group-sm">
             <!--First Name-->
             <div class="form-group col-sm-4">
@@ -332,7 +332,7 @@
             <div class="form-group col-sm-2">
                 <label for="dateOfBirth" class="control-label">Birthdate</label>
                 <div class='input-group date' id='dateOfBirth'>
-                    <input type='text' class="form-control" id='dateOfBirthValue' ng-model="resume.DateOfBirth" placeholder="January 05, 1992" />
+                    <input type='text' class="form-control" id='dateOfBirthValue' ng-model="resume.DateOfBirth" placeholder="January 05, 1992" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -373,11 +373,11 @@
                 <label class="control-label">Gender</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="resume.Gender" value="Male" required>
+                        <input type="radio" ng-model="resume.Gender" value="Male">
                         Male
                     </label>
                     <label>
-                        <input type="radio" name="resume.Gender" value="Female" required>
+                        <input type="radio" ng-model="resume.Gender" value="Female">
                         Female
                     </label>
                 </div>
@@ -401,7 +401,7 @@
             <!--Contact Number-->
             <div class="form-group col-sm-4">
                 <label for="contactNo" class="control-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNo" placeholder="09434364318" ng-model="resume.ContactNumber" required>
+                <input type="text" class="form-control" id="contactNo" placeholder="09434364318" ng-model="resume.ContactNo" required>
             </div>
             <!--Email Address-->
             <div class="form-group col-sm-4">
@@ -430,7 +430,7 @@
                 <textarea id="hobbies"
                           rows="3" style="height:auto; resize:none;"
                           class="form-control"
-                          placeholder="Jogging, Lifting, Playing Basketball, Watching Hollywood Series, Programming."
+                          placeholder="Jogging, lifting, playing basketball, watching hollywood series and movies and programming."
                           required
                           maxlength="500"
                           ng-model="resume.Hobbies"></textarea>
@@ -491,6 +491,75 @@
                 <label class="control-label">Character Reference</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Character Reference'; add(1)">Add</div>
             </div>
+
+            <!--Template-->
+            <div class="form-group col-sm-2">
+                <label class="control-label">Select Template</label>
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="showTemplates()">Show</div>
+            </div>
+            <!--User Image-->
+            <div class="form-group col-sm-4">
+                <label class="control-label"><span><strong>Select Picture :</strong></span></label>
+                <input id="userImage" name="userImage" type="file" />
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="form-group col-sm-12">
+            </div>
+            <div class="form-group col-sm-2">
+                <button class="form-control btn btn-success">Generate Resume</button>
+            </div>
         </div>
     </form>
 </div>
+
+<!-- Document Preview-->
+<div id="c-modal-container" class="modal-container hide-modal-container">
+    <div id="previousButton" class="previous-button" ng-show="showButtons && currentPage > 1" ng-click="getContent(currentPage = currentPage - 1)"></div>
+    <div id="nextButton" class="next-button" ng-show="showButtons && currentPage < contentHtml.length - 1" ng-click="getContent(currentPage = currentPage + 1)"></div>
+    <div id="buttonContainer" class="button-container" ng-show="showButtonContainer">
+        <div class="back-button" ng-click="closeResume()">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="by-page-button" ng-click="showByPage()">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="download-button">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text" ng-click="emailResume()">{{ toolTipText[0] }}</div>
+                <div class="c-tooltip-text" ng-click="printResume()">{{ toolTipText[1] }}</div>
+            </div>
+        </div>
+    </div>
+    <div id="c-modal-content" class="content-container hide-content-container">
+        <div id="c-loader" class="loader-container hide-loading">
+            <center><img src="~/assets/images/loader.gif" /></center>
+        </div>
+        <div id="c-preview" class="content-preview hide-preview">
+            <div class="c-page-indicator" ng-show="showPageIndicator && !isByPage && !isByTemplate">
+                <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + resumePages.length}}</div>
+            </div>
+            <!--Contains the resume content-->
+            <div id="c-content" ng-show="!isByPage && !isByTemplate"></div>
+            <!--Contains the resume per page-->
+            <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage">
+                <div id="c-resume-container" class="user-resume-content-container">
+                    <div id="{{pages.Id}}" class="scale" ng-click="showDocument(pages.Id)"></div>
+                </div>
+            </div>
+            <!--Contains the templates per page-->
+            <div class="user-resume-container" ng-repeat="templates in templateList" ng-show="isByTemplate">
+                <div id="c-resume-container" class="user-resume-content-container">
+                    <div id="{{templates.Id}}" class="scale" ng-click="showTemplatePage(templates.Id)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Document Preview-->

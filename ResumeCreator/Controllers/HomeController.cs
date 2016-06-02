@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,11 +34,12 @@ namespace ResumeCreator.Controllers
         
         public FileStreamResult DownloadMSResume(int template, string fname)
         {
+
             var fileName = string.Format("{0}.doc", fname);
             string html = "", newLine = "";
             string[] lines;
 
-            lines = System.IO.File.ReadAllLines(Server.MapPath("/templates/" + template.ToString() + ".txt"));     
+            lines = System.IO.File.ReadAllLines(Server.MapPath("/templates/" + template.ToString() + ".txt"));
 
             foreach (string line in lines)
             {
@@ -84,7 +87,6 @@ namespace ResumeCreator.Controllers
                 }
                 else
                     html = html + line;
-
             }
             Response.AddHeader("Content-Disposition", "inline;filename=" + fileName);
             return new FileStreamResult(WordStream(html), "application/msword");
@@ -100,5 +102,28 @@ namespace ResumeCreator.Controllers
 
             return ms;
         }
+        
+            
+        //public void saveWordDocument(string html)
+        //{
+        //    string fileName = @"C:\users\public\documents\DocumentEx.docx";
+
+        //    // Create a document. 
+        //    using (WordprocessingDocument myDocument =
+        //        WordprocessingDocument.Create(fileName, WordprocessingDocumentType.Document))
+        //    {
+        //        // Add a main part. 
+        //        MainDocumentPart mainPart = myDocument.AddMainDocumentPart();
+
+        //        // Create the document structure.
+        //        mainPart.Document = new Document();
+        //        Body body = mainPart.Document.AppendChild(new Body());
+        //        Paragraph para = body.AppendChild(new Paragraph());
+        //        Run run = para.AppendChild(new Run());
+
+        //        // Add some text to the document.
+        //        run.AppendChild(new Text("Hello, World!"));
+        //    }
+        //}
     }
 }

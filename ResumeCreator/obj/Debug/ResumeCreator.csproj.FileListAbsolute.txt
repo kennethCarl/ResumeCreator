@@ -47,6 +47,9 @@ D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\Newtonsoft.Json.xml
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\System.Net.Http.Formatting.xml
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\System.Web.Http.xml
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\System.Web.Http.WebHost.xml
-D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Debug\ResumeCreator.csprojResolveAssemblyReference.cache
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Debug\ResumeCreator.dll
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Debug\ResumeCreator.pdb
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.dll
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.SqlServer.dll
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.xml
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.SqlServer.xml

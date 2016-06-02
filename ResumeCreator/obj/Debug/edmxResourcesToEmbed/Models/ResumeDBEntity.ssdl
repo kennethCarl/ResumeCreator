@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResumeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CharacterReference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Profession" Type="varchar(max)" />
+    <Property Name="ContactNo" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="PostGraduate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="School" Type="varchar(max)" Nullable="false" />
+    <Property Name="Degree" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Primary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="School" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Secondary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="School" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Strengths">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tertiary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="School" Type="varchar(max)" Nullable="false" />
+    <Property Name="Degree" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Training">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+    <Property Name="Period" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ImageName" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="ContactNo" Type="varchar(max)" />
+    <Property Name="EmailAddress" Type="varchar(max)" />
+    <Property Name="Objectives" Type="varchar(max)" />
+    <Property Name="Age" Type="int" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="Gender" Type="varchar(max)" />
+    <Property Name="CivilStatus" Type="varchar(max)" />
+    <Property Name="Height" Type="varchar(max)" />
+    <Property Name="Weight" Type="varchar(max)" />
+    <Property Name="Citizenship" Type="varchar(max)" />
+    <Property Name="Hobbies" Type="varchar(max)" />
+    <Property Name="Template" Type="int" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="WorkExperience">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Company" Type="varchar(max)" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Period" Type="varchar(max)" Nullable="false" />
+    <Property Name="Position" Type="varchar(max)" Nullable="false" />
+    <Property Name="MainRole" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CharacterReference_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CharacterReference" Type="Self.CharacterReference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CharacterReference">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostGraduate_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="PostGraduate" Type="Self.PostGraduate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostGraduate">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Primary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Primary" Type="Self.Primary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Primary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Secondary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Secondary" Type="Self.Secondary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Secondary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Skills_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Strengths_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Strengths" Type="Self.Strengths" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Strengths">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tertiary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Tertiary" Type="Self.Tertiary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tertiary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Training_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkExperience_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkExperience">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResumeModelStoreContainer">
+    <EntitySet Name="CharacterReference" EntityType="Self.CharacterReference" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostGraduate" EntityType="Self.PostGraduate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Primary" EntityType="Self.Primary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Secondary" EntityType="Self.Secondary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Strengths" EntityType="Self.Strengths" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tertiary" EntityType="Self.Tertiary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkExperience" EntityType="Self.WorkExperience" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CharacterReference_User" Association="Self.FK_CharacterReference_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CharacterReference" EntitySet="CharacterReference" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostGraduate_User" Association="Self.FK_PostGraduate_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PostGraduate" EntitySet="PostGraduate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Primary_User" Association="Self.FK_Primary_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Primary" EntitySet="Primary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Secondary_User" Association="Self.FK_Secondary_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Secondary" EntitySet="Secondary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Skills_User" Association="Self.FK_Skills_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Skills" EntitySet="Skills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Strengths_User" Association="Self.FK_Strengths_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Strengths" EntitySet="Strengths" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tertiary_User" Association="Self.FK_Tertiary_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Tertiary" EntitySet="Tertiary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Training_User" Association="Self.FK_Training_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Training" EntitySet="Training" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkExperience_User" Association="Self.FK_WorkExperience_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="WorkExperience" EntitySet="WorkExperience" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

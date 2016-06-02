@@ -38,8 +38,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -203,11 +214,60 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIControllers\FileUploadController.cs" />
+    <Compile Include="APIControllers\UsersController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CharacterReference.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyStreamProvider.cs" />
+    <Compile Include="Models\PostGraduate.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Primary.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\ResumeDBEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResumeDBEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResumeDBEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResumeDBEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResumeDBEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Secondary.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Skill.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Strength.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tertiary.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Training.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkExperience.cs">
+      <DependentUpon>ResumeDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,6 +298,23 @@
     <Content Include="plugins\bootstrap\fonts\UyBMtLsHKBKXelqf4x7VRQ.woff2" />
     <Content Include="plugins\bootstrap\fonts\XNVd6tsqi9wmKNvnh5HNEBJtnKITppOI_IvcXXDNrsc.woff2" />
     <Content Include="plugins\bootstrap\fonts\YMOYVM-eg6Qs9YzV9OSqZfesZW2xOQ-xsNqO47m55DA.woff2" />
+    <EntityDeploy Include="Models\ResumeDBEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ResumeDBEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ResumeDBEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResumeDBEntity.edmx</DependentUpon>
+      <LastGenOutput>ResumeDBEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ResumeDBEntity.edmx.diagram">
+      <DependentUpon>ResumeDBEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ResumeDBEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResumeDBEntity.edmx</DependentUpon>
+      <LastGenOutput>ResumeDBEntity.cs</LastGenOutput>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,7 +324,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
