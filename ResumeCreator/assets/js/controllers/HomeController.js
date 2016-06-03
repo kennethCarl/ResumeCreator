@@ -3139,6 +3139,7 @@
                     document.getElementById("c-preview").style.fontSize = fontSize + "px";
                     //Set Image Width and Height of Resume List Dynamically
                     if (document.querySelectorAll(".image-preview").length > 0) {
+                        console.log(Math.ceil(i) * 5);
                         document.querySelectorAll(".image-preview")[0].style.width = Math.ceil(i) * 5 + "px";
                         document.querySelectorAll(".image-preview")[0].style.height = Math.ceil(i) * 5 + "px";
                     }

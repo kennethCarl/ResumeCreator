@@ -1,6 +1,6 @@
 Good in written and oral communication
-Web Developer, Hybrid Development for mobile, Desktop Application Developer
-Good in PowerBuilder, Visual Basic 6, C#, ASP.Net using Entity Framework with Lambda and LinQ, PHP CodeIgniter, HTML, Basic Java, AngularJS, Javascript, CSS, Bootstrap, Materializecss, Ionic, MySql, NoSql, MSSQL
+Capable of developing Web Application, Mobile application through hybrid development and Desktop Application.
+Good in PowerBuilder, Visual Basic 6, C#, ASP.Net using Entity Framework with Lambda and LinQ, Web API, PHP CodeIgniter, HTML, Basic Java, AngularJS, Javascript, CSS, Bootstrap, Materializecss, Ionic, MySql, NoSql, MSSQL
 Basic Networking
 Basic Computer Troubleshooting
 Capable of using Github in Source Tree and npm CLI

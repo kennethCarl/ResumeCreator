@@ -53,3 +53,4 @@ D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.dll
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.SqlServer.dll
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.xml
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\EntityFramework.SqlServer.xml
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Debug\ResumeCreator.csprojResolveAssemblyReference.cache

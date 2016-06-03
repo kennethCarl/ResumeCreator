@@ -63,9 +63,18 @@
     min-width: 100%;
     text-align: justify;
 }
+.line-center{
+    min-width: 100%;
+    text-align: center;
+}
 .image-preview{
     width: 100px;
     height: 100px;
+}
+
+.image-preview-template{
+    width: 50px;
+    height: 50px;
 }
 
 @media only screen
@@ -114,10 +123,11 @@ and (max-width : 1440px){
         display:inline-block;
     }
 
-    .right-label-preview{
-        width: 85%;  
-        display:inline-block;
+    .right-label-preview {
+        width: 84%;
+        display: inline-block;
     }
+
 
     .left-label-preview-medium{
         width: 18%; 

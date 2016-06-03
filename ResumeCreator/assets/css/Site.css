@@ -160,11 +160,11 @@ input[name="filter"]{
 and (min-width : 1023px)
 and (max-width : 1440px){
     .scale{
-       -moz-transform: scale(.48);
-       -webkit-transform: scale(.48);
-       -ms-transform: scale(.48);
-       -o-transform: scale(.48);
-        transform: scale(.48);
+       -moz-transform: scale(.46);
+       -webkit-transform: scale(.46);
+       -ms-transform: scale(.46);
+       -o-transform: scale(.46);
+        transform: scale(.46);
         -moz-transform-origin:  0 0;
        -webkit-transform-origin: 0 0;
        -ms-transform-origin:  0 0;
@@ -312,6 +312,10 @@ and (max-width : 1440px){
         text-overflow: ellipsis;
         white-space: nowrap;
         position:relative;
+    }
+
+    .selected-template{
+        box-shadow: 0 2px 2px 0 #3399FF , 0 1px 4px 0 #3399FF , 0 3px 1px -2px #3399FF ;
     }
 
     .user-resume-label{

@@ -48,13 +48,13 @@
                         </div>
                     </div>
                     <!--Post Graduate-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="postGrad in resume.PostGraduate" ng-show="modalTitle == 'Post Graduate'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="postGrad in resume.PostGraduates" ng-show="modalTitle == 'Post Graduate'">
                         <!--School-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Cebu Institute of Technology – University' }}"
                                           class="form-control"
-                                          ng-model="resume.PostGraduate[$index].School"
+                                          ng-model="resume.PostGraduates[$index].School"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -67,7 +67,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Masters In Information Technology(June 2015-March 2016)' }}"
                                           class="form-control"
-                                          ng-model="resume.PostGraduate[$index].Degree"
+                                          ng-model="resume.PostGraduates[$index].Degree"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -77,20 +77,20 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Natalio B. Bacalso Avenue, Cebu City, Cebu, 6000, Philippines' }}"
                                           class="form-control"
-                                          ng-model="resume.PostGraduate[$index].Address"
+                                          ng-model="resume.PostGraduates[$index].Address"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
                         </div>
                     </div>
                     <!--Tertiary-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="tertiary in resume.Tertiary" ng-show="modalTitle == 'Tertiary'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="tertiary in resume.Tertiaries" ng-show="modalTitle == 'Tertiary'">
                         <!--School-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'University of Cebu - Banilad' }}"
                                           class="form-control"
-                                          ng-model="resume.Tertiary[$index].School"
+                                          ng-model="resume.Tertiaries[$index].School"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -103,7 +103,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Bachelor of Science in Information Technology (2008-2013)' }}"
                                           class="form-control"
-                                          ng-model="resume.Tertiary[$index].Degree"
+                                          ng-model="resume.Tertiaries[$index].Degree"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -113,20 +113,20 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Archbishop Reyes Avenue, Banilad City, Cebu, 6000, Philippines' }}"
                                           class="form-control"
-                                          ng-model="resume.Tertiary[$index].Address"
+                                          ng-model="resume.Tertiaries[$index].Address"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
                         </div>
                     </div>
                     <!--Secondary-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="secondary in resume.Secondary" ng-show="modalTitle == 'Secondary'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="secondary in resume.Secondaries" ng-show="modalTitle == 'Secondary'">
                         <!--School-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Saint Dominic Learning Center (2004-2008)' }}"
                                           class="form-control"
-                                          ng-model="resume.Secondary[$index].School"
+                                          ng-model="resume.Secondaries[$index].School"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -139,20 +139,20 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Sangi Road Lapu-Lapu City, Cebu, 6000, Philippines' }}"
                                           class="form-control"
-                                          ng-model="resume.Secondary[$index].Address"
+                                          ng-model="resume.Secondaries[$index].Address"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
                         </div>
                     </div>
                     <!--Primary-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="primary in resume.Primary" ng-show="modalTitle == 'Primary'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="primary in resume.Primaries" ng-show="modalTitle == 'Primary'">
                         <!--School-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Bankal Elementary School (1998-2004)' }}"
                                           class="form-control"
-                                          ng-model="resume.Primary[$index].School"
+                                          ng-model="resume.Primaries[$index].School"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -165,20 +165,20 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Bankal Lapu-Lapu City, Cebu, 6000, Philippines' }}"
                                           class="form-control"
-                                          ng-model="resume.Primary[$index].Address"
+                                          ng-model="resume.Primaries[$index].Address"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
                         </div>
                     </div>
                     <!--Work Experience-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="workExp in resume.WorkExperience" ng-show="modalTitle == 'Work Experience'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="workExp in resume.WorkExperiences" ng-show="modalTitle == 'Work Experience'">
                         <!--Company-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Fastcargo Logistics Corporation' }}"
                                           class="form-control"
-                                          ng-model="resume.WorkExperience[$index].Company"
+                                          ng-model="resume.WorkExperiences[$index].Company"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -191,7 +191,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ '3rd Floor., Mitsubishi Building., National Highway, Mandaue City, Cebu, 6000, Philippines' }}"
                                           class="form-control"
-                                          ng-model="resume.WorkExperience[$index].Address"
+                                          ng-model="resume.WorkExperiences[$index].Address"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -201,7 +201,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'May 2014 - Present' }}"
                                           class="form-control"
-                                          ng-model="resume.WorkExperience[$index].Period"
+                                          ng-model="resume.WorkExperiences[$index].Period"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -211,7 +211,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'IT Programmer/Analyst' }}"
                                           class="form-control"
-                                          ng-model="resume.WorkExperience[$index].Position"
+                                          ng-model="resume.WorkExperiences[$index].Position"
                                           style=" resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -221,7 +221,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'Creates software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches.' }}"
                                           class="form-control"
-                                          ng-model="resume.WorkExperience[$index].MainRole"
+                                          ng-model="resume.WorkExperiences[$index].MainRole"
                                           style="resize:none;"
                                           rows="4"></textarea>
                             </div>
@@ -264,13 +264,13 @@
                         </div>
                     </div>
                     <!--Character Reference-->
-                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="charRef in resume.CharacterReference" ng-show="modalTitle == 'Character Reference'">
+                    <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="charRef in resume.CharacterReferences" ng-show="modalTitle == 'Character Reference'">
                         <!--Name-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'John Crismund Elumbaring' }}"
                                           class="form-control"
-                                          ng-model="resume.CharacterReference[$index].Name"
+                                          ng-model="resume.CharacterReferences[$index].Name"
                                           style=" resize:none;"
                                           rows="1"></textarea>
                             </div>
@@ -283,7 +283,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ 'IT Professional' }}"
                                           class="form-control"
-                                          ng-model="resume.CharacterReference[$index].Profession"
+                                          ng-model="resume.CharacterReferences[$index].Profession"
                                           style=" resize:none;"
                                           rows="1"></textarea>
                             </div>
@@ -293,7 +293,7 @@
                             <div class="form-group col-sm-11">
                                 <textarea placeholder="{{ '09254858989' }}"
                                           class="form-control"
-                                          ng-model="resume.CharacterReference[$index].ContactNo"
+                                          ng-model="resume.CharacterReferences[$index].ContactNo"
                                           style="resize:none;"
                                           rows="1"></textarea>
                             </div>
@@ -391,7 +391,7 @@
                 <textarea id="address"
                           rows="3" style="height:auto; resize:none;"
                           class="form-control"
-                          placeholder="137 Bliss Pajac Lapu-Lapu City, 6000 Cebu, Philippines"
+                          placeholder="137 Bliss Pajac Lapu-Lapu City, Cebu, 6000, Philippines"
                           required
                           maxlength="200"
                           ng-model="resume.Address"></textarea>
@@ -430,7 +430,7 @@
                 <textarea id="hobbies"
                           rows="3" style="height:auto; resize:none;"
                           class="form-control"
-                          placeholder="Jogging, lifting, playing basketball, watching hollywood series and movies and programming."
+                          placeholder="Jogging, lifting, playing basketball, watching hollywood series/movies and programming."
                           required
                           maxlength="500"
                           ng-model="resume.Hobbies"></textarea>
@@ -516,7 +516,7 @@
 <!-- Document Preview-->
 <div id="c-modal-container" class="modal-container hide-modal-container">
     <div id="previousButton" class="previous-button" ng-show="showButtons && currentPage > 1" ng-click="getContent(currentPage = currentPage - 1)"></div>
-    <div id="nextButton" class="next-button" ng-show="showButtons && currentPage < contentHtml.length - 1" ng-click="getContent(currentPage = currentPage + 1)"></div>
+    <div id="nextButton" class="next-button" ng-show="showButtons && currentPage < (isByTemplatePage == false ? contentHtml.length - 1 : contentHtml.length)" ng-click="getContent(currentPage = currentPage + 1)"></div>
     <div id="buttonContainer" class="button-container" ng-show="showButtonContainer">
         <div class="back-button" ng-click="closeResume()">
             <div class="c-tooltip">
@@ -542,24 +542,31 @@
             <center><img src="~/assets/images/loader.gif" /></center>
         </div>
         <div id="c-preview" class="content-preview hide-preview">
-            <div class="c-page-indicator" ng-show="showPageIndicator && !isByPage && !isByTemplate">
-                <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + resumePages.length}}</div>
+            <div class="c-page-indicator" ng-show="showPageIndicator && !isByPage && !templateShown">
+                <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + (resumeShown == true ? resumePages.length : contentHtml.length)}}</div>
             </div>
             <!--Contains the resume content-->
-            <div id="c-content" ng-show="!isByPage && !isByTemplate"></div>
+            <div id="c-content" ng-show="!isByPage && !templateShown"></div>
             <!--Contains the resume per page-->
-            <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage">
+            <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage" ng-click="showDocument(pages.Id)">
                 <div id="c-resume-container" class="user-resume-content-container">
-                    <div id="{{pages.Id}}" class="scale" ng-click="showDocument(pages.Id)"></div>
+                    <div id="{{pages.Id}}" class="scale"></div>
                 </div>
             </div>
             <!--Contains the templates per page-->
-            <div class="user-resume-container" ng-repeat="templates in templateList" ng-show="isByTemplate">
+            <div class="user-resume-container" ng-repeat="templateList in templateContainer" ng-show="templateShown && !isByTemplatePage">
                 <div id="c-resume-container" class="user-resume-content-container">
-                    <div id="{{templates.Id}}" class="scale" ng-click="showTemplatePage(templates.Id)"></div>
+                    <div id="{{templateList.ElementId}}" class="scale" ng-click="showByTemplatePage(templateList, 1, $index)"></div>
+                </div>
+                <div class="user-resume-label">
+                    {{ templateList.TemplateName }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- End of Document Preview-->
+<!-- Print By Resume -->
+<printbydiv id="idForPrint" show="isPrint"></printbydiv>
+<div id="PrintDocument" ng-hide="true" style="line-height: 20px;"></div>
+<!-- End of Print By Resume -->
