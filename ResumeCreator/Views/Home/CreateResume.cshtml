@@ -75,7 +75,7 @@
                         <!--Address-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
-                                <textarea placeholder="{{ 'Natalio B. Bacalso Avenue, Cebu City, Cebu, 6000, Philippines' }}"
+                                <textarea placeholder="{{ 'Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.PostGraduates[$index].Address"
                                           style="resize:none;"
@@ -111,7 +111,7 @@
                         <!--Address-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
-                                <textarea placeholder="{{ 'Archbishop Reyes Avenue, Banilad City, Cebu, 6000, Philippines' }}"
+                                <textarea placeholder="{{ 'Archbishop Reyes Avenue, Banilad City, 6000 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.Tertiaries[$index].Address"
                                           style="resize:none;"
@@ -137,7 +137,7 @@
                         <!--Address-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
-                                <textarea placeholder="{{ 'Sangi Road Lapu-Lapu City, Cebu, 6000, Philippines' }}"
+                                <textarea placeholder="{{ 'Sangi Road Lapu-Lapu City, 6015 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.Secondaries[$index].Address"
                                           style="resize:none;"
@@ -163,7 +163,7 @@
                         <!--Address-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
-                                <textarea placeholder="{{ 'Bankal Lapu-Lapu City, Cebu, 6000, Philippines' }}"
+                                <textarea placeholder="{{ 'Bankal Lapu-Lapu City, 6015 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.Primaries[$index].Address"
                                           style="resize:none;"
@@ -189,7 +189,7 @@
                         <!--Address-->
                         <div class="form-group form-group-sm">
                             <div class="form-group col-sm-11">
-                                <textarea placeholder="{{ '3rd Floor., Mitsubishi Building., National Highway, Mandaue City, Cebu, 6000, Philippines' }}"
+                                <textarea placeholder="{{ '3rd Floor., Mitsubishi Building., National Highway, Mandaue City, 6014 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.WorkExperiences[$index].Address"
                                           style=" resize:none;"
@@ -391,7 +391,7 @@
                 <textarea id="address"
                           rows="3" style="height:auto; resize:none;"
                           class="form-control"
-                          placeholder="137 Bliss Pajac Lapu-Lapu City, Cebu, 6000, Philippines"
+                          placeholder="137 Bliss Pajac Lapu-Lapu City, 6015 Cebu Philippines"
                           required
                           maxlength="200"
                           ng-model="resume.Address"></textarea>
@@ -546,7 +546,7 @@
                 <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + (resumeShown == true ? resumePages.length : contentHtml.length)}}</div>
             </div>
             <!--Contains the resume content-->
-            <div id="c-content" ng-show="!isByPage && !templateShown"></div>
+            <div id="c-content" ng-show="!isByPage && !templateShown" style="font-family:cursive;"></div>
             <!--Contains the resume per page-->
             <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage" ng-click="showDocument(pages.Id)">
                 <div id="c-resume-container" class="user-resume-content-container">
@@ -555,7 +555,7 @@
             </div>
             <!--Contains the templates per page-->
             <div class="user-resume-container" ng-repeat="templateList in templateContainer" ng-show="templateShown && !isByTemplatePage">
-                <div id="c-resume-container" class="user-resume-content-container">
+                <div id="c-resume-container" class="resume-template-content-container">
                     <div id="{{templateList.ElementId}}" class="scale" ng-click="showByTemplatePage(templateList, 1, $index)"></div>
                 </div>
                 <div class="user-resume-label">
@@ -568,5 +568,5 @@
 <!-- End of Document Preview-->
 <!-- Print By Resume -->
 <printbydiv id="idForPrint" show="isPrint"></printbydiv>
-<div id="PrintDocument" ng-hide="true" style="line-height: 20px;"></div>
+<div id="PrintDocument" ng-hide="true" style="line-height: 20px; font-family:cursive;"></div>
 <!-- End of Print By Resume -->

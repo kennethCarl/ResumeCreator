@@ -32,16 +32,19 @@ namespace ResumeCreator.ApiControllers
 
                     //Save File asychronously
                     await Request.Content.ReadAsMultipartAsync(streamProvider);
-                    //Loop file details
-                    foreach (var file in streamProvider.FileData)
+                    if (!username.Equals("temporary"))
                     {
-                        FileInfo fi = new FileInfo(file.LocalFileName);
-                        filePath = uploadPath + "\\" + fi.Name;
-                        string informationPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\Information.txt";
-
-                        using (System.IO.StreamWriter fileData = new System.IO.StreamWriter(informationPath, true))
+                        //Loop file details
+                        foreach (var file in streamProvider.FileData)
                         {
-                            fileData.WriteLine(@"ResumeList" + "/" + username + "/" + fi.Name);
+                            FileInfo fi = new FileInfo(file.LocalFileName);
+                            filePath = uploadPath + "\\" + fi.Name;
+                            string informationPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\Information.txt";
+
+                            using (System.IO.StreamWriter fileData = new System.IO.StreamWriter(informationPath, true))
+                            {
+                                fileData.WriteLine(@"ResumeList" + "/" + username + "/" + fi.Name);
+                            }
                         }
                     }
                 }
