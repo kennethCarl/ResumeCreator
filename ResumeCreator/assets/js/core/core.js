@@ -8,7 +8,7 @@ arjocamahamageApp.controller("DocumentPreviewController", function ($rootScope, 
 })
 arjocamahamageApp.run(function ($state, $rootScope) {
     $state.go('home');
-
+    $rootScope.baseUrl = "http://localhost:4283/";
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         console.log('Started');
     })

@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ResumeCreator.Models;
 using System.IO;
+using System.Text;
 
 namespace ResumeCreator.APIControllers
 {
@@ -27,6 +28,16 @@ namespace ResumeCreator.APIControllers
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(string username)
         {
+
+            //using (var doc = new WordApplication(AppDomain.CurrentDomain.BaseDirectory + "@ResumeList\test.docx"))
+            //{
+            //    doc.WriteHeader("<h1>Header text</h1>");
+            //    doc.WriteFooter("<h1>Footer text</h1>");
+            //    doc.WriteBody("<div style='font-size: 100px;'></div>");
+            //    doc.Save();
+            //    doc.Dispose();
+            //}
+
             response.status = "FAILURE";
             string informationPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\" + "Information.txt";
             string skillPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\" + "Skill.txt";
@@ -259,7 +270,7 @@ namespace ResumeCreator.APIControllers
 
         // POST: api/Users
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        public IHttpActionResult PostUser(User user, int type)
         {
             response.status = "FAILURE";
             try {
@@ -269,132 +280,162 @@ namespace ResumeCreator.APIControllers
                 }
                 else
                 {
-                    string path = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + user.FirstName.ToLower().Replace(" ", "") + user.MiddleName.ToLower().Replace(" ", "") + user.LastName.ToLower().Replace(" ", "");
-                    //Check if file exist
-                    if (System.IO.Directory.Exists(path))
+                    if (type != 1)
                     {
-                        //Remove File
-                        //Directory.Delete(path, true);
-                        response.message = "User already exist";
+                        string path = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + user.FirstName.ToLower().Replace(" ", "") + user.MiddleName.ToLower().Replace(" ", "") + user.LastName.ToLower().Replace(" ", "");
+                        //Check if file exist
+                        if (System.IO.Directory.Exists(path))
+                        {
+                            //Remove File
+                            //Directory.Delete(path, true);
+                            response.message = "User already exist";
+                        }
+                        else
+                        {
+                            List<string> information = new List<string>();
+                            List<string> skills = new List<string>();
+                            List<string> strengths = new List<string>();
+                            List<string> postGraduate = new List<string>();
+                            List<string> tertiary = new List<string>();
+                            List<string> secondary = new List<string>();
+                            List<string> primary = new List<string>();
+                            List<string> workExperience = new List<string>();
+                            List<string> training = new List<string>();
+                            List<string> characterReference = new List<string>();
+
+                            information.Add(user.FirstName);
+                            information.Add(user.MiddleName);
+                            information.Add(user.LastName);
+                            information.Add(user.Address);
+                            information.Add(user.ContactNo);
+                            information.Add(user.EmailAddress);
+                            information.Add(user.Objectives);
+                            information.Add(user.Age.ToString());
+                            information.Add(user.DateOfBirth.ToString());
+                            information.Add(user.Gender);
+                            information.Add(user.CivilStatus);
+                            information.Add(user.Height);
+                            information.Add(user.Weight);
+                            information.Add(user.Citizenship);
+                            information.Add(user.Hobbies);
+                            information.Add(user.Template.ToString());
+
+                            foreach (Skill skillsHolder in user.Skills)
+                                skills.Add(skillsHolder.Description);
+
+                            foreach (Strength strengthHolder in user.Strengths)
+                                strengths.Add(strengthHolder.Description);
+
+                            foreach (PostGraduate pg in user.PostGraduates)
+                            {
+                                postGraduate.Add(pg.School);
+                                postGraduate.Add(pg.Degree);
+                                postGraduate.Add(pg.Address);
+                            }
+
+                            foreach (Tertiary t in user.Tertiaries)
+                            {
+                                tertiary.Add(t.School);
+                                tertiary.Add(t.Degree);
+                                tertiary.Add(t.Address);
+                            }
+
+                            foreach (Secondary s in user.Secondaries)
+                            {
+                                secondary.Add(s.School);
+                                secondary.Add(s.Address);
+                            }
+
+                            foreach (Primary p in user.Primaries)
+                            {
+                                primary.Add(p.School);
+                                primary.Add(p.Address);
+                            }
+
+                            foreach (WorkExperience we in user.WorkExperiences)
+                            {
+                                workExperience.Add(we.Company);
+                                workExperience.Add(we.Address);
+                                workExperience.Add(we.Period);
+                                workExperience.Add(we.Position);
+                                workExperience.Add(we.MainRole);
+                            }
+
+                            foreach (Training ts in user.Trainings)
+                            {
+                                training.Add(ts.Name);
+                                training.Add(ts.Description);
+                                training.Add(ts.Period);
+                            }
+
+                            foreach (CharacterReference cr in user.CharacterReferences)
+                            {
+                                characterReference.Add(cr.Name);
+                                characterReference.Add(cr.Profession);
+                                characterReference.Add(cr.ContactNo);
+                            }
+
+                            //Create Folder in application path
+                            string dir = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + user.FirstName.ToLower().Replace(" ", "") + user.MiddleName.ToLower().Replace(" ", "") + user.LastName.ToLower().Replace(" ", "");
+                            System.IO.Directory.CreateDirectory(dir);
+
+                            //Save Information
+                            System.IO.File.WriteAllLines(dir + "\\" + "Information.txt", information);
+                            //Save Skill
+                            if (user.Skills.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Skill.txt", skills);
+                            //Save Strengths
+                            if (user.Strengths.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Strengths.txt", strengths);
+                            //Save Post Graduate
+                            if (user.PostGraduates.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "PostGraduate.txt", postGraduate);
+                            //Save Tertiary
+                            if (user.Tertiaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Tertiary.txt", tertiary);
+                            //Save Secondary
+                            if (user.Secondaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Secondary.txt", secondary);
+                            //Save Primary
+                            if (user.Primaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Primary.txt", primary);
+                            //Save WorkExperience
+                            if (user.WorkExperiences.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "WorkExperience.txt", workExperience);
+                            //Save Training
+                            if (user.Trainings.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Training.txt", training);
+                            //Save CharacterReference
+                            if (user.CharacterReferences.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "CharacterReference.txt", characterReference);
+
+                            //if(File.Exists(dir + "\\" + "Information.txt") && File.Exists(dir + "\\" + "Skill.txt")
+                            //    && File.Exists(dir + "\\" + "Strengths.txt") && File.Exists(dir + "\\" + "PostGraduate.txt")
+                            //    && File.Exists(dir + "\\" + "Tertiary.txt") && File.Exists(dir + "\\" + "Secondary.txt")
+                            //    && File.Exists(dir + "\\" + "Primary.txt") && File.Exists(dir + "\\" + "WorkExperience.txt")
+                            //    && File.Exists(dir + "\\" + "Training.txt") && File.Exists(dir + "\\" + "CharacterReference.txt"))
+                            //    response.status = "SUCCESS";
+                            //else
+                            //    response.message = "Error has occured during saving, please save again.";
+                            response.status = "SUCCESS";
+                        }
                     }
                     else
                     {
-                        List <string> information = new List<string>();
-                        List<string> skills = new List<string>();
-                        List<string> strengths = new List<string>();
-                        List<string> postGraduate = new List<string>();
-                        List<string> tertiary = new List<string>();
-                        List<string> secondary = new List<string>();
-                        List<string> primary = new List<string>();
-                        List<string> workExperience = new List<string>();
-                        List<string> training = new List<string>();
-                        List<string> characterReference = new List<string>();
+                        string container;
 
-                        information.Add(user.FirstName);
-                        information.Add(user.MiddleName);
-                        information.Add(user.LastName);
-                        information.Add(user.Address);
-                        information.Add(user.ContactNo);
-                        information.Add(user.EmailAddress);
-                        information.Add(user.Objectives);
-                        information.Add(user.Age.ToString());
-                        information.Add(user.DateOfBirth.ToString());
-                        information.Add(user.Gender);
-                        information.Add(user.CivilStatus);
-                        information.Add(user.Height);
-                        information.Add(user.Weight);
-                        information.Add(user.Citizenship);
-                        information.Add(user.Hobbies);
-                        information.Add(user.Template.ToString());
+                        container = "<!DOCTYPE html><html " +
+                                   "xmlns:o='urn:schemas-microsoft-com:office:office' " +
+                                   "xmlns:w='urn:schemas-microsoft-com:office:word'" +
+                                   "xmlns='http://www.w3.org/TR/REC-html40'>" +
+                                   "<head><title>Time</title>";
 
-                        foreach (Skill skillsHolder in user.Skills)
-                            skills.Add(skillsHolder.Description);
+                        //'The setting specifies document's view after it is downloaded as Print
+                        //'instead of the default Web Layout
+                        container = container + "<!--[if gte mso 9]>" +
+                                                 "<xml>" +
+                                                 "<w:WordDocument>" +
+                                                 "<w:View>Print</w:View>" +
+                                                 "<w:Zoom>90</w:Zoom>" +
+                                                 "<w:DoNotOptimizeForBrowser/>" +
+                                                 "</w:WordDocument>" +
+                                                 "</xml>" +
+                                                 "<![endif]--></head><body lang=EN-US>Content</body></html>";
 
-                        foreach (Strength strengthHolder in user.Strengths)
-                            strengths.Add(strengthHolder.Description);
-
-                        foreach (PostGraduate pg in user.PostGraduates)
-                        {
-                            postGraduate.Add(pg.School);
-                            postGraduate.Add(pg.Degree);
-                            postGraduate.Add(pg.Address);
-                        }
-
-                        foreach (Tertiary t in user.Tertiaries)
-                        {
-                            tertiary.Add(t.School);
-                            tertiary.Add(t.Degree);
-                            tertiary.Add(t.Address);
-                        }
-
-                        foreach (Secondary s in user.Secondaries)
-                        {
-                            secondary.Add(s.School);
-                            secondary.Add(s.Address);
-                        }
-
-                        foreach (Primary p in user.Primaries)
-                        {
-                            primary.Add(p.School);
-                            primary.Add(p.Address);
-                        }
-
-                        foreach (WorkExperience we in user.WorkExperiences)
-                        {
-                            workExperience.Add(we.Company);
-                            workExperience.Add(we.Address);
-                            workExperience.Add(we.Period);
-                            workExperience.Add(we.Position);
-                            workExperience.Add(we.MainRole);
-                        }
-
-                        foreach (Training ts in user.Trainings)
-                        {
-                            training.Add(ts.Name);
-                            training.Add(ts.Description);
-                            training.Add(ts.Period);
-                        }
-
-                        foreach (CharacterReference cr in user.CharacterReferences)
-                        {
-                            characterReference.Add(cr.Name);
-                            characterReference.Add(cr.Profession);
-                            characterReference.Add(cr.ContactNo);
-                        }
-
-                        //Create Folder in application path
-                        string dir = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + user.FirstName.ToLower().Replace(" ", "") + user.MiddleName.ToLower().Replace(" ", "") + user.LastName.ToLower().Replace(" ", "");
-                        System.IO.Directory.CreateDirectory(dir);
-
-                        //Save Information
-                        System.IO.File.WriteAllLines(dir + "\\" + "Information.txt", information);
-                        //Save Skill
-                        if (user.Skills.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Skill.txt", skills);
-                        //Save Strengths
-                        if (user.Strengths.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Strengths.txt", strengths);
-                        //Save Post Graduate
-                        if (user.PostGraduates.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "PostGraduate.txt", postGraduate);
-                        //Save Tertiary
-                        if (user.Tertiaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Tertiary.txt", tertiary);
-                        //Save Secondary
-                        if (user.Secondaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Secondary.txt", secondary);
-                        //Save Primary
-                        if (user.Primaries.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Primary.txt", primary);
-                        //Save WorkExperience
-                        if (user.WorkExperiences.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "WorkExperience.txt", workExperience);
-                        //Save Training
-                        if (user.Trainings.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "Training.txt", training);
-                        //Save CharacterReference
-                        if (user.CharacterReferences.Count() > 0) System.IO.File.WriteAllLines(dir + "\\" + "CharacterReference.txt", characterReference);
-
-                        //if(File.Exists(dir + "\\" + "Information.txt") && File.Exists(dir + "\\" + "Skill.txt")
-                        //    && File.Exists(dir + "\\" + "Strengths.txt") && File.Exists(dir + "\\" + "PostGraduate.txt")
-                        //    && File.Exists(dir + "\\" + "Tertiary.txt") && File.Exists(dir + "\\" + "Secondary.txt")
-                        //    && File.Exists(dir + "\\" + "Primary.txt") && File.Exists(dir + "\\" + "WorkExperience.txt")
-                        //    && File.Exists(dir + "\\" + "Training.txt") && File.Exists(dir + "\\" + "CharacterReference.txt"))
-                        //    response.status = "SUCCESS";
-                        //else
-                        //    response.message = "Error has occured during saving, please save again.";
+                        container = container.Replace("Content", user.Objectives);
+                        string[] lines = new string[1] { container };
+                        System.IO.File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"templates\container.txt", lines);
                         response.status = "SUCCESS";
                     }
                 }

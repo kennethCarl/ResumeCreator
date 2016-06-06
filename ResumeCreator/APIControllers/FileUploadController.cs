@@ -58,13 +58,13 @@ namespace ResumeCreator.ApiControllers
             return Ok(response);
         }
         [HttpGet]
-        public HttpResponseMessage Get(string id)
+        public HttpResponseMessage Get(string fileName)
         {
             HttpResponseMessage result = null;
-            var localFilePath = HttpContext.Current.Server.MapPath("~/EmployeeImages/" + id);
+            var localFilePath = HttpContext.Current.Server.MapPath("~/EmployeeImages/" + fileName);
 
             // check if parameter is valid
-            if (String.IsNullOrEmpty(id))
+            if (String.IsNullOrEmpty(fileName))
             {
                 result = Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -78,7 +78,7 @@ namespace ResumeCreator.ApiControllers
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
                 result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                result.Content.Headers.ContentDisposition.FileName = id;
+                result.Content.Headers.ContentDisposition.FileName = fileName;
             }
 
             return result;

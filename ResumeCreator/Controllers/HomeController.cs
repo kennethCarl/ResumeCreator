@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using ResumeCreator.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,65 +32,17 @@ namespace ResumeCreator.Controllers
         {
             return View();
         }
-        
-        public FileStreamResult DownloadMSResume(int template, string fname)
+
+        public FileStreamResult DownloadMSResume()
         {
 
-            var fileName = string.Format("{0}.doc", fname);
-            string html = "", newLine = "";
-            string[] lines;
+            var fileName = string.Format("{0}.doc", "myresume");
+            string lines;
 
-            lines = System.IO.File.ReadAllLines(Server.MapPath("/templates/" + template.ToString() + ".txt"));
+            lines = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"templates\container.txt");
 
-            foreach (string line in lines)
-            {
-                if (line.Contains("UserName"))
-                {
-                    newLine = line.Replace("UserName", "Kenneth Carl Nacua Ybañez");
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else if (line.Contains("UserAddress"))
-                {
-                    newLine = line.Replace("UserAddress", "Bliss Pajac Lapu-Lapu City");
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else if (line.Contains("UserContactNo"))
-                {
-                    newLine = line.Replace("UserContactNo", "09434364318");
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else if (line.Contains("UserEmail"))
-                {
-                    newLine = line.Replace("UserEmail", "kennethcarlybanez@gmail.com");
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else if (line.Contains("UserImage"))
-                {
-                    newLine = line.Replace("UserImage", Server.MapPath("/userimages/carl.png"));
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else if (line.Contains("UserObjective"))
-                {
-                    newLine = line.Replace("UserObjective", "To be able to work in a prestigious company that would harness my skills to its utmost potential and utilize such skills for the achievement of the company's goals and objective.");
-                    newLine = newLine.Replace("ñ", "n");
-                    newLine = newLine.Replace("Ñ", "N");
-                    html = html + newLine;
-                }
-                else
-                    html = html + line;
-            }
             Response.AddHeader("Content-Disposition", "inline;filename=" + fileName);
-            return new FileStreamResult(WordStream(html), "application/msword");
+            return new FileStreamResult(WordStream(lines), "application/msword");
         }
 
         private static Stream WordStream(string body)
