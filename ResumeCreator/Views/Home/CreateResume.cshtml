@@ -1,7 +1,41 @@
 ﻿<div class="header">
-    <div class="menu-left" ng-click="redirect('home')">Home</div>
+    @*<div class="menu-left" ng-click="redirect('home')">Home</div>
     <div class="menu-left">Sign Up</div>
-    <div class="menu-right">Sign In</div>
+    <div class="menu-right">Sign In</div>*@
+    <div class="menu-left" ng-click="initializeResume()">Create</div>
+    <div class="menu-left" ng-click="showGuide()">Guide</div>
+    <div class="modal fade" style="text-transform: none;" id="guideModal" tabindex="-1" role="dialog" aria-labelledby="guideModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="closeGuideModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Guide</h4>
+                </div>
+                <div class="modal-body" style="line-height: 20px;">
+                    <div style="font-style:italic;"><strong>Note: Use Google Chrome or Mozilla Firefox for better performance.</strong></div>
+                    <div style="font-size: 12px">
+                        <div>1. Fill up the required fields.</div>
+                        <div>2. Image is not required but it could affect the layout base on selected template.</div>
+                        <div>3. To remove Headers and Footers in print layout:</div>
+                        <div style="margin-left: 25px;">For Google Chrome:</div> 
+                        <div style="margin-left: 35px;">1. Click on More Settings, <a href="{{ links[0] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 35px;">2. Uncheck Headers and Footers option, <a href="{{ links[1] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 25px;">For Mozilla Firefox:</div>
+                        <div style="margin-left: 35px;">1. Click on Print option positioned in upper right, <a href="{{ links[2] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 35px;">2. Choose Page Setup, <a href="{{ links[3] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 35px;">3. Choose --blank-- as Headers & Footers value under Margins & Headers/Footers tab, <a href="{{ links[4] }}" target="_blank">click here for more details</a>.</div>
+                        <div>4. Save as PDF, applicable for Google Chrome only:</div>
+                        <div style="margin-left: 25px;">1. Click on Change button, <a href="{{ links[5] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 25px;">2. Select Save as PDF, <a href="{{ links[6] }}" target="_blank">click here for more details</a>.</div>
+                        <div>5. Printing and saving as PDF will only work after generating Resume/Selecting Template.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="closeGuideModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalLabel" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
@@ -82,6 +116,16 @@
                                           rows="2"></textarea>
                             </div>
                         </div>
+                        <!--Achievements-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Achivements' }}"
+                                          class="form-control"
+                                          ng-model="resume.PostGraduates[$index].Achievement"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <!--Tertiary-->
                     <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="tertiary in resume.Tertiaries" ng-show="modalTitle == 'Tertiary'">
@@ -118,6 +162,16 @@
                                           rows="2"></textarea>
                             </div>
                         </div>
+                        <!--Achievements-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Achivements' }}"
+                                          class="form-control"
+                                          ng-model="resume.Tertiaries[$index].Achievement"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <!--Secondary-->
                     <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="secondary in resume.Secondaries" ng-show="modalTitle == 'Secondary'">
@@ -144,6 +198,16 @@
                                           rows="2"></textarea>
                             </div>
                         </div>
+                        <!--Achievements-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Achivements' }}"
+                                          class="form-control"
+                                          ng-model="resume.Secondaries[$index].Achievement"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <!--Primary-->
                     <div class="container-fluid" style="padding:5px 0px 0px 0px; border-bottom: 1px solid #E8E8E8" ng-repeat="primary in resume.Primaries" ng-show="modalTitle == 'Primary'">
@@ -166,6 +230,16 @@
                                 <textarea placeholder="{{ 'Bankal Lapu-Lapu City, 6015 Cebu Philippines' }}"
                                           class="form-control"
                                           ng-model="resume.Primaries[$index].Address"
+                                          style="resize:none;"
+                                          rows="2"></textarea>
+                            </div>
+                        </div>
+                        <!--Achievements-->
+                        <div class="form-group form-group-sm">
+                            <div class="form-group col-sm-11">
+                                <textarea placeholder="{{ 'Achivements' }}"
+                                          class="form-control"
+                                          ng-model="resume.Primaries[$index].Achievement"
                                           style="resize:none;"
                                           rows="2"></textarea>
                             </div>
@@ -310,6 +384,16 @@
 </div>
 <div class="resume-container">
     <form id="form" data-toggle="validator" role="form">
+        <!--Error Label-->
+        <div id="errorFormMessage" class="form-group form-group-sm">
+            <div class="form-group col-sm-12">
+                <div class="alert alert-danger" role="alert" ng-show="withFormError" ng-click="withFormError=false;errorFormMessage=''">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ errorFormMessage }}
+                </div>
+            </div>
+        </div>
         <div class="form-group form-group-sm">
             <!--First Name-->
             <div class="form-group col-sm-4">
@@ -324,12 +408,12 @@
             <!--Last Name-->
             <div class="form-group col-sm-4">
                 <label for="lastName" class="control-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" maxlength="50" placeholder="Ybanez" ng-model="resume.LastName" required>
+                <input type="text" class="form-control" id="lastName" maxlength="50" placeholder="Ybañez" ng-model="resume.LastName" required>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <!--Birth Date-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-4' : 'form-group col-sm-2'}}">
                 <label for="dateOfBirth" class="control-label">Birthdate</label>
                 <div class='input-group date' id='dateOfBirth'>
                     <input type='text' class="form-control" id='dateOfBirthValue' ng-model="resume.DateOfBirth" placeholder="January 05, 1992" required />
@@ -339,22 +423,22 @@
                 </div>
             </div>
             <!--Age-->
-            <div class="form-group col-sm-1">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-2' : 'form-group col-sm-1'}}">
                 <label for="age" class="control-label">Age</label>
                 <input type="text" class="form-control" id="age" maxlength="3" placeholder="24" ng-model="resume.Age" required>
             </div>
             <!--Height-->
-            <div class="form-group col-sm-1">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-2' : 'form-group col-sm-1'}}">
                 <label for="height" class="control-label">Height</label>
                 <input type="text" class="form-control" id="height" maxlength="5" placeholder="5'5" ng-model="resume.Height" required>
             </div>
             <!--Weight-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label for="weight" class="control-label">Weight</label>
                 <input type="text" class="form-control" id="weight" maxlength="20" placeholder="67 Kilograms" ng-model="resume.Weight" required>
             </div>
             <!--Civil Status-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label for="civilStatus" class="control-label">Civil Status</label>
                 <select id="civilStatus"
                         class="form-control"
@@ -364,12 +448,12 @@
                         required></select>
             </div>
             <!--Citizenship-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label for="citizenship" class="control-label">Citizenship</label>
                 <input type="text" class="form-control" id="citizenship" placeholder="Filipino" ng-model="resume.Citizenship" required>
             </div>
             <!--Gender-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label class="control-label">Gender</label>
                 <div class="radio">
                     <label>
@@ -477,25 +561,25 @@
         <!--Label-->
         <div class="form-group form-group-sm">
             <!--Work Experience-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label class="control-label">Work Experience</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click="modalTitle = 'Work Experience'; add(1)">Add</div>
             </div>
             <!--Seminars Attended-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label class="control-label">Seminars Attendeded</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Training/Seminars Attended'; add(1)">Add</div>
             </div>
             <!--Character Reference-->
-            <div class="form-group col-sm-2">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
                 <label class="control-label">Character Reference</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Character Reference'; add(1)">Add</div>
             </div>
 
             <!--Template-->
-            <div class="form-group col-sm-2">
-                <label class="control-label">Select Template</label>
-                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="showTemplates()">Show</div>
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
+                <label class="control-label">{{selectedTemplate != null ? 'Selected Template' : 'Select Template'}}</label>
+                <div class="form-control btn btn-primary" data-toggle="modal" ng-click="showTemplates()">{{selectedTemplate != null ? selectedTemplate + "(Change)" : 'Show'}}</div>
             </div>
             <!--User Image-->
             <div class="form-group col-sm-4">
@@ -507,7 +591,7 @@
             <div class="form-group col-sm-12">
             </div>
             <div class="form-group col-sm-2">
-                <button class="form-control btn btn-success">Generate Resume</button>
+                <button class="form-control btn btn-success" style="width: auto;">Generate Resume</button>
             </div>
         </div>
     </form>

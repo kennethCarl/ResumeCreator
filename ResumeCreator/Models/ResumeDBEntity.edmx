@@ -24,6 +24,7 @@
           <Property Name="School" Type="varchar(max)" Nullable="false" />
           <Property Name="Degree" Type="varchar(max)" Nullable="false" />
           <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Achievement" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Primary">
           <Key>
@@ -33,6 +34,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="School" Type="varchar(max)" Nullable="false" />
           <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Secondary">
           <Key>
@@ -42,6 +44,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="School" Type="varchar(max)" Nullable="false" />
           <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
@@ -68,6 +71,7 @@
           <Property Name="School" Type="varchar(max)" Nullable="false" />
           <Property Name="Degree" Type="varchar(max)" Nullable="false" />
           <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Training">
           <Key>
@@ -296,6 +300,7 @@
           <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_PostGraduate_User" FromRole="PostGraduate" ToRole="User" />
+          <Property Name="Achievement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Primary">
           <Key>
@@ -306,6 +311,7 @@
           <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Primary_User" FromRole="Primary" ToRole="User" />
+          <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Secondary">
           <Key>
@@ -316,6 +322,7 @@
           <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Secondary_User" FromRole="Secondary" ToRole="User" />
+          <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -345,6 +352,7 @@
           <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Tertiary_User" FromRole="Tertiary" ToRole="User" />
+          <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Training">
           <Key>
@@ -579,6 +587,7 @@
           <EntitySetMapping Name="PostGraduates">
             <EntityTypeMapping TypeName="ResumeModel.PostGraduate">
               <MappingFragment StoreEntitySet="PostGraduate">
+                <ScalarProperty Name="Achievement" ColumnName="Achievement" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="School" ColumnName="School" />
@@ -590,6 +599,7 @@
           <EntitySetMapping Name="Primaries">
             <EntityTypeMapping TypeName="ResumeModel.Primary">
               <MappingFragment StoreEntitySet="Primary">
+                <ScalarProperty Name="Achievement" ColumnName="Achievement" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="School" ColumnName="School" />
@@ -600,6 +610,7 @@
           <EntitySetMapping Name="Secondaries">
             <EntityTypeMapping TypeName="ResumeModel.Secondary">
               <MappingFragment StoreEntitySet="Secondary">
+                <ScalarProperty Name="Achievement" ColumnName="Achievement" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="School" ColumnName="School" />
@@ -628,6 +639,7 @@
           <EntitySetMapping Name="Tertiaries">
             <EntityTypeMapping TypeName="ResumeModel.Tertiary">
               <MappingFragment StoreEntitySet="Tertiary">
+                <ScalarProperty Name="Achievement" ColumnName="Achievement" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="School" ColumnName="School" />

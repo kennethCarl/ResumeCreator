@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using ResumeCreator.ActionFilter;
 using ResumeCreator.Models;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,8 @@ namespace ResumeCreator.Controllers
         {
             return View();
         }
-
-        public FileStreamResult DownloadMSResume()
+        [FilterMSWordDownload]
+        public FileStreamResult DownloadMSResume(string token)
         {
 
             var fileName = string.Format("{0}.doc", "myresume");

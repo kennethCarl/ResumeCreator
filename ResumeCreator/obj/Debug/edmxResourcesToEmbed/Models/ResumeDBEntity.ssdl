@@ -19,6 +19,7 @@
     <Property Name="School" Type="varchar(max)" Nullable="false" />
     <Property Name="Degree" Type="varchar(max)" Nullable="false" />
     <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Achievement" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Primary">
     <Key>
@@ -28,6 +29,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="School" Type="varchar(max)" Nullable="false" />
     <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Secondary">
     <Key>
@@ -37,6 +39,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="School" Type="varchar(max)" Nullable="false" />
     <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Skills">
     <Key>
@@ -63,6 +66,7 @@
     <Property Name="School" Type="varchar(max)" Nullable="false" />
     <Property Name="Degree" Type="varchar(max)" Nullable="false" />
     <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Achievement" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Training">
     <Key>

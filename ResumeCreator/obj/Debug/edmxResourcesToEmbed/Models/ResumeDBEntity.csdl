@@ -21,6 +21,7 @@
     <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_PostGraduate_User" FromRole="PostGraduate" ToRole="User" />
+    <Property Name="Achievement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Primary">
     <Key>
@@ -31,6 +32,7 @@
     <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Primary_User" FromRole="Primary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Secondary">
     <Key>
@@ -41,6 +43,7 @@
     <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Secondary_User" FromRole="Secondary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Skill">
     <Key>
@@ -70,6 +73,7 @@
     <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Tertiary_User" FromRole="Tertiary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Training">
     <Key>

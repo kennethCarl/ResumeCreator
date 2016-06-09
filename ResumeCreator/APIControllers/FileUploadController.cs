@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using ResumeCreator.ActionFilter;
 using ResumeCreator.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ResumeCreator.ApiControllers
     {
         public ResumeEntities db = new ResumeEntities();
         [HttpPost]
+        [FilterHTTPRequest]
         public async Task<IHttpActionResult> PostAsync(string username)
         {
             Response response = new Response();
@@ -58,10 +60,11 @@ namespace ResumeCreator.ApiControllers
             return Ok(response);
         }
         [HttpGet]
+        [FilterHTTPRequest]
         public HttpResponseMessage Get(string fileName)
         {
             HttpResponseMessage result = null;
-            var localFilePath = HttpContext.Current.Server.MapPath("~/EmployeeImages/" + fileName);
+            var localFilePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
 
             // check if parameter is valid
             if (String.IsNullOrEmpty(fileName))

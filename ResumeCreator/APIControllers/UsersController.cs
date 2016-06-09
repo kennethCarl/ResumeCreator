@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ResumeCreator.Models;
 using System.IO;
 using System.Text;
+using ResumeCreator.ActionFilter;
 
 namespace ResumeCreator.APIControllers
 {
@@ -25,6 +26,7 @@ namespace ResumeCreator.APIControllers
         }
 
         // GET: api/Users/5
+        [FilterHTTPRequest]
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(string username)
         {
@@ -58,23 +60,23 @@ namespace ResumeCreator.APIControllers
                 {
                     string[] information = System.IO.File.ReadAllLines(informationPath);
                     //user.FirstName
-                    user.FirstName = information[0];
-                    user.MiddleName = information[1];
-                    user.LastName = information[2];
-                    user.Address = information[3];
-                    user.ContactNo = information[4];
-                    user.EmailAddress = information[5];
-                    user.Objectives = information[6];
+                    user.FirstName = information[0].Replace("�", "\u00f1");
+                    user.MiddleName = information[1].Replace("�", "\u00f1");
+                    user.LastName = information[2].Replace("�", "\u00f1");
+                    user.Address = information[3].Replace("�", "\u00f1");
+                    user.ContactNo = information[4].Replace("�", "\u00f1");
+                    user.EmailAddress = information[5].Replace("�", "\u00f1");
+                    user.Objectives = information[6].Replace("�", "\u00f1");
                     user.Age = Convert.ToInt32(information[7]);
                     user.DateOfBirth = Convert.ToDateTime(information[8]);
-                    user.Gender = information[9];
-                    user.CivilStatus = information[10];
-                    user.Height = information[11];
-                    user.Weight = information[12];
-                    user.Citizenship = information[13];
-                    user.Hobbies = information[14];
+                    user.Gender = information[9].Replace("�", "\u00f1");
+                    user.CivilStatus = information[10].Replace("�", "\u00f1");
+                    user.Height = information[11].Replace("�", "\u00f1");
+                    user.Weight = information[12].Replace("�", "\u00f1");
+                    user.Citizenship = information[13].Replace("�", "\u00f1");
+                    user.Hobbies = information[14].Replace("�", "\u00f1");
                     user.Template = Convert.ToInt32(information[15]);
-                    user.ImageName = information[16];
+                    user.ImageName = information[16].Replace("�", "\u00f1");
                     response.objParam1 = user;
                 }
                 //Skill
@@ -84,7 +86,7 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < skill.Length; i++)
                     {
                         Skill skills = new Skill();
-                        skills.Description = skill[i];
+                        skills.Description = skill[i].Replace("�", "\u00f1");
                         user.Skills.Add(skills);
                     }
                 }
@@ -108,11 +110,16 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         PostGraduate postGraduates = new PostGraduate();
-                        postGraduates.School = postGraduate[index];
+                        postGraduates.School = postGraduate[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        postGraduates.Degree = postGraduate[index];
+                        postGraduates.Degree = postGraduate[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        postGraduates.Address = postGraduate[index];
+                        postGraduates.Address = postGraduate[index].Replace("�", "\u00f1");
+                        index = index + 1;
+                        if (postGraduate[index].Equals("N"))
+                            postGraduates.Achievement = "";
+                        else
+                            postGraduates.Achievement = postGraduate[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.PostGraduates.Add(postGraduates);
                     }
@@ -126,11 +133,16 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         Tertiary tertiaries = new Tertiary();
-                        tertiaries.School = tertiary[index];
+                        tertiaries.School = tertiary[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        tertiaries.Degree = tertiary[index];
+                        tertiaries.Degree = tertiary[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        tertiaries.Address = tertiary[index];
+                        tertiaries.Address = tertiary[index].Replace("�", "\u00f1");
+                        index = index + 1;
+                        if (tertiary[index].Equals("N"))
+                            tertiaries.Achievement = "";
+                        else
+                            tertiaries.Achievement = tertiary[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.Tertiaries.Add(tertiaries);
                     }
@@ -144,9 +156,14 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         Secondary secondaries = new Secondary();
-                        secondaries.School = secondary[index];
+                        secondaries.School = secondary[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        secondaries.Address = secondary[index];
+                        secondaries.Address = secondary[index].Replace("�", "\u00f1");
+                        index = index + 1;
+                        if (secondary[index].Equals("N"))
+                            secondaries.Achievement = "";
+                        else
+                            secondaries.Achievement = secondary[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.Secondaries.Add(secondaries);
                     }
@@ -160,9 +177,14 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         Primary primaries = new Primary();
-                        primaries.School = primary[index];
+                        primaries.School = primary[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        primaries.Address = primary[index];
+                        primaries.Address = primary[index].Replace("�", "\u00f1");
+                        index = index + 1;
+                        if (primary[index].Equals("N"))
+                            primaries.Achievement = "";
+                        else
+                            primaries.Achievement = primary[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.Primaries.Add(primaries);
                     }
@@ -176,15 +198,15 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         WorkExperience workExperiences = new WorkExperience();
-                        workExperiences.Company = workExperience[index];
+                        workExperiences.Company = workExperience[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        workExperiences.Address = workExperience[index];
+                        workExperiences.Address = workExperience[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        workExperiences.Period = workExperience[index];
+                        workExperiences.Period = workExperience[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        workExperiences.Position = workExperience[index];
+                        workExperiences.Position = workExperience[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        workExperiences.MainRole = workExperience[index];
+                        workExperiences.MainRole = workExperience[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.WorkExperiences.Add(workExperiences);
                     }
@@ -198,11 +220,11 @@ namespace ResumeCreator.APIControllers
                     for (int i = 0; i < iterationCount; i++)
                     {
                         Training trainings = new Training();
-                        trainings.Name = training[index];
+                        trainings.Name = training[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        trainings.Description = training[index];
+                        trainings.Description = training[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        trainings.Period = training[index];
+                        trainings.Period = training[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.Trainings.Add(trainings);
                     }
@@ -218,13 +240,15 @@ namespace ResumeCreator.APIControllers
                         CharacterReference characterReferences = new CharacterReference();
                         characterReferences.Name = characterReference[index];
                         index = index + 1;
-                        characterReferences.Profession = characterReference[index];
+                        characterReferences.Profession = characterReference[index].Replace("�", "\u00f1");
                         index = index + 1;
-                        characterReferences.ContactNo = characterReference[index];
+                        characterReferences.ContactNo = characterReference[index].Replace("�", "\u00f1");
                         index = index + 1;
                         user.CharacterReferences.Add(characterReferences);
                     }
                 }
+                TokenGenerator tokenGenerator = new TokenGenerator();
+                response.stringParam1 = tokenGenerator.Encrypt(tokenGenerator.generateCode(10)) + ":" + tokenGenerator.Encrypt("ARJOCAMAHAMAGEAPP");
                 response.status = "SUCCESS";
             }
             else
@@ -270,9 +294,11 @@ namespace ResumeCreator.APIControllers
 
         // POST: api/Users
         [ResponseType(typeof(User))]
+        [FilterHTTPRequest]
         public IHttpActionResult PostUser(User user, int type)
         {
             response.status = "FAILURE";
+            TokenGenerator tokenGenerator = new TokenGenerator();
             try {
                 if (!ModelState.IsValid)
                 {
@@ -331,6 +357,10 @@ namespace ResumeCreator.APIControllers
                                 postGraduate.Add(pg.School);
                                 postGraduate.Add(pg.Degree);
                                 postGraduate.Add(pg.Address);
+                                if (pg.Achievement == null)
+                                    postGraduate.Add("N");
+                                else
+                                    postGraduate.Add(pg.Achievement);
                             }
 
                             foreach (Tertiary t in user.Tertiaries)
@@ -338,18 +368,30 @@ namespace ResumeCreator.APIControllers
                                 tertiary.Add(t.School);
                                 tertiary.Add(t.Degree);
                                 tertiary.Add(t.Address);
+                                if (t.Achievement == null)
+                                    tertiary.Add("N");
+                                else
+                                    tertiary.Add(t.Achievement);
                             }
 
                             foreach (Secondary s in user.Secondaries)
                             {
                                 secondary.Add(s.School);
                                 secondary.Add(s.Address);
+                                if (s.Achievement == null)
+                                    secondary.Add("N");
+                                else
+                                    secondary.Add(s.Achievement);
                             }
 
                             foreach (Primary p in user.Primaries)
                             {
                                 primary.Add(p.School);
                                 primary.Add(p.Address);
+                                if (p.Achievement == null)
+                                    primary.Add("N");
+                                else
+                                    primary.Add(p.Achievement);
                             }
 
                             foreach (WorkExperience we in user.WorkExperiences)
@@ -409,6 +451,7 @@ namespace ResumeCreator.APIControllers
                             //else
                             //    response.message = "Error has occured during saving, please save again.";
                             response.status = "SUCCESS";
+                            response.stringParam1 = tokenGenerator.Encrypt(tokenGenerator.generateCode(10)) + ":" + tokenGenerator.Encrypt("ARJOCAMAHAMAGEAPP");
                         }
                     }
                     else
@@ -437,6 +480,7 @@ namespace ResumeCreator.APIControllers
                         string[] lines = new string[1] { container };
                         System.IO.File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"templates\container.txt", lines);
                         response.status = "SUCCESS";
+                        response.stringParam1 = tokenGenerator.Encrypt(tokenGenerator.generateCode(10)) + ":" + tokenGenerator.Encrypt("ARJOCAMAHAMAGEAPP");
                     }
                 }
             }
@@ -475,5 +519,6 @@ namespace ResumeCreator.APIControllers
         {
             return db.Users.Count(e => e.Id == id) > 0;
         }
+
     }
 }

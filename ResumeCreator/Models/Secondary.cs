@@ -18,6 +18,7 @@ namespace ResumeCreator.Models
         public int UserId { get; set; }
         public string School { get; set; }
         public string Address { get; set; }
+        public string Achievement { get; set; }
     
         public virtual User User { get; set; }
     }
