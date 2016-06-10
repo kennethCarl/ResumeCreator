@@ -5398,7 +5398,7 @@
         $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
         //Initialize User Email Address
         $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
-        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="float:right;" src="UserImage" width="100" height="100"></td></tr></table>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="float:right; margin-left: 60px;" src="UserImage" width="100" height="100"></td></tr></table>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         $scope.writePrintNewLine(true, maxNoOfLines);
         $scope.writePrintNewLine(true, maxNoOfLines);
@@ -5703,7 +5703,7 @@
                             $http.defaults.headers.common['Token'] = data.stringParam1;
                             $scope.resume.Name = $scope.resume.FirstName + " " + $scope.resume.MiddleName + " " + $scope.resume.LastName;
                             if (imageHolder != null)
-                                $scope.resume.ImageName = ("ResumeList/" + $scope.resume.FirstName.toLowerCase() + $scope.resume.MiddleName.toLowerCase() + $scope.resume.LastName.toLowerCase() + "/" + imageHolder).split(" ").join("");
+                                $scope.resume.ImageName = ("ResumeList/" + $scope.resume.FirstName.toLowerCase() + $scope.resume.MiddleName.toLowerCase() + $scope.resume.LastName.toLowerCase() + "/" + imageHolder);
                             $scope.showResume($scope.resume, $scope.resume.Template);
                         })
                         .error(function (data, status) {
@@ -5748,7 +5748,7 @@
             .success(function () {
                 $scope.resume.Name = $scope.resume.FirstName + " " + $scope.resume.MiddleName + " " + $scope.resume.LastName;
                 if (imageName != null)
-                    $scope.resume.ImageName = ("ResumeList/temporary/" + imageName).split(" ").join("");
+                    $scope.resume.ImageName = "ResumeList/temporary/" + imageName;
                 $scope.showResume($scope.resume, $scope.resume.Template);
             })
             .error(function (data, status) {
@@ -5793,7 +5793,6 @@
                     $scope.isValidImage = false;
                     $scope.displayError("Maximum image size is only 100KB.");
                 }
-
             }
             $scope.showLoader();
             if ($scope.isLogged)

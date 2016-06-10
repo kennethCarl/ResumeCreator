@@ -28,6 +28,17 @@ namespace ResumeCreator.ApiControllers
             if (Request.Content.IsMimeMultipartContent())
             {
                 string uploadPath = HttpContext.Current.Server.MapPath("~/ResumeList/" + username);
+
+                //Remove images that is save more than 30 minutes
+                string [] files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\temporary");
+                foreach (string file in files) 
+                {
+                    FileInfo fileInfo = new FileInfo(file);
+                    double diffTime = (DateTime.Now - fileInfo.LastWriteTime).TotalMinutes;
+                    if (diffTime > 30)
+                        File.Delete(file);
+                }
+
                 if (Directory.Exists(uploadPath))
                 {
                     MyStreamProvider streamProvider = new MyStreamProvider(uploadPath);

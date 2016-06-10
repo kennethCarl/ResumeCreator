@@ -7,7 +7,7 @@ arjocamahamageApp.controller("DocumentPreviewController", function ($rootScope, 
     };
 })
 arjocamahamageApp.run(function ($state, $rootScope, $interval) {
-    $rootScope.baseUrl = "http://www.resumegenerator.somee.com/"; //"http://localhost:4283/";
+    $rootScope.baseUrl = "http://localhost:4283/"; //"http://www.resumegenerator.somee.com/"; //"http://localhost:4283/";
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         console.log('Started');
     })
