@@ -17,11 +17,11 @@ namespace ResumeCreator.ActionFilter
         {
             try
             {
-                string tokenValue = actionContext.HttpContext.Request.Url.PathAndQuery.Split(':')[1].ToString();
+                string tokenValue = actionContext.HttpContext.Request.Url.PathAndQuery.Split('@')[1].ToString();
                
                 //var tokenValue = headers["Token"];
                 TokenGenerator tokenGenerator = new TokenGenerator();
-                string decryptedToken = tokenGenerator.Decrypt(tokenValue);
+                string decryptedToken = tokenGenerator.Decrypt(tokenValue.Split(':')[1]);
                 // Validate Token
                 if (!decryptedToken.Equals("ARJOCAMAHAMAGEAPP"))
                     actionContext.HttpContext.Response.StatusCode = Convert.ToInt16(HttpStatusCode.Unauthorized);

@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResumeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CharacterReference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Profession" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_CharacterReference_User" FromRole="CharacterReference" ToRole="User" />
+  </EntityType>
+  <EntityType Name="PostGraduate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_PostGraduate_User" FromRole="PostGraduate" ToRole="User" />
+    <Property Name="Achievement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Primary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Primary_User" FromRole="Primary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Secondary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Secondary_User" FromRole="Secondary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Skills_User" FromRole="Skills" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Strength">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Strengths_User" FromRole="Strengths" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Tertiary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Tertiary_User" FromRole="Tertiary" ToRole="User" />
+    <Property Name="Achievement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Training">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Training_User" FromRole="Training" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Objectives" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CivilStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Height" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Citizenship" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Template" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <NavigationProperty Name="CharacterReferences" Relationship="Self.FK_CharacterReference_User" FromRole="User" ToRole="CharacterReference" />
+    <NavigationProperty Name="PostGraduates" Relationship="Self.FK_PostGraduate_User" FromRole="User" ToRole="PostGraduate" />
+    <NavigationProperty Name="Primaries" Relationship="Self.FK_Primary_User" FromRole="User" ToRole="Primary" />
+    <NavigationProperty Name="Secondaries" Relationship="Self.FK_Secondary_User" FromRole="User" ToRole="Secondary" />
+    <NavigationProperty Name="Skills" Relationship="Self.FK_Skills_User" FromRole="User" ToRole="Skills" />
+    <NavigationProperty Name="Strengths" Relationship="Self.FK_Strengths_User" FromRole="User" ToRole="Strengths" />
+    <NavigationProperty Name="Tertiaries" Relationship="Self.FK_Tertiary_User" FromRole="User" ToRole="Tertiary" />
+    <NavigationProperty Name="Trainings" Relationship="Self.FK_Training_User" FromRole="User" ToRole="Training" />
+    <NavigationProperty Name="WorkExperiences" Relationship="Self.FK_WorkExperience_User" FromRole="User" ToRole="WorkExperience" />
+    <Property Name="Hobbies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="WorkExperience">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Position" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MainRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_WorkExperience_User" FromRole="WorkExperience" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_CharacterReference_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CharacterReference" Type="Self.CharacterReference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CharacterReference">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostGraduate_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="PostGraduate" Type="Self.PostGraduate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostGraduate">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Primary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Primary" Type="Self.Primary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Primary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Secondary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Secondary" Type="Self.Secondary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Secondary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Skills_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Skills" Type="Self.Skill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Strengths_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Strengths" Type="Self.Strength" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Strengths">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tertiary_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Tertiary" Type="Self.Tertiary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tertiary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Training_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkExperience_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkExperience">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResumeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CharacterReferences" EntityType="Self.CharacterReference" />
+    <EntitySet Name="PostGraduates" EntityType="Self.PostGraduate" />
+    <EntitySet Name="Primaries" EntityType="Self.Primary" />
+    <EntitySet Name="Secondaries" EntityType="Self.Secondary" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <EntitySet Name="Strengths" EntityType="Self.Strength" />
+    <EntitySet Name="Tertiaries" EntityType="Self.Tertiary" />
+    <EntitySet Name="Trainings" EntityType="Self.Training" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperience" />
+    <AssociationSet Name="FK_CharacterReference_User" Association="Self.FK_CharacterReference_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CharacterReference" EntitySet="CharacterReferences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostGraduate_User" Association="Self.FK_PostGraduate_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="PostGraduate" EntitySet="PostGraduates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Primary_User" Association="Self.FK_Primary_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Primary" EntitySet="Primaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Secondary_User" Association="Self.FK_Secondary_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Secondary" EntitySet="Secondaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Skills_User" Association="Self.FK_Skills_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Skills" EntitySet="Skills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Strengths_User" Association="Self.FK_Strengths_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Strengths" EntitySet="Strengths" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tertiary_User" Association="Self.FK_Tertiary_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Tertiary" EntitySet="Tertiaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Training_User" Association="Self.FK_Training_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Training" EntitySet="Trainings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkExperience_User" Association="Self.FK_WorkExperience_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="WorkExperience" EntitySet="WorkExperiences" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

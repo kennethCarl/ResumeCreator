@@ -1,0 +1,68 @@
+﻿<div class="header">
+    <div class="menu-left" ng-click="redirect('create')">Create</div>
+    <div class="menu-left">Sign Up</div>
+    <div class="menu-right">Sign In</div>
+</div>
+<div class="resume-container">
+    <div class="header1">
+        <div class="row">
+            <div><input type="text" name="filter" placeholder="Search Resume" ng-model="filteredResume" /></div>
+            <div class="share-tile">
+                <div id="public" class="share-tile-content tleft active" ng-click="evaluateResume('public')">Public</div>
+                <div id="private" class="share-tile-content tright inactive" ng-click="evaluateResume('private')">Private</div>
+            </div>
+        </div>
+    </div>
+    <!-- Resume List -->
+    <div class="user-resume-container" ng-repeat="Resume in userResumeList | filter : { Type: type, Name: filteredResume  }">
+        <div id="c-resume-container" class="user-resume-content-container" ng-click="showResume(Resume, Resume.Template)">
+            <div id="{{Resume.Id}}" class="scale"></div>
+        </div>
+        <div class="user-resume-label">
+            {{ Resume.Name }}
+        </div>
+    </div>
+</div>
+
+<!-- Document Preview-->
+<div id="c-modal-container" class="modal-container hide-modal-container" ng-controller="DocumentPreviewController">
+    <div id="previousButton" class="previous-button" ng-show="showButtons && currentPage > 1" ng-click="getContent(currentPage = currentPage - 1)"></div>
+    <div id="nextButton" class="next-button" ng-show="showButtons && currentPage < contentHtml.length - 1" ng-click="getContent(currentPage = currentPage + 1)"></div>
+    <div id="buttonContainer" class="button-container" ng-show="showButtonContainer">
+        <div class="back-button" ng-click="closeResume()">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="by-page-button" ng-click="showByPage()">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text">{{ toolTipText[0] }}</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="download-button">
+            <div class="c-tooltip">
+                <div class="c-tooltip-text" ng-click="emailResume()">{{ toolTipText[0] }}</div>
+                <div class="c-tooltip-text" ng-click="printResume()">{{ toolTipText[1] }}</div>
+            </div>
+        </div>
+    </div>
+    <div id="c-modal-content" class="content-container hide-content-container">
+        <div id="c-loader" class="loader-container hide-loading">
+            <center><img src="~/assets/images/loader.gif" /></center>
+        </div>
+        <div id="c-preview" class="content-preview hide-preview">
+            <div class="c-page-indicator" ng-show="showPageIndicator && !isByPage">
+                <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + resumePages.length}}</div>
+            </div>
+            <div id="c-content" ng-show="!isByPage"></div>
+            <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage">
+                <div id="c-resume-container" class="user-resume-content-container">
+                    <div id="{{pages.Id}}" class="scale" ng-click="showDocument(pages.Id)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Document Preview-->
