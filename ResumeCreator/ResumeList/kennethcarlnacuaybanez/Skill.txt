@@ -1,7 +1,7 @@
 Good in written and oral communication
 Basic Networking
 Basic Computer Troubleshooting
-Capable of developing Web Application, Mobile application through hybrid development and Desktop Application
+Capable of developing Web Application, Mobile application through hybrid development and Desktop Application(http://www.arjocamahamage.somee.com)
 Good in PowerBuilder, Visual Basic, C#, Java, PHP with CodeIgniter Framework,   HTML, CSS, Bootstrap, Javascript, AngularJS, Ionic
 Good in ASP.Net using Entity Framework with Lambda/LinQ Expression,Web API,File Handling, Cross-Origin Resource Sharing, etc.
 Good in SQL queries using MySql and MSSQL

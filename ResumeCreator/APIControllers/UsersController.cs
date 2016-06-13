@@ -12,6 +12,9 @@ using ResumeCreator.Models;
 using System.IO;
 using System.Text;
 using ResumeCreator.ActionFilter;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace ResumeCreator.APIControllers
 {
@@ -30,16 +33,6 @@ namespace ResumeCreator.APIControllers
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(string username)
         {
-
-            //using (var doc = new WordApplication(AppDomain.CurrentDomain.BaseDirectory + "@ResumeList\test.docx"))
-            //{
-            //    doc.WriteHeader("<h1>Header text</h1>");
-            //    doc.WriteFooter("<h1>Footer text</h1>");
-            //    doc.WriteBody("<div style='font-size: 100px;'></div>");
-            //    doc.Save();
-            //    doc.Dispose();
-            //}
-
             response.status = "FAILURE";
             string informationPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\" + "Information.txt";
             string skillPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\" + username + "\\" + "Skill.txt";
@@ -461,8 +454,8 @@ namespace ResumeCreator.APIControllers
                         container = "<!DOCTYPE html><html " +
                                    "xmlns:o='urn:schemas-microsoft-com:office:office' " +
                                    "xmlns:w='urn:schemas-microsoft-com:office:word'" +
-                                   "xmlns='http://www.w3.org/TR/REC-html40'>" +
-                                   "<head><title>Time</title>";
+                                   "xmlns='http://www.w3.org/TR/html51'>" +
+                                   "<head><style>ul{margin-bottom: 0px;}.left-label-preview{width: 16%; font-weight:bold; display:inline-block; border-bottom: 1px solid black}.right-label-preview {width: 84%;display: inline-block;}.right-label-preview-beside-image {width: 64%;display: inline-block;}.left-label-preview-medium{width: 18%;font-weight:bold;display:inline-block;margin-left: 2%;}.right-label-preview-medium{width: 80%;display:inline-block;}.line{min-width: 100%;text-align: justify;}.line-label-document{font-size: 120%; font-weight: bold;}.line-label-medium-document{font-size: 100%;font-weight: bold;margin-left: 10px;}.line-label-document1{font-size: 110%; font-weight: bold;}.line-label-medium-document1{font-size: 95%;font-weight: bold;margin-left: 10px;}.line-label-document2{font-size: 105%; font-weight: bold;}.line-label-medium-document2{font-size: 90%;font-weight: bold;margin-left: 10px;}.line-center{min-width: 100%;text-align: center;}</style>";
 
                         //'The setting specifies document's view after it is downloaded as Print
                         //'instead of the default Web Layout
@@ -476,9 +469,22 @@ namespace ResumeCreator.APIControllers
                                                  "</xml>" +
                                                  "<![endif]--></head><body lang=EN-US>Content</body></html>";
 
+                        //Remove images that is save more than 30 minutes
+                        string[] files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\temporary");
+                        foreach (string file in files)
+                        {
+                            FileInfo fileInfo = new FileInfo(file);
+                            double diffTime = (DateTime.Now - fileInfo.LastWriteTime).TotalMinutes;
+                            if (diffTime > 30)
+                                File.Delete(file);
+                        }
+
                         container = container.Replace("Content", user.Objectives);
+                        container = container.Replace("ñ", "n");
                         string[] lines = new string[1] { container };
-                        System.IO.File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"templates\container.txt", lines);
+                        string pathToCreate = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\temporary\" + user.FirstName.ToLower() + ".txt";
+                        //System.IO.File.Create(pathToCreate);
+                        System.IO.File.WriteAllLines(pathToCreate, lines);
                         response.status = "SUCCESS";
                         response.stringParam1 = tokenGenerator.Encrypt(tokenGenerator.generateCode(10)) + ":" + tokenGenerator.Encrypt("ARJOCAMAHAMAGEAPP");
                     }

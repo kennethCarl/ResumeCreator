@@ -45,6 +45,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.9\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.9\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -128,7 +134,6 @@
     <Content Include="Global.asax" />
     <Content Include="plugins\angular\angular-cookies.js" />
     <Content Include="plugins\angular\angular-csp.css" />
-    <Content Include="plugins\angular\angular-local-storage.js" />
     <Content Include="plugins\angular\angular-localForage.js" />
     <Content Include="plugins\angular\angular-ui-router.min.js" />
     <Content Include="plugins\angular\angular.js" />
@@ -141,6 +146,7 @@
     <Content Include="plugins\angular\bower_components\ng-context-menu\dist\ng-context-menu.min.js" />
     <Content Include="plugins\angular\bower_components\ng-context-menu\protractor.conf.js" />
     <Content Include="plugins\angular\index.js" />
+    <Content Include="plugins\angular\localforage.min.js" />
     <Content Include="plugins\angular\ng-context-menu.js" />
     <Content Include="plugins\bootstrap\css\bootstrap.css" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
@@ -215,6 +221,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\FilterAppDownload.cs" />
     <Compile Include="ActionFilter\FilterHTTPRequest.cs" />
     <Compile Include="ActionFilter\FilterMSWordDownload.cs" />
     <Compile Include="APIControllers\FileUploadController.cs" />

@@ -129,6 +129,11 @@ and (max-width : 1440px){
         display: inline-block;
     }
 
+    .right-label-preview-beside-image {
+        width: 64%;
+        display: inline-block;
+    }
+
 
     .left-label-preview-medium{
         width: 18%; 
@@ -139,7 +144,7 @@ and (max-width : 1440px){
 
 
     .right-label-preview-medium{
-        width: 82%;  
+        width: 83%;  
         display:inline-block;
     }
 }
@@ -162,12 +167,15 @@ and (max-width: 1022px){
 
     .content-preview{
         overflow: hidden;
-        text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 20px;
         font-size: 10px;
         min-height: 100%;
         text-align: justify;
+    }
+
+    .show-overflow{
+        overflow: auto;
+        white-space: normal;
     }
 
     .line-label{
@@ -187,10 +195,16 @@ and (max-width: 1022px){
         display:inline-block;
     }
 
-    .right-label-preview{
-        width: 85%;  
-        display:inline-block;
+    .right-label-preview {
+        width: 84%;
+        display: inline-block;
     }
+
+    .right-label-preview-beside-image {
+        width: 64%;
+        display: inline-block;
+    }
+
 
     .left-label-preview-medium{
         width: 18%; 
@@ -201,7 +215,7 @@ and (max-width: 1022px){
 
 
     .right-label-preview-medium{
-        width: 82%;  
+        width: 83%;  
         display:inline-block;
     }
 }
@@ -211,7 +225,7 @@ and (max-width: 1022px){
 @media only screen
 and (min-width: 424px)
 and (max-width: 768px){
-        .show-modal-container{
+   .show-modal-container{
         max-width: 100%;
         max-height: 100%;
         background-color: rgba(0, 0, 0, 0.6 );
@@ -226,12 +240,15 @@ and (max-width: 768px){
 
     .content-preview{
         overflow: hidden;
-        text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 20px;
         font-size: 10px;
         min-height: 100%;
         text-align: justify;
+    }
+
+    .show-overflow{
+        overflow: auto;
+        white-space: normal;
     }
 
     .line-label{
@@ -251,10 +268,16 @@ and (max-width: 768px){
         display:inline-block;
     }
 
-    .right-label-preview{
-        width: 85%;  
-        display:inline-block;
+    .right-label-preview {
+        width: 84%;
+        display: inline-block;
     }
+
+    .right-label-preview-beside-image {
+        width: 64%;
+        display: inline-block;
+    }
+
 
     .left-label-preview-medium{
         width: 18%; 
@@ -265,7 +288,7 @@ and (max-width: 768px){
 
 
     .right-label-preview-medium{
-        width: 82%;  
+        width: 83%;  
         display:inline-block;
     }
 }

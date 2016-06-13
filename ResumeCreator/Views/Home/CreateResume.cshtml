@@ -24,9 +24,13 @@
                         <div style="margin-left: 35px;">1. Click on Print option positioned in upper right, <a href="{{ links[2] }}" target="_blank">click here for more details</a>.</div>
                         <div style="margin-left: 35px;">2. Choose Page Setup, <a href="{{ links[3] }}" target="_blank">click here for more details</a>.</div>
                         <div style="margin-left: 35px;">3. Choose --blank-- as Headers & Footers value under Margins & Headers/Footers tab, <a href="{{ links[4] }}" target="_blank">click here for more details</a>.</div>
-                        <div>4. Save as PDF, applicable for Google Chrome only:</div>
-                        <div style="margin-left: 25px;">1. Click on Change button, <a href="{{ links[5] }}" target="_blank">click here for more details</a>.</div>
-                        <div style="margin-left: 25px;">2. Select Save as PDF, <a href="{{ links[6] }}" target="_blank">click here for more details</a>.</div>
+                        <div>4. Save/Print as PDF:</div>
+                        <div style="margin-left: 25px;">For Google Chrome:</div>
+                        <div style="margin-left: 35px;">1. Click on Change button, <a href="{{ links[5] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 35px;">2. Select Save as PDF, <a href="{{ links[6] }}" target="_blank">click here for more details</a>.</div>
+                        <div style="margin-left: 25px;">For Mozilla Firefox:</div>
+                        <div style="margin-left: 35px;">1. Install CutePDF Writer for free, <a ng-click="downloadApp('CutePDF')">click here to download</a>.</div>
+                        <div style="margin-left: 35px;">2. Select CutePDF Writer as your printer, <a href="{{ links[7] }}" target="_blank">click here for more details</a>.</div>
                         <div>5. Printing and saving as PDF will only work after generating Resume/Selecting Template.</div>
                         <div>6. Downloading of generated resume or template is only available in MS Word 2007 and higher version.</div>
                         <div>7. Maximum idle time during previewing of generated resume is only 30 minutes.</div>
@@ -569,12 +573,12 @@
             </div>
             <!--Seminars Attended-->
             <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
-                <label class="control-label">Seminars Attendeded</label>
+                <label class="control-label">{{ innerWidth >= 768 && innerWidth <= 809 ? 'Seminars' :'Seminars Attendeded'}}</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Training/Seminars Attended'; add(1)">Add</div>
             </div>
             <!--Character Reference-->
             <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
-                <label class="control-label">Character Reference</label>
+                <label class="control-label">{{ innerWidth >= 768 && innerWidth <= 809 ? 'Reference' :'Character Reference'}}</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click=" modalTitle = 'Character Reference'; add(1)">Add</div>
             </div>
 
@@ -593,7 +597,19 @@
             <div class="form-group col-sm-12">
             </div>
             <div class="form-group col-sm-2">
-                <button class="form-control btn btn-success" style="width: auto;">Generate Resume</button>
+                <label for="fontFamily" class="control-label">Font</label>
+                <select id="fontFamily"
+                        class="form-control"
+                        ng-options="f.Value as f.Name for f in fontFamily"
+                        ng-model="resume.FontFamily"
+                        required></select>
+            </div>
+            <div class="form-group col-sm-2" style="width: auto; margin-top:30px;">
+                <label for="fontFamily" class="control-label">Save to Cache?</label>
+                <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="resume.SaveToCache"/>
+            </div>
+            <div class="form-group col-sm-2">
+                <button class="form-control btn btn-success" style="width: auto; margin-top:25px;">Generate Resume</button>
             </div>
         </div>
     </form>
@@ -632,7 +648,7 @@
                 <div class="c-page-indicator-text">{{ "Page " + currentPage + " of  " + (resumeShown == true ? resumePages.length : contentHtmlTemplate.length)}}</div>
             </div>
             <!--Contains the resume content-->
-            <div id="c-content" ng-show="!isByPage && !templateShown" style="font-family:cursive;"></div>
+            <div id="c-content" ng-show="!isByPage && !templateShown"></div>
             <!--Contains the resume per page-->
             <div class="user-resume-container" ng-repeat="pages in resumePages" ng-show="isByPage" ng-click="showDocument(pages.Id)">
                 <div id="c-resume-container" class="user-resume-content-container">
@@ -654,5 +670,5 @@
 <!-- End of Document Preview-->
 <!-- Print By Resume -->
 <printbydiv id="idForPrint" show="isPrint"></printbydiv>
-<div id="PrintDocument" ng-hide="true" style="line-height: 20px; font-family:cursive;"></div>
+<div id="PrintDocument" ng-hide="true"></div>
 <!-- End of Print By Resume -->

@@ -1,4 +1,4 @@
-﻿arjocamahamageApp.controller("CreateController", function ($http, $scope, $state, $interval, $filter, $rootScope) {
+﻿arjocamahamageApp.controller("CreateController", function ($http, $scope, $state, $interval, $filter, $rootScope, $localForage) {
     $scope.modalTitle = "";
     $scope.buttonLabel = "";
     $scope.withError = false;
@@ -41,7 +41,34 @@
                         $rootScope.baseUrl + "/guide/mozilla_print_opt3.JPG",
                         $rootScope.baseUrl + "/guide/chrome_print_pdf1.JPG",
                         $rootScope.baseUrl + "/guide/chrome_print_pdf2.JPG",
+                        $rootScope.baseUrl + "/guide/mozilla_print_pdf1.JPG",
     ];
+
+    $scope.fontFamily = [
+        { Name: "Monospace", Value: "monospace" },
+        { Name: "Serif", Value: "serif" },
+        { Name: "Sans-serif", Value: "sans-serif" },
+        { Name: "Cursive", Value: "cursive" },
+    ];
+
+    $scope.downloadApp = function (appName) {
+        switch (appName) {
+            case "CutePDF":
+                alert("Allow pop-ups for this website if unable to download.");
+                $http.get($rootScope.baseUrl + "api/generatetoken")
+                .success(function (data, status) {
+                    window.open($scope.baseUrl + "api/fileupload?filename=CuteWriter.exe&token=@" + data.stringParam1, "_blank")
+                })
+                .error(function (data, status) {
+                    if (status == 401)
+                        alert("Unauthorized request.");
+                    else
+                        alert("Server is down");
+                });
+                break;
+            default:
+        }
+    }
 
     $scope.clearFileInput = function(id) {
         var oldInput = document.getElementById(id);
@@ -91,119 +118,10 @@
             Trainings: [],
             CharacterReferences: [],
             Type: null,
-            ImageName: null
+            ImageName: null,
+            FontFamily: "monospace",
+            SaveToCache: true
         }
-        //$scope.resume = {
-        //    Id: 1,
-        //    Name: "Kenneth Carl Nacua Ybanez",
-        //    Template: 1,
-        //    FirstName: "Kenneth Carl",
-        //    MiddleName: "Nacua",
-        //    LastName: "Ybanez",
-        //    DateOfBirth: "January 05, 1992",
-        //    Age: 24,
-        //    Height: "5'5",
-        //    Weight: "67 Kilograms",
-        //    CivilStatus: "Single",
-        //    Citizenship: "Filipino",
-        //    Gender: "Male",
-        //    Address: "137 Bliss Pajac Lapu-Lapu City, 6015 Cebu, Philippines",
-        //    ContactNo: "09434364318",
-        //    EmailAddress: "kennethcarlybanez@gmail.com",
-        //    Objectives: "To be able to work in a prestigious company that would harness my skills to its utmost potential and utilize such skills for the achievement of the company's goals and objective.",
-        //    Hobbies: "Jogging, lifting, playing basketball, watching hollywood series/movies and programming.",
-        //    Skills: [
-        //               { Description: "Good in written and oral communication" },
-        //               { Description: "Basic Networking" },
-        //               { Description: "Basic Computer Troubleshooting" },
-        //               { Description: "Capable of developing Web Application, Mobile application through hybrid development and Desktop Application" },
-        //               { Description: "Good in PowerBuilder, Visual Basic, C#, Java, PHP with CodeIgniter Framework, HTML, CSS, Bootstrap, Javascript, AngularJS, Ionic" },
-        //               { Description: "Good in ASP.Net using Entity Framework with Lambda and LinQ Expression, Web API, File Handling, etc." },
-        //               { Description: "Good in SQL queries using MySql and MSSQL" },
-        //               { Description: "Basic NoSQL with MongoDB" },
-        //               { Description: "Capable of using Github in Source Tree and npm CLI" }
-        //    ],
-        //    Strengths: [
-        //        { Description: "Good attitude towards work" },
-        //        { Description: "Highly competitive, self-starter who is organized and goal-oriented" },
-        //        { Description: "Hardworking and Resourceful" },
-        //        { Description: "Can work with less supervision" },
-        //        { Description: "Eager to learn" }
-        //    ],
-        //    PostGraduates: [
-        //       {
-        //           School: "Cebu Institute of Technology – University",
-        //           Degree: "Masters In Information Technology(June 2015-March 2016)",
-        //           Address: "Natalio B. Bacalso Ave, Cebu City, 6000 Cebu, Philippines",
-        //           Achievement: null
-        //       },
-        //    ],
-        //    Tertiaries: [
-        //         {
-        //             School: "University of Cebu-LM",
-        //             Degree: "Bachelor of Science in Information Technology (2008-2009)",
-        //             Address: "A.C. Cortes Avenue Mandaue City, 6014 Cebu, Philippines",
-        //             Achievement: null
-        //         },
-        //        {
-        //            School: "University of Cebu-Banilad",
-        //            Degree: "Bachelor of Science in Information Technology (2009-2013)",
-        //            Address: "Archbishop Reyes Avenue, Banilad, Cebu City, 6000 Cebu, Philippines",
-        //            Achievement: "Best in Capstone Awardee - Thesis was chosen as one of the best"
-        //        }
-        //    ],
-        //    Secondaries: [
-        //        {
-        //            School: "Saint Dominic Learning Center (2004-2008)",
-        //            Address: "Sangi Lapu-Lapu City, 6015 Cebu, Philippines",
-        //            Achievement: null
-        //        }
-        //    ],
-        //    Primaries: [
-        //        {
-        //            School: "Bankal Elementary School (1998-2004)",
-        //            Address: "Bankal Lapu-lapu City, 6015 Cebu, Philippines",
-        //            Achievement: null
-        //        }
-        //    ],
-        //    WorkExperiences: [
-        //        {
-        //            Company: "Fastcargo Logistics Corporation",
-        //            Address: "Central Visayas, Philippines",
-        //            Period: "May 2014 - Present",
-        //            Position: "IT Programmer/Analyst",
-        //            MainRole: "Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house application system and cascade developed/existing in-house applications to branches."
-        //        },
-        //        {
-        //            Company: "Intellmed Inc.",
-        //            Address: "Central Visayas, Philippines",
-        //            Period: "Nov 2013 - Jan 2014",
-        //            Position: "Software Engineer",
-        //            MainRole: "Developed and designed softwares."
-        //        }
-        //    ],
-        //    Trainings: [
-        //        {
-        //            Name: "ASP.Net/AngularJS Training",
-        //            Description: "Web application development using MVC and entity framework with lambda and LinQ, Web API, AngularJS, etc.",
-        //            Period: "March 03, 2015 - March 06, 2015"
-        //        }
-        //    ],
-        //    CharacterReferences: [
-        //        {
-        //            Name: "John Crismund Elumbaring",
-        //            Profession: "IT Professional",
-        //            ContactNo: "09254858989"
-        //        },
-        //        {
-        //            Name: "Lady Xyza G. Bation",
-        //            Profession: "Accountant",
-        //            ContactNo: "09255458527"
-        //        }
-        //    ],
-        //    Type: "Public",
-        //    ImageName: null
-        //}
     }
 
     //Check if input contains letter only
@@ -216,7 +134,7 @@
         else
             return false;
     });
-
+    
     //Disable typing
     $('#dateOfBirth').keypress(function (key) {
         return false;
@@ -887,7 +805,7 @@
             lineIndex = 0;
             for (var i = 0; i < data[1]; i++) {
                 if(isParagraph == true && i == 0)
-                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 10px;">' + wordsPerLine[i] + closingTag + "\n";
+                    data[3].Lines[lineIndex] = '<div style="min-width: 97%; text-align: justify; margin-left: 3%;">' + wordsPerLine[i] + closingTag + "\n";
                 else
                     data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
                 lineIndex = lineIndex + 1;
@@ -910,7 +828,7 @@
             lineIndex = 0;
             for (var i = 0; i < data[1]; i++) {
                 if (isParagraph == true && i == 0)
-                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 10px;">' + wordsPerLine[i] + closingTag + "\n";
+                    data[3].Lines[lineIndex] = '<div style="min-width: 97%; text-align: justify; margin-left: 3%;">' + wordsPerLine[i] + closingTag + "\n";
                 else
                     data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
                 lineIndex = lineIndex + 1;
@@ -2680,6 +2598,8 @@
         $scope.currentPage = page;
         user.DateOfBirth = $filter('date')(document.getElementById("dateOfBirthValue").value, "MMMM dd, yyyy");
 
+        $scope.docName = (user.FirstName.split("ñ").join("n") + user.MiddleName.split("ñ").join("n") + user.LastName.split("ñ").join("n")).split(" ").join("");
+
         switch (template) {
             case 1:
                 $scope.templateOne(user, maxNoOfLines, false);
@@ -2724,23 +2644,68 @@
         }, 100);
 
         //Initialize div for print
+        if ($scope.resume.FontFamily == "monospace" || $scope.resume.FontFamily == "serif") {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:100%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document"');
+        }
+        else if ($scope.resume.FontFamily == "cursive") {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
+        }
+        else {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
+        }
+        document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('width="50"', 'width="100"');
+        document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('height="50"', 'height="100"');
+
+        //Initialize content for ms word download
         switch (user.Template) {
             case 1:
-                $scope.templateOnePrint(user, maxNoOfLines);
+                $scope.templateOneForDownload(user, 30);
                 break;
             case 2:
-                $scope.templateTwoPrint(user, maxNoOfLines);
+                $scope.templateTwoForDownload(user, 30);
                 break;
             case 3:
-                $scope.templateThreePrint(user, maxNoOfLines);
+                $scope.templateThreeForDownload(user, 30);
                 break;
             case 4:
-                $scope.templateFourPrint(user, maxNoOfLines);
-                break;
-            case 5:
-                $scope.templateFivePrint(user, maxNoOfLines);
+                $scope.templateFourForDownload(user, 30);
                 break;
             default:
+                $scope.templateFiveForDownload(user, 30);
+        }
+
+        $scope.htmlForDownload[1] = $scope.htmlForDownload[1].replace('width="50"', 'width="100"');
+        $scope.htmlForDownload[1] = $scope.htmlForDownload[1].replace('height="50"', 'height="100"');
+
+        if ($scope.resume.FontFamily == "monospace") {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:67%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 125%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
+        }
+        else if ($scope.resume.FontFamily == "serif") {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 120%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
+        }
+        else {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 110%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
         }
 
         $scope.resumeShown = true;
@@ -2808,37 +2773,85 @@
         document.querySelectorAll(".resume-template-content-container")[index].className = "resume-template-content-container selected-template";
        
         $scope.resume.Template = template.Id;
-        $scope.carlTemplate.Template = template.Id;
+
         //Initialize div for print
+        if ($scope.resume.FontFamily == "monospace" || $scope.resume.FontFamily == "serif") {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:100%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document"');
+        }
+        else if ($scope.resume.FontFamily == "cursive") {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
+        }
+        else {
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
+            document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
+        }
+        document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('width="50"', 'width="100"');
+        document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('height="50"', 'height="100"');
+        //Document name for download
+        $scope.docName = ($scope.carlTemplate.FirstName.split("ñ").join("n") + $scope.carlTemplate.MiddleName.split("ñ").join("n") + $scope.carlTemplate.LastName.split("ñ").join("n")).split(" ").join("");
+        //Initialize content for ms word download
         switch (template.Id) {
             case 1:
-                $scope.templateOnePrint($scope.carlTemplate, 30);
+                $scope.templateOneForDownload($scope.carlTemplate, 30);
                 break;
             case 2:
-                $scope.templateTwoPrint($scope.carlTemplate, 30);
+                $scope.templateTwoForDownload($scope.carlTemplate, 30);
                 break;
             case 3:
-                $scope.templateThreePrint($scope.carlTemplate, 30);
+                $scope.templateThreeForDownload($scope.carlTemplate, 30);
                 break;
             case 4:
-                $scope.templateFourPrint($scope.carlTemplate, 30);
-                break;
-            case 5:
-                $scope.templateFivePrint($scope.carlTemplate, 30);
+                $scope.templateFourForDownload($scope.carlTemplate, 30);
                 break;
             default:
+                $scope.templateFiveForDownload($scope.carlTemplate, 30);
         }
+
+        if ($scope.resume.FontFamily == "monospace") {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:67%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 125%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
+        }
+        else if ($scope.resume.FontFamily == "serif") {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 120%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
+        }
+        else {
+            $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.htmlForDownload + + "</div>";
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 110%");
+            $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
+            $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 500px");
+        }
+        
         $scope.showPage();
     }
 
     $scope.downloadResume = function () {
         alert("Allow pop-ups for this website if unable to download.");
         $scope.url = $rootScope.baseUrl + "api/users?type=1";
-        $scope.container = { Objectives: $scope.htmlForDownload };
+        $scope.container = {
+            FirstName: $scope.docName,
+            Objectives: $scope.htmlForDownload
+        };
         $http.post($scope.url, $scope.container)
         .success(function (data, status) {
             if (data.status == "SUCCESS") {
-                window.open($rootScope.baseUrl + "Home/DownloadMSResume?token=@" + data.stringParam1, '_blank');
+                console.log($scope.docName);
+                window.open($rootScope.baseUrl + "Home/DownloadMSResume?docName=" + $scope.docName + "&token=@" + data.stringParam1, '_blank');
             }
             else
                 $scope.displayError(data.message);
@@ -2849,7 +2862,6 @@
             else
                 $scope.displayError("Server is down");
         })
-       
     }
 
     $scope.getContent = function (page) {
@@ -3005,39 +3017,39 @@
         $scope.contentHtml[$scope.pageCount] = '<img style="margin-right: 20px;" src="UserImage" width="50" height="50" align="left">' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         //Initialize User Name
-        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 55);
+        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview-beside-image"], 55);
         //Initialize User Address
-        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 55);
+        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview-beside-image"], 55);
         //Initialize User Contact No
-        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview"], 55);
+        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview-beside-image"], 55);
         //Initialize User Email Address
-        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview"], 55);
+        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview-beside-image"], 55);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.initializeObjective(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
         //Initialize User Birthdate
         user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
         //Inialize User Hobbies
-        $scope.initializeHobbies(user, maxNoOfLines, 94);
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         if (user.Skills.length > 0 || user.Strengths > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
@@ -3057,32 +3069,32 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Tertiaries Details
-            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
-            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
-            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
         }
         if (writeTemplates) {
             for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
@@ -3110,37 +3122,37 @@
         $scope.contentHtml[$scope.pageCount] = '<center><img style="margin-bottom: 10px;" src="UserImage" width="50" height="50"></center>' + "\n";
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         //Initialize User Name
-        $scope.writeContent1(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent1(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Address
-        $scope.writeContent1(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent1(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Contact No
-        $scope.writeContent1(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent1(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Email Address
-        $scope.writeContent1(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent1(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview"], 90);
         $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.initializeObjective(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
         //Initialize User Birthdate
         user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
         //Inialize User Hobbies
-        $scope.initializeHobbies(user, maxNoOfLines, 94);
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         if (user.Skills.length > 0 || user.Strengths > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
@@ -3160,32 +3172,32 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Tertiaries Details
-            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
-            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
-            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
         }
         if (writeTemplates) {
             for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
@@ -3215,39 +3227,39 @@
         $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         //$scope.writeNewLine(true, maxNoOfLines);
         //Initialize User Name
-        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 60);
+        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview-beside-image"], 60);
         //Initialize User Address
-        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 60);
+        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview-beside-image"], 60);
         //Initialize User Contact No
-        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview"], 60);
+        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview-beside-image"], 60);
         //Initialize User Email Address
-        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview"], 60);
+        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview-beside-image"], 60);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.initializeObjective(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
         //Initialize User Birthdate
         user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
         //Inialize User Hobbies
-        $scope.initializeHobbies(user, maxNoOfLines, 94);
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         if (user.Skills.length > 0 || user.Strengths > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
@@ -3267,32 +3279,32 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Tertiaries Details
-            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
-            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
-            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
         }
         if (writeTemplates) {
             for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
@@ -3324,19 +3336,19 @@
         $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 60);
         //Initialize User Birthdate
         user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Address
         $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 60);
         //Initialize User Contact No
@@ -3346,11 +3358,11 @@
         $scope.writeNewLine(true, maxNoOfLines);
         $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.initializeObjective(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);    
         $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
         //Inialize User Hobbies
-        $scope.initializeHobbies(user, maxNoOfLines, 94);
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines);
         if (user.Skills.length > 0 || user.Strengths > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
@@ -3370,32 +3382,32 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Tertiaries Details
-            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
-            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
-            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
         }
         if (writeTemplates) {
             for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
@@ -3428,19 +3440,19 @@
         $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 60);
         //Initialize User Birthdate
         user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
-        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Age
-        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Gender
-        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Civil Status
-        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Height
-        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Weight
-        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Citizenship
-        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 94);
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
         //Initialize User Address
         $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 60);
         //Initialize User Contact No
@@ -3450,11 +3462,11 @@
         $scope.writeNewLine(true, maxNoOfLines, true);
         $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
         //Inialize User Objective
-        $scope.initializeObjective(user, maxNoOfLines, 94);
+        $scope.initializeObjective(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines, true);
         $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
         //Inialize User Hobbies
-        $scope.initializeHobbies(user, maxNoOfLines, 94);
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
         $scope.writeNewLine(true, maxNoOfLines, true);
         if (user.Skills.length > 0 || user.Strengths > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
@@ -3474,32 +3486,32 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
             //Initialize Post Graduate Details
-            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
             //Initialize Tertiaries Details
-            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
             //Initialize Secondaries Details
-            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
             //Initialize Primaries Details
-            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
             //Initialize User Work Experience
-            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
         }
         if (user.Trainings.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
-            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
             $scope.writeNewLine(true, maxNoOfLines, true);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
-            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 80);
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
         }
         if (writeTemplates) {
             for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
@@ -3577,7 +3589,7 @@
             lineIndex = 0;
             for (var i = 0; i < data[1]; i++) {
                 if (isParagraph == true && i == 0)
-                    data[3].Lines[lineIndex] = '<div style="font-size: 90%; font-family:cursive; min-width: 100%; text-align: justify; margin-left: 10px;">' + wordsPerLine[i] + closingTag + "\n";
+                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 20px;">' + wordsPerLine[i] + closingTag + "\n";
                 else
                     data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
                 lineIndex = lineIndex + 1;
@@ -3600,7 +3612,7 @@
             lineIndex = 0;
             for (var i = 0; i < data[1]; i++) {
                 if (isParagraph == true && i == 0)
-                    data[3].Lines[lineIndex] = '<div style="font-size: 90%; font-family:cursive; min-width: 100%; text-align: justify; margin-left: 10px;">' + wordsPerLine[i] + closingTag + "\n";
+                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 10px;">' + wordsPerLine[i] + closingTag + "\n";
                 else
                     data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
                 lineIndex = lineIndex + 1;
@@ -3641,13 +3653,13 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = ":" + forWrite[3].Lines[j];
-                        contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
+                        contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
                         contentHTML = contentHTML.replace("Content", holder);
                         contentHTML = contentHTML.replace("Label", label);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                     } else {
                         holder = "&nbsp;" + forWrite[3].Lines[j];
-                        contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
+                        contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
                         contentHTML = contentHTML.replace("Content", holder);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                     }
@@ -3662,13 +3674,13 @@
             for (var j = 0; j < forWrite[4].Lines.length; j++) {
                 if (j == 0) {
                     holder = ":" + forWrite[4].Lines[j];
-                    contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
                     contentHTML = contentHTML.replace("Content", holder);
                     contentHTML = contentHTML.replace("Label", label);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                 } else {
                     holder = "&nbsp;" + forWrite[4].Lines[j];
-                    contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
                     contentHTML = contentHTML.replace("Content", holder);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                 }
@@ -3679,13 +3691,13 @@
             for (var j = 0; j < forWrite[3].Lines.length; j++) {
                 if (j == 0) {
                     holder = ":" + forWrite[3].Lines[j];
-                    contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: auto;">Content</td></tr></table>\n';
                     contentHTML = contentHTML.replace("Content", holder);
                     contentHTML = contentHTML.replace("Label", label);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                 } else {
                     holder = "&nbsp;" + forWrite[3].Lines[j];
-                    contentHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: auto;">Content</td></tr></table>\n';
                     contentHTML = contentHTML.replace("Content", holder);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
                 }
@@ -3694,7 +3706,7 @@
     };
 
     $scope.writePrintContent1 = function (isEvaluate, maxNoOfLines, label, content, maxCharacter) {
-        var forWrite = $scope.generatePrintLines(content.toString(), $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="font-size: 90%; font-family:cursive; min-width: 100%;text-align: center;">', "</div>");
+        var forWrite = $scope.generatePrintLines(content.toString(), $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%;text-align: center;">', "</div>");
         var holder = "";
         if (forWrite[0] == "New Page") {
             //Process current page
@@ -3718,6 +3730,71 @@
             for (var i = 0; i < forWrite[3].Lines.length; i++)
                 holder = holder + forWrite[3].Lines[i];
             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + holder;
+        }
+    };
+
+    $scope.writePrintContent2 = function (isEvaluate, maxNoOfLines, label, content, maxCharacter) {
+        if (isEvaluate)
+            $scope.evaluatePrint(maxNoOfLines);
+        var forWrite = $scope.generatePrintLines(content.toString(), $scope.currentLines, maxNoOfLines, maxCharacter, '', '');
+
+        var holder = "";
+        if (forWrite[0] == "New Page") {
+            //Process current page
+            if (forWrite[1] > 0) {
+                $scope.currentLines = $scope.currentLines + forWrite[1];
+                for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                    if (j == 0) {
+                        holder = ":" + forWrite[3].Lines[j];
+                        contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: besideimage;">Content</td></tr></table>\n';
+                        contentHTML = contentHTML.replace("Content", holder);
+                        contentHTML = contentHTML.replace("Label", label);
+                        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                    } else {
+                        holder = "&nbsp;" + forWrite[3].Lines[j];
+                        contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: besideimage;">Content</td></tr></table>\n';
+                        contentHTML = contentHTML.replace("Content", holder);
+                        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                    }
+                }
+            }
+
+            //Process new page
+            holder = "";
+            $scope.pageCount = $scope.pageCount + 1;
+            $scope.contentPrintHtml[$scope.pageCount] = "";
+            $scope.currentLines = forWrite[2];
+            for (var j = 0; j < forWrite[4].Lines.length; j++) {
+                if (j == 0) {
+                    holder = ":" + forWrite[4].Lines[j];
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: besideimage;">Content</td></tr></table>\n';
+                    contentHTML = contentHTML.replace("Content", holder);
+                    contentHTML = contentHTML.replace("Label", label);
+                    $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                } else {
+                    holder = "&nbsp;" + forWrite[4].Lines[j];
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: besideimage;">Content</td></tr></table>\n';
+                    contentHTML = contentHTML.replace("Content", holder);
+                    $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                }
+            }
+        } else {
+            //Process current page
+            $scope.currentLines = $scope.currentLines + forWrite[1];
+            for (var j = 0; j < forWrite[3].Lines.length; j++) {
+                if (j == 0) {
+                    holder = ":" + forWrite[3].Lines[j];
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;">Label</td><td style="width: besideimage;">Content</td></tr></table>\n';
+                    contentHTML = contentHTML.replace("Content", holder);
+                    contentHTML = contentHTML.replace("Label", label);
+                    $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                } else {
+                    holder = "&nbsp;" + forWrite[3].Lines[j];
+                    contentHTML = '<table><tr style="text-align:justify;"><td style="width: 100px; font-weight: bold;"></td><td style="width: besideimage;">Content</td></tr></table>\n';
+                    contentHTML = contentHTML.replace("Content", holder);
+                    $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contentHTML;
+                }
+            }
         }
     };
 
@@ -3754,7 +3831,7 @@
         else
             $scope.currentLines = $scope.currentLines + 1;
 
-        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div style="font-size: 100%; font-family:cursive; width: 550px; font-weight: bold;">Content</div>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div style="font-size: header; width: 550px; font-weight: bold;">Content</div>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("Content", content);
     };
 
@@ -3773,13 +3850,13 @@
         }
         else
             $scope.currentLines = $scope.currentLines + 1;
-        
-        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div style="width: 550px; font-size: 90%; font-family:cursive; font-weight: bold; margin-left: 10px;">Content</div>' + "\n";
+
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div style="width: 550px; font-weight: bold; margin-left: 3%;">Content</div>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("Content", content);
     };
 
     $scope.initializePrintObjective = function (user, maxNoOfLines, maxCharacter) {
-        var forWrite = $scope.generatePrintLines(user.Objectives, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; font-size: 90%; font-family:cursive; ">', "</div>", true);
+        var forWrite = $scope.generatePrintLines(user.Objectives, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; ">', "</div>", true);
         var holder = "";
         if (forWrite[0] == "New Page") {
             //Process current page
@@ -3807,7 +3884,7 @@
     }
 
     $scope.initializePrintHobbies = function (user, maxNoOfLines, maxCharacter) {
-        var forWrite = $scope.generatePrintLines(user.Hobbies, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="font-size: 90%; min-width: 100%; text-align: justify; font-family:cursive;>', "</div>", true);
+        var forWrite = $scope.generatePrintLines(user.Hobbies, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style=" min-width: 100%; text-align: justify; ;>', "</div>", true);
         var holder = "";
         if (forWrite[0] == "New Page") {
             //Process current page
@@ -3837,7 +3914,7 @@
     $scope.initializePrintByUnderlineTag = function (value, maxNoOfLines, maxCharacter) {
         var currentLength = $scope.contentPrintHtml[$scope.pageCount].length, previousPageHolder = $scope.pageCount;
         for (i = 0; i < value.length; i++) {
-            var forWrite = $scope.generatePrintLines(value[i].Description, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="font-size: 90%; font-family:cursive; min-width: 100%; text-align: justify;">', "</div>");
+            var forWrite = $scope.generatePrintLines(value[i].Description, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -3880,16 +3957,16 @@
         for (i = 0; i < user.PostGraduates.length; i++) {
             var schoolHTML = "", degreeHTML = "", addressHTML = "";
             if (i == 0) {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Post Graduate:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Post Graduate:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
             else {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
-            degreeHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserDegree</td></tr></table>\n';
+            degreeHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserDegree</td></tr></table>\n';
 
-            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
             //Generate lines per user school
-            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; ;">', "</div>");
 
             var holder = "";
             if (forWrite[0] == "New Page") {
@@ -3919,7 +3996,7 @@
                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + schoolHTML;
             }
             //Generate lines per user degree
-            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].Degree, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].Degree, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -3949,7 +4026,7 @@
             }
 
             //Generate lines per user Address
-            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify; font-family:cursive; ">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.PostGraduates[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -3980,7 +4057,7 @@
 
             //Generate lines per user Achievement
             if (user.PostGraduates[i].Achievement != null && user.PostGraduates[i].Achievement.trim() != '') {
-                var forWrite = $scope.generateLines(user.PostGraduates[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+                var forWrite = $scope.generateLines(user.PostGraduates[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
                 var holder = "";
                 if (forWrite[0] == "New Page") {
                     //Process current page
@@ -3989,12 +4066,12 @@
                         for (var j = 0; j < forWrite[3].Lines.length; j++) {
                             if (j == 0) {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             } else {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             }
@@ -4009,12 +4086,12 @@
                     for (var j = 0; j < forWrite[4].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4025,12 +4102,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4053,16 +4130,16 @@
         for (i = 0; i < user.Tertiaries.length; i++) {
             var schoolHTML = "", degreeHTML = "", addressHTML = "";
             if (i == 0) {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Tertiary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Tertiary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
             else {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
-            degreeHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserDegree</td></tr></table>\n';
+            degreeHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserDegree</td></tr></table>\n';
 
-            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
             //Generate lines per user school
-            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4091,7 +4168,7 @@
                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + schoolHTML;
             }
             //Generate lines per user degree
-            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].Degree, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].Degree, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4121,7 +4198,7 @@
             }
 
             //Generate lines per user Address
-            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Tertiaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4152,7 +4229,7 @@
 
             //Generate lines per user Achievement
             if (user.Tertiaries[i].Achievement != null && user.Tertiaries[i].Achievement.trim() != '') {
-                var forWrite = $scope.generateLines(user.Tertiaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+                var forWrite = $scope.generateLines(user.Tertiaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
                 var holder = "";
                 if (forWrite[0] == "New Page") {
                     //Process current page
@@ -4161,12 +4238,12 @@
                         for (var j = 0; j < forWrite[3].Lines.length; j++) {
                             if (j == 0) {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             } else {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             }
@@ -4181,12 +4258,12 @@
                     for (var j = 0; j < forWrite[4].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4197,12 +4274,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4212,27 +4289,27 @@
 
             if (isEvaluate) {
                 if (i != user.Tertiaries.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
         }
     }
-    
+
     $scope.initializePrintSecondaries = function (isEvaluate, user, maxNoOfLines, maxCharacter) {
         var i = 0;
         //Loop user post graduate details
         for (i = 0; i < user.Secondaries.length; i++) {
             var schoolHTML = "", degreeHTML = "", addressHTML = "";
             if (i == 0) {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Secondary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Secondary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
             else {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
-            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
             //Generate lines per user school
-            var forWrite = $scope.generatePrintLines(user.Secondaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Secondaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
 
             var holder = "";
             if (forWrite[0] == "New Page") {
@@ -4263,7 +4340,7 @@
             }
 
             //Generate lines per user Address
-            var forWrite = $scope.generatePrintLines(user.Secondaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Secondaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4294,7 +4371,7 @@
 
             //Generate lines per user Achievement
             if (user.Secondaries[i].Achievement != null && user.Secondaries[i].Achievement.trim() != '') {
-                var forWrite = $scope.generateLines(user.Secondaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+                var forWrite = $scope.generateLines(user.Secondaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
                 var holder = "";
                 if (forWrite[0] == "New Page") {
                     //Process current page
@@ -4303,12 +4380,12 @@
                         for (var j = 0; j < forWrite[3].Lines.length; j++) {
                             if (j == 0) {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             } else {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             }
@@ -4323,12 +4400,12 @@
                     for (var j = 0; j < forWrite[4].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4339,12 +4416,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4354,7 +4431,7 @@
 
             if (isEvaluate) {
                 if (i != user.Secondaries.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
@@ -4367,14 +4444,14 @@
         for (i = 0; i < user.Primaries.length; i++) {
             var schoolHTML = "", degreeHTML = "", addressHTML = "";
             if (i == 0) {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Primary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Primary:</td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
             else {
-                schoolHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
+                schoolHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserSchool</td></tr></table>\n';
             }
-            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
             //Generate lines per user school
-            var forWrite = $scope.generatePrintLines(user.Primaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Primaries[i].School, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
 
             var holder = "";
             if (forWrite[0] == "New Page") {
@@ -4405,7 +4482,7 @@
             }
 
             //Generate lines per user Address
-            var forWrite = $scope.generatePrintLines(user.Primaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Primaries[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4436,7 +4513,7 @@
 
             //Generate lines per user Achievement
             if (user.Primaries[i].Achievement != null && user.Primaries[i].Achievement.trim() != '') {
-                var forWrite = $scope.generateLines(user.Primaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+                var forWrite = $scope.generateLines(user.Primaries[i].Achievement, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
                 var holder = "";
                 if (forWrite[0] == "New Page") {
                     //Process current page
@@ -4445,14 +4522,14 @@
                         for (var j = 0; j < forWrite[3].Lines.length; j++) {
                             if (j == 0) {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
 
 
                                 $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                             } else {
                                 holder = holder + forWrite[3].Lines[j];
-                                achievementHTML = achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                                achievementHTML = achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                                 achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
 
 
@@ -4469,14 +4546,14 @@
                     for (var j = 0; j < forWrite[4].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
 
 
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[4].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[4].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4487,12 +4564,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Achievement/s:</td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            achievementHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
+                            achievementHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAchievement</td></tr></table>\n';
                             achievementHTML = achievementHTML.replace("UserAchievement", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + achievementHTML;
                         }
@@ -4502,7 +4579,7 @@
 
             if (isEvaluate) {
                 if (i != user.Primaries.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
@@ -4515,7 +4592,7 @@
         for (i = 0; i < user.WorkExperiences.length; i++) {
             var companyHTML = "", addressHTML = "", periodHTML = "", positionHTML = "", mainRoleHTML = "";
             //Generate lines per company
-            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Company, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Company, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4524,12 +4601,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                            companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
                             companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                            companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
                             companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                         }
@@ -4544,12 +4621,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                        companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
                         companyHTML = companyHTML.replace("UserCompany", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                        companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
                         companyHTML = companyHTML.replace("UserCompany", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                     }
@@ -4560,12 +4637,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                        companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Company:</td><td style="width: auto;">UserCompany</td></tr></table>\n';
                         companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        companyHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
+                        companyHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserCompany</td></tr></table>\n';
                         companyHTML = companyHTML.replace("UserCompany", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + companyHTML;
                     }
@@ -4573,7 +4650,7 @@
             }
 
             //Generate lines per Address
-            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Address, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4582,12 +4659,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
                             addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
                             addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                         }
@@ -4602,12 +4679,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
                         addressHTML = addressHTML.replace("UserAddress", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
                         addressHTML = addressHTML.replace("UserAddress", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     }
@@ -4618,19 +4695,19 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Address:</td><td style="width: auto;">UserAddress</td></tr></table>\n';
                         addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserAddress</td></tr></table>\n';
                         addressHTML = addressHTML.replace("UserAddress", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     }
                 }
             }
             //Generate lines per Period
-            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Period, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Period, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4639,12 +4716,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                            periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                             periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                            periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                             periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                         }
@@ -4659,12 +4736,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("UserPeriod", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("UserPeriod", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     }
@@ -4675,19 +4752,19 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("UserPeriod", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     }
                 }
             }
             //Generate lines per Position
-            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Position, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].Position, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4696,12 +4773,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                            positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
                             positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                            positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
                             positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                         }
@@ -4716,12 +4793,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                        positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
                         positionHTML = positionHTML.replace("UserPosition", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                        positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
                         positionHTML = positionHTML.replace("UserPosition", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                     }
@@ -4732,12 +4809,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                        positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Position:</td><td style="width: auto;">UserPosition</td></tr></table>\n';
                         positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        positionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
+                        positionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserPosition</td></tr></table>\n';
                         positionHTML = positionHTML.replace("UserPosition", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + positionHTML;
                     }
@@ -4745,7 +4822,7 @@
             }
 
             //Generate lines per MainRole
-            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].MainRole, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.WorkExperiences[i].MainRole, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4754,12 +4831,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                            mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                             mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                            mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                             mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                         }
@@ -4774,12 +4851,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                        mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                         mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                        mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                         mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                     }
@@ -4790,12 +4867,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                        mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Main Role:</td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                         mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        mainRoleHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
+                        mainRoleHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">UserMainRole</td></tr></table>\n';
                         mainRoleHTML = mainRoleHTML.replace("UserMainRole", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + mainRoleHTML;
                     }
@@ -4803,7 +4880,7 @@
             }
             if (isEvaluate) {
                 if (i != user.WorkExperiences.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
@@ -4816,7 +4893,7 @@
         for (i = 0; i < user.Trainings.length; i++) {
             var nameHTML = "", descriptionHTML = "", periodHTML = "";
             //Generate lines per name
-            var forWrite = $scope.generatePrintLines(user.Trainings[i].Name, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Trainings[i].Name, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4825,12 +4902,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
+                            nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
                             nameHTML = nameHTML.replace("STName", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
+                            nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
                             nameHTML = nameHTML.replace("STName", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                         }
@@ -4845,12 +4922,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("STName", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("STName", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     }
@@ -4861,12 +4938,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">STName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("STName", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("STName", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     }
@@ -4874,7 +4951,7 @@
             }
 
             //Generate lines per Description
-            var forWrite = $scope.generatePrintLines(user.Trainings[i].Description, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Trainings[i].Description, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4883,12 +4960,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
+                            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
                             addressHTML = addressHTML.replace("STDescription", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
+                            addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
                             addressHTML = addressHTML.replace("STDescription", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                         }
@@ -4903,12 +4980,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
                         addressHTML = addressHTML.replace("STDescription", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
                         addressHTML = addressHTML.replace("STDescription", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     }
@@ -4919,21 +4996,21 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Description:</td><td style="width: auto;">STDescription</td></tr></table>\n';
                         addressHTML = addressHTML.replace("STDescription", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        addressHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
+                        addressHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STDescription</td></tr></table>\n';
                         addressHTML = addressHTML.replace("STDescription", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + addressHTML;
                     }
                 }
             }
 
-            
+
             //Generate lines per Period
-            var forWrite = $scope.generatePrintLines(user.Trainings[i].Period, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.Trainings[i].Period, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -4942,12 +5019,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                            periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
                             periodHTML = periodHTML.replace("STPeriod", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                            periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
                             periodHTML = periodHTML.replace("STPeriod", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                         }
@@ -4962,12 +5039,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("STPeriod", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("STPeriod", forWrite[4].Lines[j]);
                         periodHTML = periodHTML.replace("class[0]", classess[0]);
                         periodHTML = periodHTML.replace("class[1]", classess[1]);
@@ -4980,12 +5057,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Period:</td><td style="width: auto;">STPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("STPeriod", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        periodHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
+                        periodHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">STPeriod</td></tr></table>\n';
                         periodHTML = periodHTML.replace("STPeriod", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + periodHTML;
                     }
@@ -4994,7 +5071,7 @@
 
             if (isEvaluate) {
                 if (i != user.Trainings.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
@@ -5007,7 +5084,7 @@
         for (i = 0; i < user.CharacterReferences.length; i++) {
             var nameHTML = "", professionHTML = "", contactHTML = "";
             //Generate lines per name
-            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].Name, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].Name, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -5016,12 +5093,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
+                            nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
                             nameHTML = nameHTML.replace("CRName", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
+                            nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
                             nameHTML = nameHTML.replace("CRName", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                         }
@@ -5036,12 +5113,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("CRName", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("CRName", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     }
@@ -5052,12 +5129,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Name:</td><td style="width: auto;">CRName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("CRName", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        nameHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
+                        nameHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRName</td></tr></table>\n';
                         nameHTML = nameHTML.replace("CRName", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + nameHTML;
                     }
@@ -5065,7 +5142,7 @@
             }
 
             //Generate lines per Profession
-            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].Profession, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].Profession, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -5074,12 +5151,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                            professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
                             professionHTML = professionHTML.replace("CRProfession", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                            professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
                             professionHTML = professionHTML.replace("CRProfession", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                         }
@@ -5094,12 +5171,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                        professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
                         professionHTML = professionHTML.replace("CRProfession", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                        professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
                         professionHTML = professionHTML.replace("CRProfession", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                     }
@@ -5110,19 +5187,19 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                        professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Profession:</td><td style="width: auto;">CRProfession</td></tr></table>\n';
                         professionHTML = professionHTML.replace("CRProfession", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        professionHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
+                        professionHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRProfession</td></tr></table>\n';
                         professionHTML = professionHTML.replace("CRProfession", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + professionHTML;
                     }
                 }
             }
             //Generate lines per contactHTML
-            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].ContactNo, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  font-family:cursive;">', "</div>");
+            var forWrite = $scope.generatePrintLines(user.CharacterReferences[i].ContactNo, $scope.currentLines, maxNoOfLines, maxCharacter, '<div style="min-width: 100%; text-align: justify;  ;">', "</div>");
             var holder = "";
             if (forWrite[0] == "New Page") {
                 //Process current page
@@ -5131,12 +5208,12 @@
                     for (var j = 0; j < forWrite[3].Lines.length; j++) {
                         if (j == 0) {
                             holder = holder + forWrite[3].Lines[j];
-                            contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
+                            contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
                             contactHTML = contactHTML.replace("CRContact", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                         } else {
                             holder = holder + forWrite[3].Lines[j];
-                            contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
+                            contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
                             contactHTML = contactHTML.replace("CRContact", forWrite[3].Lines[j]);
                             $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                         }
@@ -5151,12 +5228,12 @@
                 for (var j = 0; j < forWrite[4].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[4].Lines[j];
-                        contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
+                        contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
                         contactHTML = contactHTML.replace("CRContact", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                     } else {
                         holder = holder + forWrite[4].Lines[j];
-                        contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
+                        contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
                         contactHTML = contactHTML.replace("CRContact", forWrite[4].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                     }
@@ -5167,12 +5244,12 @@
                 for (var j = 0; j < forWrite[3].Lines.length; j++) {
                     if (j == 0) {
                         holder = holder + forWrite[3].Lines[j];
-                        contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
+                        contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;">Contact:</td><td style="width: auto;">CRContact</td></tr></table>\n';
                         contactHTML = contactHTML.replace("CRContact", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                     } else {
                         holder = holder + forWrite[3].Lines[j];
-                        contactHTML = '<table><tr style="font-size: 90%; font-family:cursive; text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
+                        contactHTML = '<table><tr style="text-align:justify;"><td style="width: 110px; font-weight: bold; margin-left: 10px;"></td><td style="width: auto;">CRContact</td></tr></table>\n';
                         contactHTML = contactHTML.replace("CRContact", forWrite[3].Lines[j]);
                         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + contactHTML;
                     }
@@ -5181,19 +5258,19 @@
 
             if (isEvaluate) {
                 if (i != user.CharacterReferences.length - 1) {
-                    $scope.evaluate(maxNoOfLines);
+                    $scope.evaluatePrint(maxNoOfLines);
                     $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + '<div><br /></div>' + "\n";
                 }
             }
         }
     }
 
-    $scope.templateOnePrint = function (user, maxNoOfLines) {
+    $scope.templateOneForDownload = function (user, maxNoOfLines) {
         $scope.currentLines = 0;
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
         //Initialize User Image
-        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td style="margin-right: 15px;"><img src="UserImage" width="100" height="100"></td><td>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td style="margin-right: 15%;"><img src="UserImage" width="100" height="100"></td><td>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         //Initialize User Name
         $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
@@ -5203,9 +5280,7 @@
         $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
         //Initialize User Email Address
         $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
-
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td></tr></table>"
-        $scope.writePrintNewLine(true, maxNoOfLines);
         $scope.writePrintNewLine(true, maxNoOfLines);
         $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
         //Inialize User Objective
@@ -5250,45 +5325,38 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
             //Initialize Post Graduate Details
-            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             ////Initialize Tertiaries Details
-            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
             //Initialize User Work Experience
-            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
-            $scope.initializePrintTrainings(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
-            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
         }
-        //Write Content
 
-        document.getElementById("PrintDocument").innerHTML = $scope.contentPrintHtml.join("\n");
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 90%").join("font-size: 80%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 100%").join("font-size: 90%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
-        $scope.htmlForDownload = $scope.htmlForDownload.split('<td style="width: 110px; font-weight: bold; margin-left: 10px;"></td>').join('<td style="width: 115px; font-weight: bold; margin-left: 10px;"></td>');
-        $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 490px");
     }
 
-    $scope.templateTwoPrint = function (user, maxNoOfLines) {
+    $scope.templateTwoForDownload = function (user, maxNoOfLines) {
         $scope.currentLines = 5;
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
@@ -5334,12 +5402,12 @@
             if (user.Skills.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
                 //Initialize Skills
-                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
             }
             if (user.Strengths.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
                 //Initialize Strengths
-                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
             }
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
@@ -5347,61 +5415,54 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
             //Initialize Post Graduate Details
-            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             ////Initialize Tertiaries Details
-            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
             //Initialize User Work Experience
-            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
-            $scope.initializePrintTrainings(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
-            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
         }
-        //Write Content
-        document.getElementById("PrintDocument").innerHTML = $scope.contentPrintHtml.join("\n");
+
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 90%").join("font-size: 80%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 100%").join("font-size: 90%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
-        $scope.htmlForDownload = $scope.htmlForDownload.split('<td style="width: 110px; font-weight: bold; margin-left: 10px;"></td>').join('<td style="width: 115px; font-weight: bold; margin-left: 10px;"></td>');
-        $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 490px");
     }
 
-    $scope.templateThreePrint = function (user, maxNoOfLines) {
+    $scope.templateThreeForDownload = function (user, maxNoOfLines) {
         $scope.currentLines = 0;
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
         //Initialize User Image
         $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td>' + "\n";
         //Initialize User Name
-        $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
+        $scope.writePrintContent2(false, maxNoOfLines, "Name", user.Name, 55);
         //Initialize User Address
-        $scope.writePrintContent(false, maxNoOfLines, "Address", user.Address, 55);
+        $scope.writePrintContent2(false, maxNoOfLines, "Address", user.Address, 55);
         //Initialize User Contact No
-        $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
+        $scope.writePrintContent2(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
         //Initialize User Email Address
-        $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
-        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="float:right; margin-left: 60px;" src="UserImage" width="100" height="100"></td></tr></table>' + "\n";
+        $scope.writePrintContent2(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="float: right;" src="UserImage" width="100" height="100" align="right"></td></tr></table>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         $scope.writePrintNewLine(true, maxNoOfLines);
-        $scope.writePrintNewLine(true, maxNoOfLines);
         $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
         //Inialize User Objective
         $scope.initializePrintObjective(user, maxNoOfLines, 94);
@@ -5432,12 +5493,12 @@
             if (user.Skills.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
                 //Initialize Skills
-                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
             }
             if (user.Strengths.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
                 //Initialize Strengths
-                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
             }
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
@@ -5445,44 +5506,38 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
             //Initialize Post Graduate Details
-            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             ////Initialize Tertiaries Details
-            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
             //Initialize User Work Experience
-            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
-            $scope.initializePrintTrainings(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
-            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
         }
-        //Write Content
-        document.getElementById("PrintDocument").innerHTML = $scope.contentPrintHtml.join("\n");
+
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 90%").join("font-size: 80%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 100%").join("font-size: 90%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
-        $scope.htmlForDownload = $scope.htmlForDownload.split('<td style="width: 110px; font-weight: bold; margin-left: 10px;"></td>').join('<td style="width: 115px; font-weight: bold; margin-left: 10px;"></td>');
-        $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 490px");
     }
 
-    $scope.templateFourPrint = function (user, maxNoOfLines) {
+    $scope.templateFourForDownload = function (user, maxNoOfLines) {
         $scope.currentLines = 0;
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
@@ -5526,12 +5581,12 @@
             if (user.Skills.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
                 //Initialize Skills
-                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
             }
             if (user.Strengths.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
                 //Initialize Strengths
-                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
             }
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
@@ -5539,44 +5594,38 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
             //Initialize Post Graduate Details
-            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             ////Initialize Tertiaries Details
-            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Secondaries Details
-            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
             //Initialize Primaries Details
-            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
             //Initialize User Work Experience
-            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.Trainings.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
-            $scope.initializePrintTrainings(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
-            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
         }
-        //Write Content
-        document.getElementById("PrintDocument").innerHTML = $scope.contentPrintHtml.join("\n");
+
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 90%").join("font-size: 80%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 100%").join("font-size: 90%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
-        $scope.htmlForDownload = $scope.htmlForDownload.split('<td style="width: 110px; font-weight: bold; margin-left: 10px;"></td>').join('<td style="width: 115px; font-weight: bold; margin-left: 10px;"></td>');
-        $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 490px");
     }
 
-    $scope.templateFivePrint = function (user, maxNoOfLines) {
+    $scope.templateFiveForDownload = function (user, maxNoOfLines) {
         $scope.currentLines = 0;
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
@@ -5620,12 +5669,12 @@
             if (user.Skills.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
                 //Initialize Skills
-                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
             }
             if (user.Strengths.length > 0) {
                 $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
                 //Initialize Strengths
-                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
             }
             $scope.writePrintNewLine(true, maxNoOfLines, true);
         }
@@ -5633,41 +5682,36 @@
             || user.Secondaries.length > 0 || user.Primaries.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
             //Initialize Post Graduate Details
-            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
             ////Initialize Tertiaries Details
-            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
             //Initialize Secondaries Details
-            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
             //Initialize Primaries Details
-            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 80);
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
         }
         if (user.WorkExperiences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
             //Initialize User Work Experience
-            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
         }
         if (user.Trainings.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
-            $scope.initializePrintTrainings(true, user, maxNoOfLines, 80);
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
             $scope.writePrintNewLine(true, maxNoOfLines, true);
         }
         if (user.CharacterReferences.length > 0) {
             $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
-            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 80);
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
         }
-        //Write Content
-        document.getElementById("PrintDocument").innerHTML = $scope.contentPrintHtml.join("\n");
+
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 90%").join("font-size: 80%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: 100%").join("font-size: 90%");
-        $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
-        $scope.htmlForDownload = $scope.htmlForDownload.split('<td style="width: 110px; font-weight: bold; margin-left: 10px;"></td>').join('<td style="width: 115px; font-weight: bold; margin-left: 10px;"></td>');
-        $scope.htmlForDownload = $scope.htmlForDownload.split("width: auto").join("width: 490px");
     }
 
     $scope.printResume = function () {
@@ -5747,8 +5791,15 @@
             })
             .success(function () {
                 $scope.resume.Name = $scope.resume.FirstName + " " + $scope.resume.MiddleName + " " + $scope.resume.LastName;
+                $scope.resume.DateOfBirth = $filter('date')(document.getElementById("dateOfBirthValue").value, "MMMM dd, yyyy");
                 if (imageName != null)
                     $scope.resume.ImageName = "ResumeList/temporary/" + imageName;
+
+                if ($scope.resume.SaveToCache == true)
+                    $localForage.setItem("ARJOCAMAHAMAGEAPP-MYRESUME", $scope.resume, function () { });
+                else
+                    $localForage.removeItem("ARJOCAMAHAMAGEAPP-MYRESUME", function () { });
+
                 $scope.showResume($scope.resume, $scope.resume.Template);
             })
             .error(function (data, status) {
@@ -5761,6 +5812,11 @@
         }
         else {
             $scope.resume.Name = $scope.resume.FirstName + " " + $scope.resume.MiddleName + " " + $scope.resume.LastName;
+            $scope.resume.DateOfBirth = $filter('date')(document.getElementById("dateOfBirthValue").value, "MMMM dd, yyyy");
+            if ($scope.resume.SaveToCache == true)
+                $localForage.setItem("ARJOCAMAHAMAGEAPP-MYRESUME", $scope.resume, function () { });
+            else
+                $localForage.removeItem("ARJOCAMAHAMAGEAPP-MYRESUME", function () { });
             $scope.showResume($scope.resume, $scope.resume.Template);
         }
     }
@@ -5795,13 +5851,14 @@
                 }
             }
             $scope.showLoader();
+
             if ($scope.isLogged)
                 $scope.generateResumeIfLogged();
             else
                 $scope.generateResumeIfNotLogged();
         }
     });
-
+  
     //Hide loader if $scope.process's value is done(If hide modal too) or done/showmodal(Hide loader only)
     var hideLoaderListener = $interval(function () {
         if ($scope.process == "done") {
@@ -5823,7 +5880,44 @@
         var modalContentWidth = parseInt(window.getComputedStyle(document.getElementById("c-modal-content"), null).getPropertyValue("width").split("px")[0]);
         var basePaddingLeftRight = (innerWidth - modalContentWidth) / 2;
         var buttonWidth = parseInt(window.getComputedStyle(document.getElementById("previousButton"), null).getPropertyValue("width").split("px")[0]);
-        var fontSize = 10, fontSize1 = 12, padding = 0;
+        var fontSize = 0, fontSize1 = 0, padding = 0;
+       
+        //Calculate user age
+        if ($filter('date')(document.getElementById("dateOfBirthValue").value, "MM dd yyyy").toString().split(" ").length == 3) {
+            var currentDateMonth = $filter('date')(new Date(), "MM dd yyyy").toString().split(" ")[0];
+            var currentDateDate = $filter('date')(new Date(), "MM dd yyyy").toString().split(" ")[1];
+            var currentDateYear = $filter('date')(new Date(), "MM dd yyyy").toString().split(" ")[2];
+            var userBirthdateMonth = $filter('date')(document.getElementById("dateOfBirthValue").value, "MM dd yyyy").toString().split(" ")[0];
+            var userBirthdateDate = $filter('date')(document.getElementById("dateOfBirthValue").value, "MM dd yyyy").toString().split(" ")[1];
+            var userBirthdateYear = $filter('date')(document.getElementById("dateOfBirthValue").value, "MM dd yyyy").toString().split(" ")[2];
+            if (parseInt(currentDateMonth) > parseInt(userBirthdateMonth))
+                $scope.resume.Age = currentDateYear - userBirthdateYear;
+            else if (parseInt(currentDateMonth) < parseInt(userBirthdateMonth))
+                $scope.resume.Age = (currentDateYear - userBirthdateYear) - 1;
+            else {
+                if (parseInt(userBirthdateDate) == parseInt(currentDateDate) || parseInt(currentDateDate) > parseInt(userBirthdateDate))
+                    $scope.resume.Age = currentDateYear - userBirthdateYear;
+                else
+                    $scope.resume.Age = (currentDateYear - userBirthdateYear) - 1;
+            }
+        }
+        //Set font family
+        document.getElementById("c-content").style.fontFamily = $scope.resume.FontFamily;
+        //Set font size
+        switch ($scope.resume.FontFamily) {
+            case 'sans-serif':
+                fontSize = 10.5; fontSize1 = 12;
+                break;
+            case 'cursive':
+                fontSize = 10.5; fontSize1 = 12;
+                break;
+            case 'monospace':
+                fontSize = 9.5; fontSize1 = 11;
+                break;
+            default: fontSize = 12; fontSize1 = 14;
+        }
+        $scope.fontSizeNormal = fontSize;
+        $scope.fontSizeHeader = fontSize1;
 
         if (innerWidth < 767 || innerWidth > 1440) {
             $state.go('ongoing');
@@ -5989,4 +6083,13 @@
     });
     $scope.initializeResume();
     $scope.generateTemplates();
+    //Get cache data
+    $localForage.getItem("ARJOCAMAHAMAGEAPP-MYRESUME").then(function (value) {
+        if (value != undefined) {
+            $scope.resume = value;
+            document.getElementById("dateOfBirthValue").innerHTML = $scope.resume.DateOfBirth;
+        }
+        else
+            $scope.initializeResume();
+    });
 });

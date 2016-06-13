@@ -1,5 +1,5 @@
 Fastcargo Logistics Corporation
-Third Floor, Mitsubishi Building, National Highway, Mandaue City, 6014 Cebu, Philippines
+Third Floor, Mitsubishi Building, National Highway, Mandaue City,6014 Cebu, Philippines
 May 2014 - Present
 IT Programmer/Analyst
 Creating software application related to supply chain management using Powerbuilder and ASP.Net, I also support customer needs related to in-house applications system and cascade developed/existing in-house applications to branches.

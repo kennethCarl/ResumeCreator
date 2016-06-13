@@ -34,13 +34,22 @@ namespace ResumeCreator.Controllers
             return View();
         }
         [FilterMSWordDownload]
-        public FileStreamResult DownloadMSResume(string token)
+        public FileStreamResult DownloadMSResume(string docName, string token)
         {
 
-            var fileName = string.Format("{0}.doc", "myresume");
+            var fileName = string.Format("{0}.doc", docName.ToLower());
             string lines;
+            string docPath = AppDomain.CurrentDomain.BaseDirectory + @"ResumeList\temporary\" + docName.ToLower() + ".txt";
 
-            lines = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"templates\container.txt");
+            lines = System.IO.File.ReadAllText(docPath);
+            lines.Replace("ñ", "\u00f1");
+            byte[] byteInfo = Encoding.ASCII.GetBytes(lines);
+
+            
+            //Delete existing MS Word File
+            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ResumeList/temporary/" + fileName);
+            //Save MS Word File 
+            System.IO.File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "ResumeList/temporary/" + fileName, byteInfo);
 
             Response.AddHeader("Content-Disposition", "inline;filename=" + fileName);
             return new FileStreamResult(WordStream(lines), "application/msword");

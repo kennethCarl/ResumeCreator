@@ -28,3 +28,6 @@ D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\System.Web.Http.WebH
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Release\ResumeCreator.csprojResolveAssemblyReference.cache
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Release\ResumeCreator.dll
 D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\obj\Release\ResumeCreator.pdb
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\itextsharp.dll
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\itextsharp.xmlworker.dll
+D:\Carl\Projects\Personal\ResumeCreatorV1\ResumeCreator\bin\itextsharp.xml

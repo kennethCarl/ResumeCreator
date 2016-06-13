@@ -71,11 +71,11 @@ namespace ResumeCreator.ApiControllers
             return Ok(response);
         }
         [HttpGet]
-        [FilterHTTPRequest]
-        public HttpResponseMessage Get(string fileName)
+        [FilterAppDownload]
+        public HttpResponseMessage Get(string fileName, string token)
         {
             HttpResponseMessage result = null;
-            var localFilePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
+            var localFilePath = AppDomain.CurrentDomain.BaseDirectory + "apps/" + fileName;
 
             // check if parameter is valid
             if (String.IsNullOrEmpty(fileName))
