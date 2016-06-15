@@ -112,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\DocumentPreview.css" />
+    <Content Include="assets\css\DocumentPreview.min.css" />
+    <Content Include="assets\css\Site.min.css" />
     <Content Include="assets\images\back.png" />
     <Content Include="assets\images\backtomain.png" />
     <Content Include="assets\images\document.png" />

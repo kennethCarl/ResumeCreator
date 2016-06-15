@@ -291,8 +291,8 @@ and (max-width : 1440px){
     }
 
     .user-resume-container{
-        min-width: 160px;
-        max-width: 160px;
+        min-width: 155px;
+        max-width: 155px;
         min-height: 220px;
         max-height: 220px;
         float: left;

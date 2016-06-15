@@ -14,7 +14,7 @@
                 <div class="modal-body" style="line-height: 20px;">
                     <div style="font-style:italic;"><strong>Note: Use Google Chrome or Mozilla Firefox for better performance.</strong></div>
                     <div style="font-size: 12px">
-                        <div>1. Fill up the required fields.</div>
+                        <div>1. Fill out the required fields.</div>
                         <div>2. Image is not required but it could affect the layout base on selected template.</div>
                         <div>3. To remove Headers and Footers in print layout:</div>
                         <div style="margin-left: 25px;">For Google Chrome:</div> 
@@ -583,12 +583,12 @@
             </div>
 
             <!--Template-->
-            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-3' : 'form-group col-sm-2'}}">
+            <div class="{{innerWidth >= 768 && innerWidth <= 1256 ? 'form-group col-sm-5' : 'form-group col-sm-3'}}">
                 <label class="control-label">{{selectedTemplate != null ? 'Selected Template' : 'Select Template'}}</label>
                 <div class="form-control btn btn-primary" data-toggle="modal" ng-click="showTemplates()">{{selectedTemplate != null ? selectedTemplate + "(Change)" : 'Show'}}</div>
             </div>
             <!--User Image-->
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-3">
                 <label class="control-label"><span><strong>Select Picture :</strong></span></label>
                 <input id="userImage" name="userImage" type="file" />
             </div>

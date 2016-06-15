@@ -51,6 +51,21 @@
         { Name: "Cursive", Value: "cursive" },
     ];
 
+    // Opera 8.0+
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    // Firefox 1.0+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    // At least Safari 3+: "[object HTMLElementConstructor]"
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    // Blink engine detection
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+
     $scope.downloadApp = function (appName) {
         switch (appName) {
             case "CutePDF":
@@ -2616,6 +2631,14 @@
             case 5:
                 $scope.templateFive(user, maxNoOfLines, false);
                 break;
+            case 6:
+                $scope.templateSix(user, maxNoOfLines, false);
+                break;
+            case 7:
+                $scope.templateSeven(user, maxNoOfLines, false);
+            case 8:
+                $scope.templateEight(user, maxNoOfLines, false);
+                break;
             default:
         }
         $scope.contentHtml[1] = $scope.contentHtml[1].replace('width="50"', 'width="100"');
@@ -2642,26 +2665,45 @@
                 }
             }
         }, 100);
-
         //Initialize div for print
         if ($scope.resume.FontFamily == "monospace" || $scope.resume.FontFamily == "serif") {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:100%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            if (isFirefox) {
+                if ($scope.resume.FontFamily == "monospace")
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.contentHtmljoin("\n") + "</div>";
+                else
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:105%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            }
+            else {
+                if ($scope.resume.FontFamily == "monospace")
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+                else
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:105%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            }
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document"');
         }
         else if ($scope.resume.FontFamily == "cursive") {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            //if (isFirefox)
+            //    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:80%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            //else
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
         }
         else {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+            //if (isFirefox)
+            //    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            //else
+            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.contentHtml.join("\n") + "</div>";
+
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
         }
         document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('width="50"', 'width="100"');
         document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.replace('height="50"', 'height="100"');
-
+        //Document name for download
+        $scope.docName = (user.FirstName.split("ñ").join("n") + user.MiddleName.split("ñ").join("n") + user.LastName.split("ñ").join("n")).split(" ").join("");
         //Initialize content for ms word download
         switch (user.Template) {
             case 1:
@@ -2676,8 +2718,17 @@
             case 4:
                 $scope.templateFourForDownload(user, 30);
                 break;
-            default:
+            case 5:
                 $scope.templateFiveForDownload(user, 30);
+                break;
+            case 6:
+                $scope.templateSixForDownload(user, 30);
+                break;
+            case 7:
+                $scope.templateSevenForDownload(user, 30);
+                break;
+            default:
+                $scope.templateEightForDownload(user, 30);
         }
 
         $scope.htmlForDownload[1] = $scope.htmlForDownload[1].replace('width="50"', 'width="100"');
@@ -2685,7 +2736,7 @@
 
         if ($scope.resume.FontFamily == "monospace") {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:67%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 125%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
@@ -2693,7 +2744,7 @@
         }
         else if ($scope.resume.FontFamily == "serif") {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 120%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
@@ -2701,7 +2752,7 @@
         }
         else {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 110%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
@@ -2776,17 +2827,36 @@
 
         //Initialize div for print
         if ($scope.resume.FontFamily == "monospace" || $scope.resume.FontFamily == "serif") {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:100%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            if (isFirefox) {
+                if ($scope.resume.FontFamily == "monospace")
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+                else
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:105%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            }
+            else {
+                if ($scope.resume.FontFamily == "monospace")
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+                else
+                    document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:105%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            }
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document"');
         }
         else if ($scope.resume.FontFamily == "cursive") {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            if (isFirefox)
+                document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            else
+                document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
         }
         else {
-            document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:95%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            if (isFirefox)
+                document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:100%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+            else
+                document.getElementById("PrintDocument").innerHTML = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.templateContainer[template.Id - 1].Content.join("\n") + "</div>";
+
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label"').join('"line-label-document2"');
             document.getElementById("PrintDocument").innerHTML = document.getElementById("PrintDocument").innerHTML.split('"line line-label-medium"').join('"line-label-medium-document1"');
         }
@@ -2808,13 +2878,22 @@
             case 4:
                 $scope.templateFourForDownload($scope.carlTemplate, 30);
                 break;
-            default:
+            case 5:
                 $scope.templateFiveForDownload($scope.carlTemplate, 30);
+                break;
+            case 6:
+                $scope.templateSixForDownload($scope.carlTemplate, 30);
+                break;
+            case 7:
+                $scope.templateSevenForDownload($scope.carlTemplate, 30);
+                break;
+            default:
+                $scope.templateEightForDownload($scope.carlTemplate, 30);
         }
 
         if ($scope.resume.FontFamily == "monospace") {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:67%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:67%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 125%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 110px;');
@@ -2822,7 +2901,7 @@
         }
         else if ($scope.resume.FontFamily == "serif") {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:90%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:90%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 120%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
@@ -2830,7 +2909,7 @@
         }
         else {
             $scope.htmlForDownload = '<div style="text-align: justify; line-height: 20px; font-family:' + $scope.resume.FontFamily + '; font-size:85%' + ';">' + $scope.htmlForDownload + + "</div>";
-            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;>');
+            $scope.htmlForDownload = $scope.htmlForDownload.split("<table>").join('<table style="font-family:' + $scope.resume.FontFamily + ';font-size:85%;">');
             $scope.htmlForDownload = $scope.htmlForDownload.split("font-size: header").join("font-size: 110%");
             $scope.htmlForDownload = $scope.htmlForDownload.replace("NaN", "");
             $scope.htmlForDownload = $scope.htmlForDownload.split('style="width: 100px;').join('style="width: 115px;');
@@ -2850,7 +2929,6 @@
         $http.post($scope.url, $scope.container)
         .success(function (data, status) {
             if (data.status == "SUCCESS") {
-                console.log($scope.docName);
                 window.open($rootScope.baseUrl + "Home/DownloadMSResume?docName=" + $scope.docName + "&token=@" + data.stringParam1, '_blank');
             }
             else
@@ -3427,7 +3505,6 @@
         }
     }
 
-    //Note: Set process to done to last template
     $scope.templateFive = function (user, maxNoOfLines, writeTemplates) {
         $scope.object = { Id: 5, ElementId: "Template5", Content: [], TemplateName: "Plain Text With Border" };
         $scope.currentLines = 0;
@@ -3525,8 +3602,344 @@
                     $interval.cancel(writeContent);
                     writeContent = undefined;
                     document.getElementById($scope.templateContainer[index].ElementId).innerHTML = $scope.templateContainer[index].Content[0];
+                    $scope.templateSix(user, maxNoOfLines, true);
+                }
+            }, 100);
+        }
+    }
+
+    $scope.templateSix = function (user, maxNoOfLines, writeTemplates) {
+        $scope.object = { Id: 6, ElementId: "Template6", Content: [], TemplateName: "Image on Left With Border" };
+        $scope.currentLines = 0;
+        $scope.contentHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentHtml[$scope.pageCount] = '<img style="margin-right: 20px;" src="UserImage" width="50" height="50" align="left">' + "\n";
+        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        //Initialize User Name
+        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview-beside-image"], 55);
+        //Initialize User Address
+        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview-beside-image"], 55);
+        //Initialize User Contact No
+        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview-beside-image"], 55);
+        //Initialize User Email Address
+        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview-beside-image"], 55);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
+        //Inialize User Objective
+        $scope.initializeObjective(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Age
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Gender
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Civil Status
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Height
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Weight
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Citizenship
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
+        //Inialize User Hobbies
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
+            if (user.Skills.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Skills:", "line line-label-medium");
+                //Initialize Skills
+                $scope.initializeByUnderlineTag(user.Skills, maxNoOfLines, 80);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Strengths:", "line line-label-medium");
+                //Initialize Strengths
+                $scope.initializeByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+            }
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
+            //Initialize Post Graduate Details
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Tertiaries Details
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
+            //Initialize User Work Experience
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+
+        if (writeTemplates) {
+            for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
+                $scope.object.Content.push($scope.contentHtml[i]);
+
+            $scope.templateContainer.push($scope.object);
+
+            var writeContent = $interval(function () {
+                var index = $scope.templateContainer.length - 1;
+                if (document.getElementById($scope.templateContainer[index].ElementId) != null) {
+                    $interval.cancel(writeContent);
+                    writeContent = undefined;
+                    document.getElementById($scope.templateContainer[index].ElementId).innerHTML = $scope.templateContainer[index].Content[0];
+                    $scope.templateSeven(user, maxNoOfLines, true);
+                }
+            }, 100);
+        }
+    }
+
+    $scope.templateSeven = function (user, maxNoOfLines, writeTemplates) {
+        $scope.object = { Id: 7, ElementId: "Template7", Content: [], TemplateName: "Image on Center" + "\n" + "With Border" };
+        $scope.currentLines = 5;
+        $scope.contentHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentHtml[$scope.pageCount] = '<center><img style="margin-bottom: 10px;" src="UserImage" width="50" height="50"></center>' + "\n";
+        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        //Initialize User Name
+        $scope.writeContent1(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Address
+        $scope.writeContent1(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Contact No
+        $scope.writeContent1(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Email Address
+        $scope.writeContent1(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview"], 90);
+        $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
+        //Inialize User Objective
+        $scope.initializeObjective(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Age
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Gender
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Civil Status
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Height
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Weight
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Citizenship
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
+        //Inialize User Hobbies
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
+            if (user.Skills.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Skills:", "line line-label-medium");
+                //Initialize Skills
+                $scope.initializeByUnderlineTag(user.Skills, maxNoOfLines, 80);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Strengths:", "line line-label-medium");
+                //Initialize Strengths
+                $scope.initializeByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+            }
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
+            //Initialize Post Graduate Details
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Tertiaries Details
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
+            //Initialize User Work Experience
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (writeTemplates) {
+            for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
+                $scope.object.Content.push($scope.contentHtml[i]);
+
+            $scope.templateContainer.push($scope.object);
+
+            var writeContent = $interval(function () {
+                var index = $scope.templateContainer.length - 1;
+                if (document.getElementById($scope.templateContainer[index].ElementId) != null) {
+                    $interval.cancel(writeContent);
+                    writeContent = undefined;
+                    document.getElementById($scope.templateContainer[index].ElementId).innerHTML = $scope.templateContainer[index].Content[0];
+                    $scope.templateEight(user, maxNoOfLines, true);
+                }
+            }, 100);
+        }
+    }
+
+    //Note: Set process to done to last template
+    $scope.templateEight = function (user, maxNoOfLines, writeTemplates) {
+        $scope.object = { Id: 8, ElementId: "Template8", Content: [], TemplateName: "Image on Right With Border" };
+        $scope.currentLines = 0;
+        $scope.contentHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentHtml[$scope.pageCount] = '<img src="UserImage" width="50" height="50" align="right">' + "\n";
+        $scope.contentHtml[$scope.pageCount] = $scope.contentHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        //$scope.writeNewLine(true, maxNoOfLines);
+        //Initialize User Name
+        $scope.writeContent(false, maxNoOfLines, "Name", user.Name, ["left-label-preview", "right-label-preview-beside-image"], 60);
+        //Initialize User Address
+        $scope.writeContent(false, maxNoOfLines, "Address", user.Address, ["left-label-preview", "right-label-preview-beside-image"], 60);
+        //Initialize User Contact No
+        $scope.writeContent(false, maxNoOfLines, "Contact No", user.ContactNo, ["left-label-preview", "right-label-preview-beside-image"], 60);
+        //Initialize User Email Address
+        $scope.writeContent(false, maxNoOfLines, "Email Address", user.EmailAddress, ["left-label-preview", "right-label-preview-beside-image"], 60);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeNewLine(true, maxNoOfLines);
+        $scope.writeHeaderContent(true, maxNoOfLines, "OBJECTIVES", "line line-label");
+        //Inialize User Objective
+        $scope.initializeObjective(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION", "line line-label");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writeContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Age
+        $scope.writeContent(false, maxNoOfLines, "Age", user.Age, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Gender
+        $scope.writeContent(false, maxNoOfLines, "Gender", user.Gender, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Civil Status
+        $scope.writeContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Height
+        $scope.writeContent(false, maxNoOfLines, "Height", user.Height, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Weight
+        $scope.writeContent(false, maxNoOfLines, "Weight", user.Weight, ["left-label-preview", "right-label-preview"], 90);
+        //Initialize User Citizenship
+        $scope.writeContent(false, maxNoOfLines, "Citizenship", user.Citizenship, ["left-label-preview", "right-label-preview"], 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        $scope.writeHeaderContent(true, maxNoOfLines, "HOBBIES", "line line-label");
+        //Inialize User Hobbies
+        $scope.initializeHobbies(user, maxNoOfLines, 90);
+        $scope.writeNewLine(true, maxNoOfLines, true);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "QUALIFICATIONS", "line line-label");
+            if (user.Skills.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Skills:", "line line-label-medium");
+                //Initialize Skills
+                $scope.initializeByUnderlineTag(user.Skills, maxNoOfLines, 80);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writeHeaderContent(true, maxNoOfLines, "Strengths:", "line line-label-medium");
+                //Initialize Strengths
+                $scope.initializeByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+            }
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT", "line line-label");
+            //Initialize Post Graduate Details
+            $scope.initializePostGraduates(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Tertiaries Details
+            $scope.initializeTertiaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializeSecondaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrimaries(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE", "line line-label");
+            //Initialize User Work Experience
+            $scope.initializeWorkExperiences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED", "line line-label");
+            $scope.initializeTrainings(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writeHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE", "line line-label");
+            $scope.initializeCharacterReferences(true, user, maxNoOfLines, ["left-label-preview-medium", "right-label-preview-medium"], 75);
+            $scope.writeNewLine(true, maxNoOfLines, true);
+        }
+        if (writeTemplates) {
+            for (var i = 1; i <= $scope.contentHtml.length - 1; i++)
+                $scope.object.Content.push($scope.contentHtml[i]);
+
+            $scope.templateContainer.push($scope.object);
+
+            var writeContent = $interval(function () {
+                var index = $scope.templateContainer.length - 1;
+                if (document.getElementById($scope.templateContainer[index].ElementId) != null) {
+                    $interval.cancel(writeContent);
+                    writeContent = undefined;
+                    document.getElementById($scope.templateContainer[index].ElementId).innerHTML = $scope.templateContainer[index].Content[0];
                     $scope.process = "done";
                     $scope.showGuide();
+                    //Get cache data
+                    $localForage.getItem("ARJOCAMAHAMAGEAPP-MYRESUME").then(function (value) {
+                        if (value != undefined) {
+                            $scope.resume = value;
+                            document.getElementById("dateOfBirthValue").innerHTML = $scope.resume.DateOfBirth;
+                            $scope.selectedTemplate = $scope.templateContainer[$scope.resume.Template - 1].TemplateName;
+                            for (var i = 0; i < document.querySelectorAll(".resume-template-content-container").length; i++)
+                                document.querySelectorAll(".resume-template-content-container")[i].className = "resume-template-content-container";
+
+                            document.querySelectorAll(".resume-template-content-container")[$scope.resume.Template - 1].className = "resume-template-content-container selected-template";
+                        }
+                        else
+                            $scope.initializeResume();
+                    });
                 }
             }, 100);
         }
@@ -3589,7 +4002,7 @@
             lineIndex = 0;
             for (var i = 0; i < data[1]; i++) {
                 if (isParagraph == true && i == 0)
-                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 20px;">' + wordsPerLine[i] + closingTag + "\n";
+                    data[3].Lines[lineIndex] = '<div style="min-width: 100%; text-align: justify; margin-left: 3%;">' + wordsPerLine[i] + closingTag + "\n";
                 else
                     data[3].Lines[lineIndex] = openingTag + wordsPerLine[i] + closingTag + "\n";
                 lineIndex = lineIndex + 1;
@@ -5270,7 +5683,7 @@
         $scope.contentPrintHtml = [];
         $scope.pageCount = 1;
         //Initialize User Image
-        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td style="margin-right: 15%;"><img src="UserImage" width="100" height="100"></td><td>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td style="margin-right: 20px;"><img src="UserImage" width="100" height="100"></td><td>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         //Initialize User Name
         $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
@@ -5453,14 +5866,14 @@
         //Initialize User Image
         $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td>' + "\n";
         //Initialize User Name
-        $scope.writePrintContent2(false, maxNoOfLines, "Name", user.Name, 55);
+        $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
         //Initialize User Address
-        $scope.writePrintContent2(false, maxNoOfLines, "Address", user.Address, 55);
+        $scope.writePrintContent(false, maxNoOfLines, "Address", user.Address, 55);
         //Initialize User Contact No
-        $scope.writePrintContent2(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
+        $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
         //Initialize User Email Address
-        $scope.writePrintContent2(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
-        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="float: right;" src="UserImage" width="100" height="100" align="right"></td></tr></table>' + "\n";
+        $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="margin-left: 3%;" src="UserImage" width="100" height="100"></td></tr></table>' + "\n";
         $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
         $scope.writePrintNewLine(true, maxNoOfLines);
         $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
@@ -5714,6 +6127,281 @@
         $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
     }
 
+    $scope.templateSixForDownload = function (user, maxNoOfLines) {
+        $scope.currentLines = 0;
+        $scope.contentPrintHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td style="margin-right: 20px;"><img src="UserImage" width="100" height="100"></td><td>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        //Initialize User Name
+        $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
+        //Initialize User Address
+        $scope.writePrintContent(false, maxNoOfLines, "Address", user.Address, 55);
+        //Initialize User Contact No
+        $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
+        //Initialize User Email Address
+        $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td></tr></table>"
+        $scope.writePrintNewLine(true, maxNoOfLines);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
+        //Inialize User Objective
+        $scope.initializePrintObjective(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writePrintContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, 94);
+        //Initialize User Age
+        $scope.writePrintContent(false, maxNoOfLines, "Age", user.Age, 94);
+        //Initialize User Gender
+        $scope.writePrintContent(false, maxNoOfLines, "Gender", user.Gender, 94);
+        //Initialize User Civil Status
+        $scope.writePrintContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, 94);
+        //Initialize User Height
+        $scope.writePrintContent(false, maxNoOfLines, "Height", user.Height, 94);
+        //Initialize User Weight
+        $scope.writePrintContent(false, maxNoOfLines, "Weight", user.Weight, 94);
+        //Initialize User Citizenship
+        $scope.writePrintContent(false, maxNoOfLines, "Citizenship", user.Citizenship, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "HOBBIES");
+        //Inialize User Hobbies
+        $scope.initializePrintHobbies(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "QUALIFICATIONS");
+            if (user.Skills.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
+                //Initialize Skills
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 80);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
+                //Initialize Strengths
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 80);
+            }
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
+            //Initialize Post Graduate Details
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            ////Initialize Tertiaries Details
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
+            //Initialize User Work Experience
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+
+        $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
+    }
+
+    $scope.templateSevenForDownload = function (user, maxNoOfLines) {
+        $scope.currentLines = 5;
+        $scope.contentPrintHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentPrintHtml[$scope.pageCount] = '<center><img style="margin-bottom: 10px;" src="UserImage" width="100" height="100"></center>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        //Initialize User Name
+        $scope.writePrintContent1(false, maxNoOfLines, "Name", user.Name, 55);
+        //Initialize User Address
+        $scope.writePrintContent1(false, maxNoOfLines, "Address", user.Address, 55);
+        //Initialize User Contact No
+        $scope.writePrintContent1(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
+        //Initialize User Email Address
+        $scope.writePrintContent1(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
+        $scope.writePrintNewLine(true, maxNoOfLines);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
+        //Inialize User Objective
+        $scope.initializePrintObjective(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writePrintContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, 94);
+        //Initialize User Age
+        $scope.writePrintContent(false, maxNoOfLines, "Age", user.Age, 94);
+        //Initialize User Gender
+        $scope.writePrintContent(false, maxNoOfLines, "Gender", user.Gender, 94);
+        //Initialize User Civil Status
+        $scope.writePrintContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, 94);
+        //Initialize User Height
+        $scope.writePrintContent(false, maxNoOfLines, "Height", user.Height, 94);
+        //Initialize User Weight
+        $scope.writePrintContent(false, maxNoOfLines, "Weight", user.Weight, 94);
+        //Initialize User Citizenship
+        $scope.writePrintContent(false, maxNoOfLines, "Citizenship", user.Citizenship, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "HOBBIES");
+        //Inialize User Hobbies
+        $scope.initializePrintHobbies(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "QUALIFICATIONS");
+            if (user.Skills.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
+                //Initialize Skills
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
+                //Initialize Strengths
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
+            }
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
+            //Initialize Post Graduate Details
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            ////Initialize Tertiaries Details
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
+            //Initialize User Work Experience
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+
+        $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
+    }
+
+    $scope.templateEightForDownload = function (user, maxNoOfLines) {
+        $scope.currentLines = 0;
+        $scope.contentPrintHtml = [];
+        $scope.pageCount = 1;
+        //Initialize User Image
+        $scope.contentPrintHtml[$scope.pageCount] = '<table><tr><td>' + "\n";
+        //Initialize User Name
+        $scope.writePrintContent(false, maxNoOfLines, "Name", user.Name, 55);
+        //Initialize User Address
+        $scope.writePrintContent(false, maxNoOfLines, "Address", user.Address, 55);
+        //Initialize User Contact No
+        $scope.writePrintContent(false, maxNoOfLines, "Contact No", user.ContactNo, 55);
+        //Initialize User Email Address
+        $scope.writePrintContent(false, maxNoOfLines, "Email Address", user.EmailAddress, 55);
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount] + "</td><td>" + '<img style="margin-left: 3%;" src="UserImage" width="100" height="100"></td></tr></table>' + "\n";
+        $scope.contentPrintHtml[$scope.pageCount] = $scope.contentPrintHtml[$scope.pageCount].replace("UserImage", $rootScope.baseUrl + user.ImageName);
+        $scope.writePrintNewLine(true, maxNoOfLines);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "OBJECTIVES");
+        //Inialize User Objective
+        $scope.initializePrintObjective(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "PERSONAL INFORMATION");
+        //Initialize User Birthdate
+        user.DateOfBirth = $filter('date')(user.DateOfBirth, "MMMM dd, yyyy");
+        $scope.writePrintContent(false, maxNoOfLines, "Birthdate", user.DateOfBirth, 94);
+        //Initialize User Age
+        $scope.writePrintContent(false, maxNoOfLines, "Age", user.Age, 94);
+        //Initialize User Gender
+        $scope.writePrintContent(false, maxNoOfLines, "Gender", user.Gender, 94);
+        //Initialize User Civil Status
+        $scope.writePrintContent(false, maxNoOfLines, "Civil Status", user.CivilStatus, 94);
+        //Initialize User Height
+        $scope.writePrintContent(false, maxNoOfLines, "Height", user.Height, 94);
+        //Initialize User Weight
+        $scope.writePrintContent(false, maxNoOfLines, "Weight", user.Weight, 94);
+        //Initialize User Citizenship
+        $scope.writePrintContent(false, maxNoOfLines, "Citizenship", user.Citizenship, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines, true);
+        $scope.writePrintHeaderContent(true, maxNoOfLines, "HOBBIES");
+        //Inialize User Hobbies
+        $scope.initializePrintHobbies(user, maxNoOfLines, 94);
+        $scope.writePrintNewLine(true, maxNoOfLines);
+        if (user.Skills.length > 0 || user.Strengths > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "QUALIFICATIONS");
+            if (user.Skills.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Skills:");
+                //Initialize Skills
+                $scope.initializePrintByUnderlineTag(user.Skills, maxNoOfLines, 75);
+            }
+            if (user.Strengths.length > 0) {
+                $scope.writePrintHeaderContentMedium(true, maxNoOfLines, "Strengths:");
+                //Initialize Strengths
+                $scope.initializePrintByUnderlineTag(user.Strengths, maxNoOfLines, 75);
+            }
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.PostGraduates.length > 0 || user.Tertiaries.length > 0
+            || user.Secondaries.length > 0 || user.Primaries.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "EDUCATIONAL ATTAINMENT");
+            //Initialize Post Graduate Details
+            $scope.initializePrintPostGraduates(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            ////Initialize Tertiaries Details
+            $scope.initializePrintTertiaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Secondaries Details
+            $scope.initializePrintSecondaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+            //Initialize Primaries Details
+            $scope.initializePrintPrimaries(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.WorkExperiences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "WORK EXPERIENCE");
+            //Initialize User Work Experience
+            $scope.initializePrintWorkExperiences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.Trainings.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "SEMINARS/TRAININGS ATTENDED");
+            $scope.initializePrintTrainings(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+        if (user.CharacterReferences.length > 0) {
+            $scope.writePrintHeaderContent(true, maxNoOfLines, "CHARACTER REFERENCE");
+            $scope.initializePrintCharacterReferences(true, user, maxNoOfLines, 75);
+            $scope.writePrintNewLine(true, maxNoOfLines, true);
+        }
+
+        $scope.htmlForDownload = $scope.contentPrintHtml.join("\n");
+    }
+
     $scope.printResume = function () {
         $scope.isPrint = true;
     };
@@ -5785,7 +6473,7 @@
                 imageData.append("file" + i, files[i]);
                 imageName = files[i].name;
             }
-            $http.post("/api/fileupload?username=temporary", imageData, {
+            $http.post($rootScope.baseUrl + "api/fileupload?username=temporary", imageData, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             })
@@ -5906,15 +6594,32 @@
         //Set font size
         switch ($scope.resume.FontFamily) {
             case 'sans-serif':
-                fontSize = 10.5; fontSize1 = 12;
+                //if (isFirefox) {
+                //    fontSize = 10; fontSize1 = 11;
+                //}
+                //else
+                    fontSize = 10.5; fontSize1 = 12;
                 break;
             case 'cursive':
-                fontSize = 10.5; fontSize1 = 12;
+                //if (isFirefox) {
+                //    fontSize = 10; fontSize1 = 11;
+                //}
+                //else
+                    fontSize = 10.5; fontSize1 = 12;
                 break;
             case 'monospace':
-                fontSize = 9.5; fontSize1 = 11;
+                if (isFirefox) {
+                    fontSize = 9; fontSize1 = 10;
+                }
+                else
+                    fontSize = 9.5; fontSize1 = 11;
                 break;
-            default: fontSize = 12; fontSize1 = 14;
+            default:
+                //if (isFirefox) {
+                //    fontSize = 11; fontSize1 = 13;
+                //}
+                //else
+                    fontSize = 12; fontSize1 = 14;
         }
         $scope.fontSizeNormal = fontSize;
         $scope.fontSizeHeader = fontSize1;
@@ -5958,6 +6663,7 @@
         document.getElementById("previousButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
         document.getElementById("nextButton").style.top = Math.ceil((innerHeight / 2) - buttonWidth * .60) + "px";
         document.getElementById("c-loader").style.top = (Math.ceil((innerHeight / 2) - buttonWidth * .60) / 2) + "px";
+
         //Set Page Indicator Left value
         if (document.querySelectorAll(".c-page-indicator").length > 0)
             document.querySelectorAll(".c-page-indicator")[0].style.left = (basePaddingLeftRight + (modalContentWidth / 2)) - 50 + "px";
@@ -6083,13 +6789,5 @@
     });
     $scope.initializeResume();
     $scope.generateTemplates();
-    //Get cache data
-    $localForage.getItem("ARJOCAMAHAMAGEAPP-MYRESUME").then(function (value) {
-        if (value != undefined) {
-            $scope.resume = value;
-            document.getElementById("dateOfBirthValue").innerHTML = $scope.resume.DateOfBirth;
-        }
-        else
-            $scope.initializeResume();
-    });
+    
 });
